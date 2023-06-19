@@ -1,0 +1,147 @@
+<template>
+    <section>
+        <div class="container" :key="authenticated.id">
+            <div class="w-100 row message_lists" v-if="users.length > 0">
+                <div class="message_left_column">
+                    <message-list :authenticated="authenticated[0]" :users="users" :locale="locale"
+                        :currentroom="currentroom" v-on:roomchanged="setRoom($event)"></message-list>
+                </div>
+                <div class="message_right_column" v-if="currentroom.id">
+                    <messages-container :authenticated="authenticated[0]" :messages="messages" :locale="locale"
+                        v-on:readedMessage="getAllData($event)" :currentroom="currentroom"></messages-container>
+                    <message-input :currentroom="currentroom" :authenticated="authenticated[0]" :locale="locale"
+                        @showmodalsendlink="openservicemodal" @sendmessage="getAllData"></message-input>
+                </div>
+                <div class="row w-100 message_right_column message_center_show_alert" v-else>
+                    <p class="text-center text-danger">Select the user from the left.</p>
+                </div>
+            </div>
+
+
+            <div class="row w-100 message_center_show_alert" v-else>
+                <p class="text-center text-danger">You have no messages.</p>
+            </div>
+
+        </div>
+        <modal-services @togglemodal="openservicemodal" @sendmessage="getAllData" :locale="locale" v-show="showmodal"
+            :authenticated="authenticated" :key="userservices.length" :userservices="userservices"
+            :currentroom="currentroom"></modal-services>
+    </section>
+    <br />
+</template>
+
+<script>
+import MessageList from './MessageList.vue';
+import MessagesContainer from './MessagesContainer.vue';
+import MessageInput from './MessageInput.vue';
+import ModalServices from './ModalServices.vue';
+
+export default {
+    components: {
+        MessageList,
+        MessagesContainer,
+        MessageInput,
+        ModalServices,
+    },
+    data() {
+        return {
+            users: [],
+            currentroom: [],
+            messages: [],
+            locale: 'az',
+            authenticated: [],
+            showmodal: false,
+            userservices: [],
+        };
+    },
+    watch: {
+        currentroom(val, oldval) {
+            if (oldval != null && oldval.id) {
+                this.disconnect(oldval);
+            }
+            this.connect();
+        }
+    },
+    methods: {
+        connect() {
+            if (this.currentroom != null && this.currentroom.id) {
+                let vm = this;
+                window.Echo.private('chat.'+this.currentroom.id).listen('.App\\Events\\NewChatMessage', (e) => {
+                    vm.getAllData();
+                });
+            }
+        },
+        disconnect(room) {
+            if (room != null && room.id) {
+                window.Echo.leave('chat.' + room.id);
+            }
+        },
+        getUsers() {
+            axios.get('/fetchmessagegroups').then(response => {
+                this.users = response.data.data;
+                const createdViaId = this.getCreatedViaId();
+                if (createdViaId) {
+                    this.currentroom = this.users.find(user => user.sender_id === parseInt(createdViaId));
+                    if (this.currentroom) {
+                    this.getMessagesFromRoom();
+                    }
+                }
+            }).catch(error => console.error(error));
+        },
+        setRoom(userone) {
+            this.currentroom = Object.assign({}, userone);
+            this.getMessagesFromRoom();
+        },
+        getMessagesFromRoom() {
+             axios.get('/fetchmessages/' + this.currentroom.id).then(response => {
+                this.messages = response.data.data;
+            }).catch(error => console.log(error));
+        },
+        getLocale() {
+            axios.get('/locale')
+                .then(response => {
+                    this.locale = response.data.locale;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+        getAllData() {
+            this.getMessagesFromRoom();
+            this.getUsers();
+        },
+        getauthenticated() {
+            axios.get('/authenticated')
+                .then(response => {
+                    this.authenticated = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        openservicemodal() {
+            this.showmodal = !this.showmodal;
+            this.userservices = [];
+            if (this.showmodal == true) {
+                axios.get('/api/services_user/' + this.currentroom.sender_id)
+                    .then(response => {
+                        this.userservices = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+        },
+        getCreatedViaId(){
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('createdvia');
+        }
+    },
+    created() {
+        this.getauthenticated();
+        this.getLocale();
+        this.getUsers();
+        this.getCreatedViaId();
+    },
+}
+</script>
