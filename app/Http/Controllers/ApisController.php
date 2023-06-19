@@ -785,6 +785,9 @@ class ApisController extends Controller
                     $data = new MessageGroups();
                     $data->sender_id = $request->user_id;
                     $data->receiver_id = $user->id;
+                    if(isset($request->product_id)){
+                        $data->product_id = $request->product_id;
+                    }
                     $data->save();
                 });
                 return response()->json([

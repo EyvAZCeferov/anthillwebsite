@@ -75,13 +75,14 @@
         });
     </script>
     <script>
-        function chatwithuser(user_id, company_id) {
+        function chatwithuser(user_id, company_id,product_id) {
             showLoader();
             if ((user_id != null && user_id.length > 0 && user_id != '' && user_id != ' ') && (company_id != null &&
                     company_id.length > 0 && company_id != '' && company_id != ' ')) {
                 let data = {
                     user_id: company_id,
-                    auth_id: user_id
+                    auth_id: user_id,
+                    product_id:product_id
                 };
 
                 sendAjaxRequest('{{ route('api.createandredirectchat') }}', 'post', data, function(err, response) {
@@ -120,6 +121,7 @@
                                     @csrf
                                     <input type="hidden" name="language" value="{{ app()->getLocale() }}" />
                                     <input type='hidden' name='user_id' value='${company_id}' />
+                                    <input type='hidden' name='product_id' value='{{ $data->id }}' />
                                     <div class="form-group">
                                         <input type="text" name="name_surname" placeholder="@lang('additional.forms.entername_surname')" class="form-control">
                                     </div>
@@ -347,7 +349,7 @@
                             </div>
                         </form> --}}
                         <button class="sendchat"
-                            onclick="chatwithuser('{{ auth()->check() && !empty(auth()->user()) ? auth()->user()->id : null }}','{{ $data->user_id }}')"><i
+                            onclick="chatwithuser('{{ auth()->check() && !empty(auth()->user()) ? auth()->user()->id : null }}','{{ $data->user_id }}','{{ $data->id }}')"><i
                                 class="las la-comments"></i> @lang('additional.buttons.sendchat')</button>
                     </div>
 
