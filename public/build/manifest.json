@@ -1,0 +1,46 @@
+{
+  "node_modules/@ckeditor/ckeditor5-core/theme/icons/eraser.svg": {
+    "file": "assets/eraser-58d61957.svg",
+    "src": "node_modules/@ckeditor/ckeditor5-core/theme/icons/eraser.svg"
+  },
+  "node_modules/@ckeditor/ckeditor5-core/theme/icons/three-vertical-dots.svg": {
+    "file": "assets/three-vertical-dots-34433102.svg",
+    "src": "node_modules/@ckeditor/ckeditor5-core/theme/icons/three-vertical-dots.svg"
+  },
+  "node_modules/@ckeditor/ckeditor5-font/theme/icons/font-background.svg": {
+    "file": "assets/font-background-161479ec.svg",
+    "src": "node_modules/@ckeditor/ckeditor5-font/theme/icons/font-background.svg"
+  },
+  "node_modules/@ckeditor/ckeditor5-font/theme/icons/font-color.svg": {
+    "file": "assets/font-color-c68232c3.svg",
+    "src": "node_modules/@ckeditor/ckeditor5-font/theme/icons/font-color.svg"
+  },
+  "node_modules/@ckeditor/ckeditor5-font/theme/icons/font-family.svg": {
+    "file": "assets/font-family-9a3a7697.svg",
+    "src": "node_modules/@ckeditor/ckeditor5-font/theme/icons/font-family.svg"
+  },
+  "node_modules/@ckeditor/ckeditor5-font/theme/icons/font-size.svg": {
+    "file": "assets/font-size-04049c53.svg",
+    "src": "node_modules/@ckeditor/ckeditor5-font/theme/icons/font-size.svg"
+  },
+  "node_modules/@ckeditor/ckeditor5-ui/theme/icons/color-tile-check.svg": {
+    "file": "assets/color-tile-check-75f20a2b.svg",
+    "src": "node_modules/@ckeditor/ckeditor5-ui/theme/icons/color-tile-check.svg"
+  },
+  "node_modules/@ckeditor/ckeditor5-ui/theme/icons/dropdown-arrow.svg": {
+    "file": "assets/dropdown-arrow-5ca55558.svg",
+    "src": "node_modules/@ckeditor/ckeditor5-ui/theme/icons/dropdown-arrow.svg"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-be1c2ea0.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.js": {
+    "css": [
+      "assets/app-be1c2ea0.css"
+    ],
+    "file": "assets/app-d516f91d.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  }
+}

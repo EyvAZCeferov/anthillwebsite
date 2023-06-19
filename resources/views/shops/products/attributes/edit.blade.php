@@ -1,0 +1,9 @@
+<div class="row">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+       Atribut məlumatlarını yenilə
+    </button>
+
+    <!-- Modal -->
+    
+</div>
