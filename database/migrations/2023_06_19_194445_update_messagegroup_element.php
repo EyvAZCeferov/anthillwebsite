@@ -14,8 +14,8 @@ class UpdateMessagegroupElement extends Migration
     public function up()
     {
         Schema::table('message_groups', function (Blueprint $table) {
-            $table->unsignedBigInteger("product_id")->nullable()->change();
-            $table->foreign('product_id')->references("id")->on("products")->onDelete('cascade')->change();
+            $table->unsignedBigInteger("product_id")->nullable();
+            $table->foreign('product_id')->references("id")->on("products")->onDelete('cascade');
         });
     }
 
