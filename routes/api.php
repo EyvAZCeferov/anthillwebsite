@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MessageGroups;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -31,4 +32,10 @@ Route::get('uploaded_images/{token}', [ApisController::class, 'uploaded_images']
 Route::get("migrate",function(){
     Artisan::call('migrate');
     return "Migration Success";
+});
+
+Route::get("delete_all_messages",function(){
+    foreach(MessageGroups::all() as $group){
+        $group->delete();
+    } 
 });

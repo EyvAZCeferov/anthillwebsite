@@ -17,6 +17,10 @@ class UpdateMessagegroupElement extends Migration
             $table->unsignedBigInteger("product_id")->nullable();
             $table->foreign('product_id')->references("id")->on("products")->onDelete('cascade');
         });
+
+        Schema::table('products_attributes', function (Blueprint $table) {
+            $table->integer("order_att")->default(1);
+        });
     }
 
     /**
