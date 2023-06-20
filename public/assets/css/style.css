@@ -5303,6 +5303,7 @@ body #app .message_lists .message_right_column {
   height: 500px;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 html #app .message_lists .message_right_column .message_containers,
 body #app .message_lists .message_right_column .message_containers {
@@ -5597,6 +5598,66 @@ body #app .message_elements_area .service_element_on_modal .right button.buttons
 body #app .message_elements_area .service_element_on_modal .right button.buttonselect:active {
   background-color: #3E5DAA;
   cursor: pointer;
+}
+html #app .message_attributes,
+body #app .message_attributes {
+  width: 95%;
+  display: flex;
+  position: absolute;
+  bottom: 50px;
+  padding: 0 10px;
+  overflow: hidden;
+  overflow-x: scroll;
+  margin: 0 auto;
+  white-space: nowrap;
+}
+html #app .message_attributes .message_attribute,
+body #app .message_attributes .message_attribute {
+  height: 100%;
+  padding: 7px 9px;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 10px;
+  font-size: 12px;
+  border: 1px solid #969696;
+  transition: all ease 0.6s;
+  margin-right: 4px;
+  vertical-align: middle;
+  text-align: center;
+}
+html #app .message_attributes .message_attribute .price,
+body #app .message_attributes .message_attribute .price {
+  font-size: 13px;
+  color: #67C347;
+}
+html #app .message_attributes .message_attribute:hover, html #app .message_attributes .message_attribute:focus, html #app .message_attributes .message_attribute:active,
+body #app .message_attributes .message_attribute:hover,
+body #app .message_attributes .message_attribute:focus,
+body #app .message_attributes .message_attribute:active {
+  background-color: #67C347;
+  color: #fff;
+  border-color: #3E5DAA;
+  cursor: pointer;
+}
+html #app .message_attributes .message_attribute:hover .price, html #app .message_attributes .message_attribute:focus .price, html #app .message_attributes .message_attribute:active .price,
+body #app .message_attributes .message_attribute:hover .price,
+body #app .message_attributes .message_attribute:focus .price,
+body #app .message_attributes .message_attribute:active .price {
+  color: #fff;
+}
+html #app .message_attributes::-webkit-scrollbar,
+body #app .message_attributes::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+html #app .message_attributes::-webkit-scrollbar-thumb,
+body #app .message_attributes::-webkit-scrollbar-thumb {
+  border-radius: 7px;
+  background-color: #3E5DAA;
+}
+html #app .message_attributes::-webkit-scrollbar-thumb:hover,
+body #app .message_attributes::-webkit-scrollbar-thumb:hover {
+  background-color: #67C347;
 }
 
 @media (max-width: 991px) {

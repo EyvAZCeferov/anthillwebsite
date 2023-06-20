@@ -29,6 +29,6 @@ class MessageGroups extends Model
         return $this->hasMany(MessageElements::class,'message_group_id','id')->orderBy('status','ASC')->orderBy('created_at','DESC');
     }
     public function product(){
-        return $this->hasMany(Products::class,'product_id','id')->orderBy('id','DESC')->orderBy('created_at','DESC');
+        return $this->hasOne(Products::class,'id','product_id')->orderBy('id','DESC')->orderBy('created_at','DESC');
     }
 }

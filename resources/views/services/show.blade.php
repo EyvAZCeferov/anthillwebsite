@@ -330,24 +330,7 @@
                             <h3><span style="font-size:12px;color:gray;font-weight:bold">Starts at</span>
                                 {{ $data->price }}</h3>€
                         </div>
-                        {{-- <form onsubmit="createpaymentlink_on_service(`createpaymentlink_on_service`)"
-                            id="createpaymentlink_on_service" class="w-100 d-flex text-center margin-y-10">
-                            <div id="messages"></div>
-                            @csrf
-                            <input type="hidden" name="receiver_id"
-                                value="{{ auth()->check() && !empty(auth()->user()) ? auth()->user()->id : null }}">
-                            <input type="hidden" name="sender_id" value="{{ $data->user_id }}">
-                            <input type="hidden" name="service_id" value="{{ $data->code }}">
-                            <input type="hidden" name="language" value="{{ app()->getLocale() }}">
-                            <input type="hidden" name="createorder" value="neworder">
-                            <button type="submit" class="buyservice">@lang('additional.buttons.buyservice')</button>
-                            <div class="form-group"
-                                style="justify-content:flex-start;align-items:flex-start;width:70%;margin:0 auto;">
-                                <input type="checkbox" checked class="form-control" name="agreenow" id="agreenow">
-                                &nbsp; <label for="agreenow">The service was rendered in Full.
-                                    I have no claims.</label>
-                            </div>
-                        </form> --}}
+                        
                         <button class="sendchat"
                             onclick="chatwithuser('{{ auth()->check() && !empty(auth()->user()) ? auth()->user()->id : null }}','{{ $data->user_id }}','{{ $data->id }}')"><i
                                 class="las la-comments"></i> @lang('additional.buttons.sendchat')</button>

@@ -23,7 +23,7 @@ class ProductsAttributes extends Model
 
     public function attribute()
     {
-        return $this->hasOne(Attributes::class,'id','attribute_id');
+        return $this->hasOne(Attributes::class,'id','attribute_id')->with('group');
     }
     public function attributegroup()
     {

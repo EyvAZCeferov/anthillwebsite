@@ -18,7 +18,9 @@ use Spatie\Sitemap\Sitemap;
 use Illuminate\Http\Request;
 use Spatie\Sitemap\Tags\Url;
 use App\Models\MessageGroups;
+use App\Events\NewChatMessage;
 use App\Events\SendEmailEvent;
+use App\Models\MessageElements;
 use App\Models\UserAdditionals;
 use App\Models\ProductsAttributes;
 use Illuminate\Support\Facades\DB;
@@ -92,7 +94,7 @@ class ApisController extends Controller
     }
     public function uploaded_images($token)
     {
-        $product=Products::where('token',$token)->first();
+        $product = Products::where('token', $token)->first();
         $images = ProductEncodedImages::where('code', $product->code)->whereNotNull('original_images')->orderBy("order_a", 'ASC')->get();
         $imagesArray = [];
         foreach ($images as $image) {
@@ -493,8 +495,8 @@ class ApisController extends Controller
                             $category = Categories::where('slugs->az_slug', $request->category)
                                 ->orWhere('slugs->ru_slug', $request->category)
                                 ->orWhere('slugs->en_slug', $request->category)
-                                ->where('status',true)
-                                ->orderBy('id','DESC')
+                                ->where('status', true)
+                                ->orderBy('id', 'DESC')
                                 ->first();
                             if (!empty($category)) {
                                 $data = Products::where("category_id", $category->id)->get();
@@ -785,15 +787,26 @@ class ApisController extends Controller
                     $data = new MessageGroups();
                     $data->sender_id = $request->user_id;
                     $data->receiver_id = $user->id;
-                    if(isset($request->product_id)){
+                    if (isset($request->product_id)) {
                         $data->product_id = $request->product_id;
                     }
                     $data->save();
+
+                    $messagecontent = '' . route("services.show", $data->product->slugs[app()->getLocale() . "_slug"]).'';
+
+                    $message = new MessageElements();
+                    $message->user_id = Auth::id();
+                    $message->message_group_id = $data->id;
+                    $message->message = $messagecontent;
+                    $message->status = false;
+                    $message->save();
+
+                    // broadcast(new NewChatMessage($message))->toOthers();
                 });
                 return response()->json([
                     'status' => 'success',
                     'message' => trans('additional.messages.redirectingformessagesending', [], $request->language ?? 'en'),
-                    'url' => route('messages.index',['createdvia'=>$request->user_id]),
+                    'url' => route('messages.index', ['createdvia' => $request->user_id]),
                 ]);
             }
         } catch (\Exception $e) {

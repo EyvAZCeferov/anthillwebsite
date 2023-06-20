@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\Products;
 use Illuminate\Http\Request;
 use App\Models\MessageGroups;
+use App\Events\NewChatMessage;
 use App\Models\MessageElements;
+use App\Models\ProductsAttributes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Events\NewChatMessage;
 
 class ChatsController extends Controller
 {
@@ -41,6 +43,35 @@ class ChatsController extends Controller
         try {
             $messages = MessageElements::where('message_group_id', $roomid)->orderBy('created_at', 'DESC')->get();
             return response()->json(['status' => 'success', 'data' => $messages]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+    public function fetchattributes($id)
+    {
+        try {
+            $productattributes = ProductsAttributes::where('product_id', $id)
+                ->whereHas('attribute', function ($query) {
+                    $query->where(function ($subquery) {
+                        $subquery->whereNotNull('name->az_name')
+                            ->orWhereNotNull('name->ru_name')
+                            ->orWhereNotNull('name->en_name')
+                            ->orWhereNotNull('name->tr_name');
+                    });
+                })
+                ->with('attribute')
+                ->get()
+                ->map(function ($item) {
+                    $item->attribute->name = array_filter($item->attribute->name, function ($value) {
+                        return !empty($value);
+                    });
+                    return $item;
+                })
+                ->reject(function ($item) {
+                    return empty($item->attribute->name);
+                });
+
+            return response()->json(['data' => $productattributes]);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
@@ -81,17 +112,34 @@ class ChatsController extends Controller
     {
         try {
             if (isset($request->user_id) && !empty($request->user_id) && isset($request->auth_id) && !empty($request->auth_id)) {
-                if (empty(MessageGroups::where('sender_id', $request->user_id)->where('receiver_id', $request->auth_id)->first())) {
+                $data = MessageGroups::where('sender_id', $request->user_id)->where('receiver_id', $request->auth_id)->first();
+                if (empty($data)) {
                     $data = new MessageGroups();
                     $data->sender_id = $request->user_id;
                     $data->receiver_id = $request->auth_id;
                     $data->save();
                 }
 
+                if (isset($request->product_id)) {
+                    $data->product_id = $request->product_id;
+                }
+                $data->update();
+
+                $messagecontent = '' . route("services.show", $data->product->slugs[app()->getLocale() . "_slug"]) . '';
+
+                $message = new MessageElements();
+                $message->user_id = Auth::id();
+                $message->message_group_id = $data->id;
+                $message->message = $messagecontent;
+                $message->status = false;
+                $message->save();
+
+                // broadcast(new NewChatMessage($message))->toOthers();
+
                 return response()->json([
                     'status' => 'success',
                     'message' => trans('additional.messages.redirectingformessagesending', [], $request->language ?? 'en'),
-                    'url' => route('messages.index',['createdvia'=>$request->user_id]),
+                    'url' => route('messages.index', ['createdvia' => $request->user_id]),
                 ]);
             } else {
                 return response()->json([

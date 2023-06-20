@@ -9,6 +9,8 @@
                 <div class="message_right_column" v-if="currentroom.id">
                     <messages-container :authenticated="authenticated[0]" :messages="messages" :locale="locale"
                         v-on:readedMessage="getAllData($event)" :currentroom="currentroom"></messages-container>
+                    <messages-attributes :key="attributes.length" :authenticated="authenticated[0]" :currentroom="currentroom" :attributes="attributes"
+                        :locale="locale" @sendmessage="getAllData"></messages-attributes>
                     <message-input :currentroom="currentroom" :authenticated="authenticated[0]" :locale="locale"
                         @showmodalsendlink="openservicemodal" @sendmessage="getAllData"></message-input>
                 </div>
@@ -35,6 +37,7 @@ import MessageList from './MessageList.vue';
 import MessagesContainer from './MessagesContainer.vue';
 import MessageInput from './MessageInput.vue';
 import ModalServices from './ModalServices.vue';
+import MessagesAttributes from './MessagesAttributes.vue';
 
 export default {
     components: {
@@ -42,6 +45,7 @@ export default {
         MessagesContainer,
         MessageInput,
         ModalServices,
+        MessagesAttributes,
     },
     data() {
         return {
@@ -52,6 +56,7 @@ export default {
             authenticated: [],
             showmodal: false,
             userservices: [],
+            attributes:[],
         };
     },
     watch: {
@@ -66,7 +71,7 @@ export default {
         connect() {
             if (this.currentroom != null && this.currentroom.id) {
                 let vm = this;
-                window.Echo.private('chat.'+this.currentroom.id).listen('.App\\Events\\NewChatMessage', (e) => {
+                window.Echo.private('chat.' + this.currentroom.id).listen('.App\\Events\\NewChatMessage', (e) => {
                     vm.getAllData();
                 });
             }
@@ -82,18 +87,17 @@ export default {
                 const createdViaId = this.getCreatedViaId();
                 if (createdViaId) {
                     this.currentroom = this.users.find(user => user.sender_id === parseInt(createdViaId));
-                    if (this.currentroom) {
-                    this.getMessagesFromRoom();
-                    }
+                    this.setRoom(this.currentroom)
                 }
             }).catch(error => console.error(error));
         },
         setRoom(userone) {
             this.currentroom = Object.assign({}, userone);
             this.getMessagesFromRoom();
+            this.getAttributes();
         },
         getMessagesFromRoom() {
-             axios.get('/fetchmessages/' + this.currentroom.id).then(response => {
+            axios.get('/fetchmessages/' + this.currentroom.id).then(response => {
                 this.messages = response.data.data;
             }).catch(error => console.log(error));
         },
@@ -109,6 +113,7 @@ export default {
         getAllData() {
             this.getMessagesFromRoom();
             this.getUsers();
+            this.getAttributes();
         },
         getauthenticated() {
             axios.get('/authenticated')
@@ -132,9 +137,16 @@ export default {
                     });
             }
         },
-        getCreatedViaId(){
+        getCreatedViaId() {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('createdvia');
+        },
+        getAttributes(){
+            if(this.currentroom!=null && this.currentroom.product_id!=null && this.currentroom.product_id){
+                axios.get('/fetchattributes/' + this.currentroom.product_id).then(response => {
+                    this.attributes = response.data.data;
+                }).catch(error => console.log(error));
+            }
         }
     },
     created() {

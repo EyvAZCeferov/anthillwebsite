@@ -54,6 +54,7 @@ Route::post("bookmarktoggle",[ApisController::class,'bookmarktoggle'])->name("ap
 
 // MessageFunctions
 Route::get("fetchmessagegroups",[ChatsController::class,'fetchmessagegroups'])->name('messages.fetchmessagegroups');
+Route::get("fetchattributes/{id}",[ChatsController::class,'fetchattributes'])->name('messages.fetchattributes');
 Route::get("fetchmessages/{roomid}",[ChatsController::class,'fetchmessages'])->name('messages.fetchmessages');
 Route::post("sendmessage/{roomid}",[ChatsController::class,'sendmessage'])->name('messages.sendmessage');
 Route::post("readmessage/{messageid}",[ChatsController::class,'readmessage'])->name('messages.readmessage');

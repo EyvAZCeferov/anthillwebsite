@@ -37,7 +37,7 @@ class Products extends Model
 
     public function attributes()
     {
-        return $this->hasMany(ProductsAttributes::class, 'product_id', 'id')->with('attribute')->orderBy('order_att');
+        return $this->hasMany(ProductsAttributes::class, 'product_id', 'id')->with('attribute')->orderBy('id','DESC');
     }
     public function seo()
     {
