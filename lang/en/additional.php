@@ -100,7 +100,9 @@ return [
         "more" => "More",
         "previous" => "Previous",
         "next" => "Next",
-        "forwardtochat"=>"Forward to chat"
+        "forwardtochat"=>"Forward to chat",
+        'bookmark'=>"Bookmark",
+        "writeareview"=>"Write a review"
     ],
 
     "pages" => [
@@ -135,7 +137,8 @@ return [
             "servicedetail" => "Service Details",
             "comments" => "Comments (:count)",
             "ifyoucommentpleaselogin" => "Please <a href=':url'>log in</a> to leave a comment.",
-            "rating" => "Rating"
+            "rating" => "Rating",
+            "reviewcount"=>":count Review"
         ],
         "payments" => [
             "generalorders" => "General Orders",

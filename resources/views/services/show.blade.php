@@ -75,14 +75,14 @@
         });
     </script>
     <script>
-        function chatwithuser(user_id, company_id,product_id) {
+        function chatwithuser(user_id, company_id, product_id) {
             showLoader();
             if ((user_id != null && user_id.length > 0 && user_id != '' && user_id != ' ') && (company_id != null &&
                     company_id.length > 0 && company_id != '' && company_id != ' ')) {
                 let data = {
                     user_id: company_id,
                     auth_id: user_id,
-                    product_id:product_id
+                    product_id: product_id
                 };
 
                 sendAjaxRequest('{{ route('api.createandredirectchat') }}', 'post', data, function(err, response) {
@@ -173,34 +173,56 @@
     {{-- registerandchatithuser --}}
 
     <script>
-        $(".thumb_images").slick({
-            infinite: true,
-            slidesToShow: 3,
-            slidesToScroll: 2,
-            speed: 500,
-            height: 500,
-            lazyLoad: 'ondemand',
+        $('.slider-for').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            fade: true,
+            asNavFor: '.slider-nav',
+            prevArrow: '<button type="button" class="slick-button slick-prev"><i class="las la-angle-double-left"></i></button>',
+            nextArrow: '<button type="button" class="slick-button slick-next"><i class="las la-angle-double-right"></i></button>',
+            speed: 1000,
+            lazyLoad: 'anticipated',
             autoplay: true,
-            buttons: true,
             autoplaySpeed: 2000,
-            lazyLoad: 'ondemand',
+        });
+        $('.slider-nav').slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            asNavFor: '.slider-for',
+            dots: false,
+            centerMode: false,
+            focusOnSelect: true,
+            speed: 1000,
+            lazyLoad: 'anticipated',
+            autoplay: true,
+            autoplaySpeed: 2000,
             responsive: [{
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1
+                    breakpoint: 1024, // Tablet
+                    settings: {
+                        slidesToShow: 4, // Tablette 5 öğe gösterilecek
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 768, // Mobil
+                    settings: {
+                        slidesToShow: 3, // Mobilde 3 öğe gösterilecek
+                        slidesToScroll: 3
+                    }
                 }
-            }]
+            ]
         });
     </script>
 
     <script>
         const yildizlar = document.querySelectorAll(".yildizlar input");
-        var rating = 0;
+        let rating = 0;
 
         for (let i = 0; i < yildizlar.length; i++) {
             yildizlar[i].addEventListener("change", function() {
-                rating += this.value;
+                rating = parseInt(this.value);
+                console.log(rating);
             });
         }
     </script>
@@ -243,129 +265,100 @@
 
         }
     </script>
-    {{-- Createpaymentlink --}}
-    {{-- <script>
-        function createpaymentlink_on_service(id) {
-            event.preventDefault();
-            showLoader();
-            var form = $(`form#${id}`);
-            var isChecked = form.find("#agreenow").prop("checked");
-
-            if (isChecked) {
-                var data = form.serialize();
-                $.ajax({
-                    url: `{{ route('api.createupayment') }}`,
-                    type: "GET",
-                    data,
-                    success: function(data) {
-                        hideLoader();
-                        window.location.href = data;
-                    },
-                    error: function(data) {
-                        hideLoader();
-                        createalert(data.status, data.message)
-                    }
-                });
-
-            } else {
-                createalert('error', 'Confirm the rules', id);
-            }
+    <script>
+        function scrolltocommentarea() {
+            $('html, body').animate({
+                scrollTop: $('#commentarea').offset().top
+            }, 1000);
         }
-    </script> --}}
-    {{-- CreatePaymentLink --}}
+    </script>
 @endpush
 
 @section('content')
-    @include('companies.company_section', ['data' => $data->user])
     <section class="margin-y-20" id="serviceshow">
-        <div class="container">
+        <div class="container" id="service-{{ $data->code }}">
+            <br>
             <div class="row">
-                <h1 class="text-center w-100 serviceshowname">{{ $data->name[app()->getLocale() . '_name'] }}</h1>
-                <p class="w-100 text-center margin-y-10 serviceshowcategoryname">
-                    {{ $data->category->name[app()->getLocale() . '_name'] }}</p>
+                <h1 class="w-100 serviceshowname">{{ $data->name[app()->getLocale() . '_name'] }}</h1>
             </div>
-            <div class="row">
-                <h3 class="tab_section_title">@lang('additional.pages.services.serviceinfo')</h3>
-                <div class="servicedetail">
-                    @if (count($data->images) > 0)
-                        <div class="image">
-                            @if (
-                                !empty($data->images[0]) &&
-                                    isset($data->images[0]->original_images) &&
-                                    !empty(trim($data->images[0]->original_images)))
-                                <a class="preview" data-fancybox="group"
-                                    href="{{ App\Helpers\Helper::getImageUrl($data->images[0]->original_images, 'products') ?? null }}">
-                                    <span class="magnifier"><i class="las la-search-plus"></i></span>
-                                    <img draggable="false" class="lazyload blur-up"
-                                        data-src="{{ App\Helpers\Helper::getImageUrl($data->images[0]->original_images, 'products') ?? null }}"
-                                        alt="{{ $data->name[app()->getLocale() . '_name'] }}">
-                                </a>
-                            @endif
-                            @if (count($data->images) > 1)
-                                <div class="thumb_images">
-                                    @for ($i = 1; $i < count($data->images); $i++)
-                                        @if (
-                                            !empty($data->images[$i]) &&
-                                                isset($data->images[$i]->original_images) &&
-                                                !empty(trim($data->images[$i]->original_images)))
-                                            <a class="thumb" data-fancybox="group"
-                                                href="{{ App\Helpers\Helper::getImageUrl($data->images[$i]->original_images, 'products') ?? null }}">
-                                                <span class="magnifier"><i class="las la-search-plus"></i></span>
-                                                <img draggable="false"
-                                                    src="{{ App\Helpers\Helper::getImageUrl($data->images[$i]->original_images, 'products') ?? null }}"
-                                                    alt="{{ $data->name[app()->getLocale() . '_name'] }}">
-                                            </a>
-                                        @endif
-                                    @endfor
-                                </div>
-                            @endif
-                        </div>
-                    @endif
-                    <div class="description" @if (count($data->images) == 0) style="width:75%" @endif>
-                        <p>{!! $data->description[app()->getLocale() . '_description'] !!}</p>
-                    </div>
-
-                    <div class="prices">
-                        <div class="price">
-                            <h3><span style="font-size:12px;color:gray;font-weight:bold">Starts at</span>
-                                {{ $data->price }}</h3>€
-                        </div>
-                        
-                        <button class="sendchat"
-                            onclick="chatwithuser('{{ auth()->check() && !empty(auth()->user()) ? auth()->user()->id : null }}','{{ $data->user_id }}','{{ $data->id }}')"><i
-                                class="las la-comments"></i> @lang('additional.buttons.sendchat')</button>
-                    </div>
-
-                </div>
-                <br />
-                <h3 class="tab_section_title">@lang('additional.pages.services.servicedetail')</h3>
-                <div class="servicetable">
-                    <table>
-                        <tbody>
-                            @php($previousGroupId = null)
-
-                            @foreach ($data->attributes as $attribute_el)
-                                @php($group = $attribute_el->attributegroup)
-                                @php($attribute = $attribute_el->attribute)
-
-                                @if (!empty($attribute) && isset($attribute->name['az_name']) && trim($attribute->name['az_name']) != null)
-                                    @if ($previousGroupId !== $attribute_el->attribute_group_id)
-                                        <tr id="{{ $attribute_el->id }}">
-                                            <td class="key">{{ $group->name[app()->getLocale() . '_name'] }}</td>
-                                            <td class="value">{{ $attribute->name[app()->getLocale() . '_name'] }}
-                                                @if ($group->datatype == 'price')
-                                                    €
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endif
-
-                                    @php($previousGroupId = $attribute_el->attribute_group_id)
+            @include('companies.company_topper_data', ['data' => $data->user, 'product' => $data])
+            <div class="w-100">
+                <div class="row service_new_design">
+                    <div class="column-70 mobile_column-100">
+                        <div class="slider-for">
+                            @foreach ($data->images as $image)
+                                @if (!empty($image) && isset($image->original_images) && !empty(trim($image->original_images)))
+                                    <a class="slide thumbnail" data-fancybox="group"
+                                        href="{{ App\Helpers\Helper::getImageUrl($image->original_images, 'products') ?? null }}">
+                                        <span class="magnifier"><i class="las la-search-plus"></i></span>
+                                        <img draggable="false"
+                                            src="{{ App\Helpers\Helper::getImageUrl($image->original_images, 'products') ?? null }}"
+                                            alt="{{ $data->name[app()->getLocale() . '_name'] }}">
+                                    </a>
                                 @endif
                             @endforeach
-                        </tbody>
-                    </table>
+                        </div>
+                        @if (count($data->images) > 1)
+                            <div class="slider-nav">
+                                @foreach ($data->images as $image)
+                                    @if (!empty($image) && isset($image->original_images) && !empty(trim($image->original_images)))
+                                        <div class="slide thumbnail">
+                                            <img draggable="false"
+                                                src="{{ App\Helpers\Helper::getImageUrl($image->original_images, 'products') ?? null }}"
+                                                alt="{{ $data->name[app()->getLocale() . '_name'] }}">
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                    <div class="column-25 mobile_column-100 right_section">
+                        <h3 class="price"><span style="font-size:12px;color:gray;font-weight:bold">Starts at</span>
+                            {{ $data->price }}€</h3>
+                        <hr class="seperator" />
+                        <div class="servicetable">
+                            <table>
+                                <tbody>
+                                    @php($previousGroupId = null)
+
+                                    @foreach ($data->attributes as $attribute_el)
+                                        @php($group = $attribute_el->attributegroup)
+                                        @php($attribute = $attribute_el->attribute)
+
+                                        @if (!empty($attribute) && isset($attribute->name['az_name']) && trim($attribute->name['az_name']) != null)
+                                            @if ($previousGroupId !== $attribute_el->attribute_group_id)
+                                                <tr id="{{ $attribute_el->id }}">
+                                                    <td class="key">{{ $group->name[app()->getLocale() . '_name'] }}
+                                                    </td>
+                                                    <td class="value">{{ $attribute->name[app()->getLocale() . '_name'] }}
+                                                        @if ($group->datatype == 'price')
+                                                            €
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endif
+
+                                            @php($previousGroupId = $attribute_el->attribute_group_id)
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row text-center">
+                            <button class="sendchat"
+                                onclick="chatwithuser('{{ auth()->check() && !empty(auth()->user()) ? auth()->user()->id : null }}','{{ $data->user_id }}','{{ $data->id }}')"><i
+                                    class="las la-comments"></i> @lang('additional.buttons.sendchat')</button>
+                        </div>
+                    </div>
                 </div>
+                <br>
+                @include('services.rating_section', ['data' => $data, 'comments' => $data->comments])
+                <br>
+                <h3 class="tab_section_title">@lang('additional.pages.services.serviceinfo')</h3>
+                <div class="desc_area">{!! $data->description[app()->getLocale() . '_description'] !!}</div>
+                <br />
+                <br />
+                @include('companies.company_section', ['data' => $data->user])
                 <br />
                 @include('services.comments', ['comments' => $data->comments])
 

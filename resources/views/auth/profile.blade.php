@@ -6,7 +6,7 @@
             !empty($data->additionalinfo[app()->getLocale() . '_name']))
         {{ $data->additionalinfo->company_name[app()->getLocale() . '_name'] }}
     @else
-        {{ $data->name_surname }}
+        {{ $data->name_surname??null }}
     @endif
 @endsection
 @section('description')

@@ -10,7 +10,7 @@
                     <messages-container :authenticated="authenticated[0]" :messages="messages" :locale="locale"
                         v-on:readedMessage="getAllData($event)" :currentroom="currentroom"></messages-container>
                     <messages-attributes :key="attributes.length" :authenticated="authenticated[0]" :currentroom="currentroom" :attributes="attributes"
-                        :locale="locale" @sendmessage="getAllData"></messages-attributes>
+                        :locale="locale" @sendmessage="getAllData" ></messages-attributes>
                     <message-input :currentroom="currentroom" :authenticated="authenticated[0]" :locale="locale"
                         @showmodalsendlink="openservicemodal" @sendmessage="getAllData"></message-input>
                 </div>
@@ -147,7 +147,8 @@ export default {
                     this.attributes = response.data.data;
                 }).catch(error => console.log(error));
             }
-        }
+        },
+
     },
     created() {
         this.getauthenticated();

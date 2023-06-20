@@ -39,6 +39,7 @@
             lazyLoad: 'anticipated',
             autoplay: true,
             autoplaySpeed: 2000,
+            arrows:true
         });
         $(".categories_items_slider").slick({
             infinite: true,
@@ -47,9 +48,8 @@
             speed: 1000,
             height: 500,
             lazyLoad: 'anticipated',
-            prevArrow: '<button type="button" class="slick-button slick-prev"><i class="las la-angle-double-left"></i></button>',
-            nextArrow: '<button type="button" class="slick-button slick-next"><i class="las la-angle-double-right"></i></button>',
             autoplay: true,
+            arrows:false,
             autoplaySpeed: 2000,
             responsive: [{
                     breakpoint: 1024, // Tablet
@@ -74,10 +74,9 @@
             speed: 1000,
             height: 500,
             lazyLoad: 'anticipated',
-            prevArrow: '<button type="button" class="slick-button slick-prev"><i class="las la-angle-double-left"></i></button>',
-            nextArrow: '<button type="button" class="slick-button slick-next"><i class="las la-angle-double-right"></i></button>',
             autoplay: true,
             autoplaySpeed: 2000,
+            arrows:false,
             responsive: [{
                     breakpoint: 1024, // Tablet
                     settings: {

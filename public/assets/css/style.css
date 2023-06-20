@@ -3472,6 +3472,327 @@ body section .tab_section_title {
   padding: 10px 0;
   border-bottom: 2px solid #67C347;
 }
+html section .author_area,
+body section .author_area {
+  width: 100%;
+  display: flex;
+  margin: 3px auto;
+}
+html section .author_area .author_icon_and_name,
+body section .author_area .author_icon_and_name {
+  vertical-align: middle;
+  align-content: center;
+  align-items: center;
+  display: flex;
+  padding: 2px 0;
+  justify-content: space-around;
+}
+html section .author_area .author_icon_and_name .image,
+body section .author_area .author_icon_and_name .image {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  border-radius: 35px;
+}
+html section .author_area .author_icon_and_name .image img,
+body section .author_area .author_icon_and_name .image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: fill;
+     object-fit: fill;
+  border-radius: 50%;
+}
+html section .author_area .author_icon_and_name .name,
+body section .author_area .author_icon_and_name .name {
+  font-size: 14px;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0 10px;
+  color: #000;
+  transition: all ease 0.5s;
+}
+html section .author_area .author_icon_and_name:hover,
+body section .author_area .author_icon_and_name:hover {
+  cursor: pointer;
+}
+html section .author_area .author_icon_and_name:hover .name,
+body section .author_area .author_icon_and_name:hover .name {
+  color: #67C347;
+  cursor: pointer;
+}
+html section .service_new_design,
+body section .service_new_design {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+html section .service_new_design .slider-for,
+body section .service_new_design .slider-for {
+  width: 100%;
+  height: 500px;
+  background-color: #969696;
+}
+html section .service_new_design .slider-for a,
+body section .service_new_design .slider-for a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+html section .service_new_design .slider-for a img,
+body section .service_new_design .slider-for a img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+html section .service_new_design .slider-for a:hover, html section .service_new_design .slider-for a:focus, html section .service_new_design .slider-for a:active,
+body section .service_new_design .slider-for a:hover,
+body section .service_new_design .slider-for a:focus,
+body section .service_new_design .slider-for a:active {
+  background-color: rgba(0, 0, 0, 0.2);
+  background-blend-mode: darken;
+}
+html section .service_new_design .slider-for a:hover .magnifier, html section .service_new_design .slider-for a:focus .magnifier, html section .service_new_design .slider-for a:active .magnifier,
+body section .service_new_design .slider-for a:hover .magnifier,
+body section .service_new_design .slider-for a:focus .magnifier,
+body section .service_new_design .slider-for a:active .magnifier {
+  display: flex;
+}
+html section .service_new_design .slider-for a .magnifier,
+body section .service_new_design .slider-for a .magnifier {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 22px;
+  color: #67C347;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+html section .service_new_design .slider-for a .magnifier i,
+body section .service_new_design .slider-for a .magnifier i {
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: block;
+}
+html section .service_new_design .slider-nav,
+body section .service_new_design .slider-nav {
+  width: 100%;
+  height: 80px;
+  margin: 10px 0;
+}
+html section .service_new_design .slider-nav .slide,
+body section .service_new_design .slider-nav .slide {
+  width: 25%;
+  height: 100%;
+}
+html section .service_new_design .slider-nav .slide img,
+body section .service_new_design .slider-nav .slide img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+html section .service_new_design .right_section,
+body section .service_new_design .right_section {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px 10px;
+}
+html section .service_new_design .right_section .price,
+body section .service_new_design .right_section .price {
+  text-align: center;
+  font-weight: bold;
+  font-size: 22px;
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+}
+html section .service_new_design .right_section hr.seperator,
+body section .service_new_design .right_section hr.seperator {
+  width: 95%;
+  margin: 0 auto;
+  background-color: #67C347;
+  height: 3px;
+  border-radius: 8px;
+}
+html section .service_new_design .right_section button,
+body section .service_new_design .right_section button {
+  width: auto;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin: 10px auto;
+  outline: none;
+  transition: all ease 0.7s;
+  border: 1px solid transparent;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 15px;
+}
+html section .service_new_design .right_section button i,
+body section .service_new_design .right_section button i {
+  font-size: 20px;
+  margin-right: 5px;
+}
+html section .service_new_design .right_section button.sendchat,
+body section .service_new_design .right_section button.sendchat {
+  background-color: #67C347;
+  border-color: #67C347;
+}
+html section .service_new_design .right_section button.sendchat:hover, html section .service_new_design .right_section button.sendchat:focus, html section .service_new_design .right_section button.sendchat:active,
+body section .service_new_design .right_section button.sendchat:hover,
+body section .service_new_design .right_section button.sendchat:focus,
+body section .service_new_design .right_section button.sendchat:active {
+  background-color: #fff;
+  color: #67C347;
+}
+html section .service_new_design .right_section button:hover, html section .service_new_design .right_section button:focus, html section .service_new_design .right_section button:active,
+body section .service_new_design .right_section button:hover,
+body section .service_new_design .right_section button:focus,
+body section .service_new_design .right_section button:active {
+  cursor: pointer;
+}
+html section .service_new_design .right_section button:disabled,
+body section .service_new_design .right_section button:disabled {
+  background-color: #969696;
+  border-color: #969696;
+  color: #fff;
+  cursor: not-allowed;
+}
+html section .service_new_design .right_section button:disabled:hover, html section .service_new_design .right_section button:disabled:focus, html section .service_new_design .right_section button:disabled:active,
+body section .service_new_design .right_section button:disabled:hover,
+body section .service_new_design .right_section button:disabled:focus,
+body section .service_new_design .right_section button:disabled:active {
+  cursor: not-allowed;
+  background-color: #969696;
+  border-color: #969696;
+  color: #fff;
+}
+html section .service_new_design .desc_area,
+body section .service_new_design .desc_area {
+  width: 100%;
+  height: auto;
+  word-break: break-word;
+  font-size: 15px;
+}
+html section .rating_content,
+body section .rating_content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 150px;
+  margin: 15px 0;
+  background-color: #fff;
+  vertical-align: middle;
+  border-radius: 10px;
+  box-shadow: 0px 0px 1px 3px rgba(0, 0, 0, 0.15);
+}
+html section .rating_content .total_rating_andreview_text,
+body section .rating_content .total_rating_andreview_text {
+  height: 100%;
+  width: 15%;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+}
+html section .rating_content .total_rating_andreview_text .total_rating,
+body section .rating_content .total_rating_andreview_text .total_rating {
+  font-size: 35px;
+  font-weight: bold;
+  color: #969696;
+  text-align: center;
+}
+html section .rating_content .total_rating_andreview_text .stars,
+body section .rating_content .total_rating_andreview_text .stars {
+  justify-content: center;
+}
+html section .rating_content .total_rating_andreview_text .stars .star,
+body section .rating_content .total_rating_andreview_text .stars .star {
+  font-size: 19px;
+}
+html section .rating_content .total_rating_andreview_text .comment_count,
+body section .rating_content .total_rating_andreview_text .comment_count {
+  font-size: 12px;
+  margin: 5px auto;
+  color: #3E5DAA;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all ease 0.5s;
+}
+html section .rating_content .rating_elements,
+body section .rating_content .rating_elements {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+html section .rating_content .rating_elements .rating_elements_one,
+body section .rating_content .rating_elements .rating_elements_one {
+  width: 100%;
+  align-items: center;
+  text-align: left;
+  justify-content: flex-start;
+  vertical-align: middle;
+  display: flex;
+}
+html section .rating_content .rating_elements .rating_elements_one .rating_key,
+body section .rating_content .rating_elements .rating_elements_one .rating_key {
+  width: 20px;
+  font-size: 14px;
+  color: #969696;
+  font-weight: bold;
+  display: inline-block;
+}
+html section .rating_content .rating_elements .rating_elements_one .rating_value,
+body section .rating_content .rating_elements .rating_elements_one .rating_value {
+  background-color: #67C347;
+  height: 10px;
+  border-radius: 10px;
+  display: inline-block;
+}
+html section .rating_content .bookmarkandcommentarea,
+body section .rating_content .bookmarkandcommentarea {
+  width: 20%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+}
+html section .rating_content .bookmarkandcommentarea button,
+body section .rating_content .bookmarkandcommentarea button {
+  outline: none;
+  width: 60%;
+  border: 1px solid #969696;
+  background-color: #fff;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #969696;
+  margin: 5px auto;
+  padding: 8px 0;
+  transition: all ease 0.6s;
+}
+html section .rating_content .bookmarkandcommentarea button i,
+body section .rating_content .bookmarkandcommentarea button i {
+  font-size: 17px;
+}
+html section .rating_content .bookmarkandcommentarea button:hover, html section .rating_content .bookmarkandcommentarea button.active,
+body section .rating_content .bookmarkandcommentarea button:hover,
+body section .rating_content .bookmarkandcommentarea button.active {
+  background-color: #67C347;
+  color: #fff;
+  border-color: #67C347;
+  cursor: pointer;
+}
 html section .servicedetail,
 body section .servicedetail {
   display: flex;
@@ -3670,18 +3991,6 @@ body section .servicedetail .prices button i {
   font-size: 20px;
   margin-right: 5px;
 }
-html section .servicedetail .prices button.buyservice,
-body section .servicedetail .prices button.buyservice {
-  background-color: #3E5DAA;
-  border-color: #3E5DAA;
-}
-html section .servicedetail .prices button.buyservice:hover, html section .servicedetail .prices button.buyservice:focus, html section .servicedetail .prices button.buyservice:active,
-body section .servicedetail .prices button.buyservice:hover,
-body section .servicedetail .prices button.buyservice:focus,
-body section .servicedetail .prices button.buyservice:active {
-  background-color: #fff;
-  color: #3E5DAA;
-}
 html section .servicedetail .prices button.sendchat,
 body section .servicedetail .prices button.sendchat {
   background-color: #67C347;
@@ -3729,12 +4038,13 @@ body section .servicetable {
 html section .servicetable table,
 body section .servicetable table {
   margin: 10px 0;
-  width: 40%;
+  width: 100%;
 }
 html section .servicetable table tr,
 body section .servicetable table tr {
-  font-size: 15px;
+  font-size: 14px;
   margin: 10px 0;
+  width: 100%;
 }
 html section .servicetable table tr td,
 body section .servicetable table tr td {
@@ -3745,7 +4055,7 @@ body section .servicetable table tr td {
 html section .servicetable table tr td.key,
 body section .servicetable table tr td.key {
   font-weight: bold;
-  font-size: 17px;
+  font-size: 16px;
   color: #000;
 }
 html section .servicetable table tr td.value,
@@ -3877,31 +4187,44 @@ body section .newcommentwrite form .info .form-group textarea {
 }
 html section .newcommentwrite form .info .yildizlar,
 body section .newcommentwrite form .info .yildizlar {
-  display: flex;
-  margin-bottom: 10px;
+  margin-top: 40px;
+  border: none;
+  float: left;
+}
+html section .newcommentwrite form .info .yildizlar label,
+body section .newcommentwrite form .info .yildizlar label {
+  color: #90A0A3;
+  float: right;
+}
+html section .newcommentwrite form .info .yildizlar label:before,
+body section .newcommentwrite form .info .yildizlar label:before {
+  margin: 5px;
+  font-size: 2em;
+  font-family: FontAwesome;
+  content: "\f005";
+  display: inline-block;
 }
 html section .newcommentwrite form .info .yildizlar input,
 body section .newcommentwrite form .info .yildizlar input {
   display: none;
 }
 html section .newcommentwrite form .info .yildizlar input:checked ~ label,
-body section .newcommentwrite form .info .yildizlar input:checked ~ label {
-  color: #67C347;
+html section .newcommentwrite form .info .yildizlar input:not(:checked) ~ label:hover,
+html section .newcommentwrite form .info .yildizlar input:not(:checked) ~ label:hover ~ label,
+body section .newcommentwrite form .info .yildizlar input:checked ~ label,
+body section .newcommentwrite form .info .yildizlar input:not(:checked) ~ label:hover,
+body section .newcommentwrite form .info .yildizlar input:not(:checked) ~ label:hover ~ label {
+  color: #F79426;
 }
-html section .newcommentwrite form .info .yildizlar label,
-body section .newcommentwrite form .info .yildizlar label {
-  font-size: 25px;
-  color: #969696;
-  cursor: pointer;
-}
-html section .newcommentwrite form .info .yildizlar label:hover, html section .newcommentwrite form .info .yildizlar label:active, html section .newcommentwrite form .info .yildizlar label:focus, html section .newcommentwrite form .info .yildizlar label:hover ~ label, html section .newcommentwrite form .info .yildizlar label:active ~ label, html section .newcommentwrite form .info .yildizlar label:focus ~ label,
-body section .newcommentwrite form .info .yildizlar label:hover,
-body section .newcommentwrite form .info .yildizlar label:active,
-body section .newcommentwrite form .info .yildizlar label:focus,
-body section .newcommentwrite form .info .yildizlar label:hover ~ label,
-body section .newcommentwrite form .info .yildizlar label:active ~ label,
-body section .newcommentwrite form .info .yildizlar label:focus ~ label {
-  color: #67C347;
+html section .newcommentwrite form .info .yildizlar input:checked + label:hover,
+html section .newcommentwrite form .info .yildizlar input:checked ~ label:hover,
+html section .newcommentwrite form .info .yildizlar label:hover ~ input:checked ~ label,
+html section .newcommentwrite form .info .yildizlar input:checked ~ label:hover ~ label,
+body section .newcommentwrite form .info .yildizlar input:checked + label:hover,
+body section .newcommentwrite form .info .yildizlar input:checked ~ label:hover,
+body section .newcommentwrite form .info .yildizlar label:hover ~ input:checked ~ label,
+body section .newcommentwrite form .info .yildizlar input:checked ~ label:hover ~ label {
+  color: #FECE31;
 }
 html section .newcommentwrite form .button_send_area,
 body section .newcommentwrite form .button_send_area {
@@ -5601,15 +5924,17 @@ body #app .message_elements_area .service_element_on_modal .right button.buttons
 }
 html #app .message_attributes,
 body #app .message_attributes {
-  width: 95%;
+  width: 50%;
   display: flex;
   position: absolute;
   bottom: 50px;
   padding: 0 10px;
   overflow: hidden;
-  overflow-x: scroll;
+  overflow-y: scroll;
   margin: 0 auto;
   white-space: nowrap;
+  flex-direction: column;
+  right: 0;
 }
 html #app .message_attributes .message_attribute,
 body #app .message_attributes .message_attribute {
@@ -6084,6 +6409,26 @@ body #app .message_attributes::-webkit-scrollbar-thumb:hover {
     font-size: 20px;
     line-height: 19px;
   }
+  html section .rating_content,
+  body section .rating_content {
+    margin: 10px 0;
+  }
+  html section .rating_content .total_rating_andreview_text,
+  body section .rating_content .total_rating_andreview_text {
+    width: 20%;
+  }
+  html section .rating_content .total_rating_andreview_text .stars .star,
+  body section .rating_content .total_rating_andreview_text .stars .star {
+    font-size: 18px;
+  }
+  html section .rating_content .rating_elements,
+  body section .rating_content .rating_elements {
+    width: 40%;
+  }
+  html section .rating_content .bookmarkandcommentarea,
+  body section .rating_content .bookmarkandcommentarea {
+    width: 35%;
+  }
   html section .servicedetail .image,
   body section .servicedetail .image {
     width: 35%;
@@ -6238,13 +6583,9 @@ body #app .message_attributes::-webkit-scrollbar-thumb:hover {
     font-size: 18px;
     margin-right: 5px;
   }
-  html section .servicetable,
-  body section .servicetable {
-    margin: 100;
-  }
   html section .servicetable table,
   body section .servicetable table {
-    width: 50%;
+    width: 100%;
   }
   html section .servicetable table tr,
   body section .servicetable table tr {
@@ -6252,7 +6593,7 @@ body #app .message_attributes::-webkit-scrollbar-thumb:hover {
   }
   html section .servicetable table tr td.key,
   body section .servicetable table tr td.key {
-    font-size: 16px;
+    font-size: 14px;
   }
   html section .comments .comment .image,
   body section .comments .comment .image {
@@ -7103,6 +7444,22 @@ body #app .message_attributes::-webkit-scrollbar-thumb:hover {
     font-size: 19px;
     line-height: 19px;
     padding-left: 3px;
+  }
+  html section .rating_content .total_rating_andreview_text,
+  body section .rating_content .total_rating_andreview_text {
+    width: 20%;
+  }
+  html section .rating_content .rating_elements,
+  body section .rating_content .rating_elements {
+    width: 35%;
+  }
+  html section .rating_content .bookmarkandcommentarea,
+  body section .rating_content .bookmarkandcommentarea {
+    width: 40%;
+  }
+  html section .rating_content .bookmarkandcommentarea button,
+  body section .rating_content .bookmarkandcommentarea button {
+    width: 90%;
   }
   html section .servicedetail,
   body section .servicedetail {

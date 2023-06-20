@@ -1,4 +1,4 @@
-<section>
+<section id="commentarea">
     <div class="row">
         <h3 class="tab_section_title">@lang('additional.pages.services.comments', ['count' => count($comments)])</h3>
     </div>
@@ -44,9 +44,8 @@
                     <div class="info ">
                         <div class="yildizlar">
                             @for ($i = 1; $i < 6; $i++)
-                                <input type="radio" id="yildiz{{ $i }}" name="yildiz"
-                                    value="{{ $i }}" checked />
-                                <label for="yildiz{{ $i }}"><i class="las la-star"></i></label>
+                                <input type="radio" id="yildiz{{ $i }}" name="yildiz" value="{{ $i }}" />
+                                <label class="star" for="yildiz{{ $i }}" title="Awesome" aria-hidden="true"><i class="las la-star"></i></label>
                             @endfor
                         </div>
                         <div class="form-group height-auto">

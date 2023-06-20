@@ -15,24 +15,7 @@
                     <p class="descriptive">{!! $data->additionalinfo->company_description[app()->getLocale() . '_description'] ?? null !!}</p>
                 </div>
                 <div class="column-15 contact">
-                    {{--@if (isset($data->user->phone) && !empty($data->user->phone))
-                        <div class="contact-element" onclick="window.open(`tel:{{ $data->user->phone }}`)">
-                            <i class="las la-phone"></i>
-                            {{ $data->user->phone }}
-                        </div>
-                    @endif--}}
-                    {{--@if (isset($data->user->phone_2) && !empty($data->user->phone_2))
-                        <div class="contact-element" onclick="window.open(`tel:{{ $data->user->phone_2 }}`)">
-                            <i class="las la-phone"></i>
-                            {{ $data->user->phone_2 }}
-                        </div>
-                    @endif--}}
-                    {{--@if (isset($data->user->email) && !empty($data->user->email))
-                        <div class="contact-element" onclick="window.open(`mailto:{{ $data->user->email }}`)">
-                            <i class="las la-envelope"></i>
-                            {{ $data->user->email }}
-                        </div>
-                    @endif--}}
+
                 </div>
             </div>
             @endif

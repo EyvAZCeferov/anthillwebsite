@@ -92,6 +92,29 @@ if(in_array($code,$bookmarked)){
             return 0;
         }
     }
+
+    public static function getstarswithdetail($code)
+    {
+        $product = product($code, true);
+        $ratings=[
+            "5"=>0,
+            "4"=>0,
+            "3"=>0,
+            "2"=>0,
+            "1"=>0,
+            "ratings"=>count($product->comments)
+        ];
+        if (!empty($product)) {
+            $comments = $product->comments;
+            if (!empty($comments) && count($comments) > 0) {
+                foreach ($comments as $comment) {
+                    $ratings[$comment->rating]+=1;
+                }
+
+            }
+        }
+        return $ratings;
+    }
     public static function createRandomCode($type = "int", $length = 4)
     {
         if ($type == "int") {
