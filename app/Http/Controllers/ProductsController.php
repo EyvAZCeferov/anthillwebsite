@@ -103,9 +103,9 @@ class ProductsController extends Controller
             ->orWhere('slugs->en_slug',Str::slug($name['en_name']))->get();
 
             $slugs = [
-                'az_slug' => count($countofproducts)==0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']).'-'.count($countofproducts)+1,
-                'ru_slug' => count($countofproducts)==0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']).'-'.count($countofproducts)+1,
-                'en_slug' => count($countofproducts)==0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']).'-'.count($countofproducts)+1,
+                'az_slug' => count($countofproducts)==0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']).'-'.count($countofproducts)*2,
+                'ru_slug' => count($countofproducts)==0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']).'-'.count($countofproducts)*2,
+                'en_slug' => count($countofproducts)==0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']).'-'.count($countofproducts)*2,
             ];
 
             $description = [
@@ -296,16 +296,13 @@ class ProductsController extends Controller
 
                 $countofproducts=Products::where('slugs->az_slug',Str::slug($name['az_name']))
                 ->orWhere('slugs->ru_slug',Str::slug($name['ru_name']))
-                ->orWhere('slugs->en_slug',Str::slug($name['en_name']))->get()->count();
+                ->orWhere('slugs->en_slug',Str::slug($name['en_name']))->get();
 
-                $countofproducts+=Categories::where('slugs->az_slug',Str::slug($name['az_name']))
-                ->orWhere('slugs->ru_slug',Str::slug($name['ru_name']))
-                ->orWhere('slugs->en_slug',Str::slug($name['en_name']))->get()->count();
 
             $slugs = [
-                'az_slug' => $countofproducts==0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']).'-'.$countofproducts+1,
-                'ru_slug' => $countofproducts==0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']).'-'.$countofproducts+1,
-                'en_slug' => $countofproducts==0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']).'-'.$countofproducts+1,
+                'az_slug' => count($countofproducts)==0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']).'-'.count($countofproducts)*2,
+                'ru_slug' => count($countofproducts)==0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']).'-'.count($countofproducts)*2,
+                'en_slug' => count($countofproducts)==0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']).'-'.count($countofproducts)*2,
             ];
 
             $description = [
