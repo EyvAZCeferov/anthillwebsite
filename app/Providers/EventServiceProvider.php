@@ -26,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailEventListener::class,
         ],
         NewchatMessage::class=>[
-            SendChatMessageNotification::class,
+            // SendChatMessageNotification::class,
         ],
     ];
 

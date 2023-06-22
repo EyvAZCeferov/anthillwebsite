@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmailJob;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Helpers\Helper;
@@ -63,7 +64,7 @@ class FunctionsController extends Controller
 
                     // SendEmail
                     $datas = [
-                        'message' => trans('additional.emailtemplates.service.registeredmessage', ['name' => $request->name_surname, 'url' => route('auth.login'),'password'=>$request->password], $request->language ?? 'en'),
+                        'message' => trans('additional.emailtemplates.service.registeredmessage', ['name' => $request->name_surname, 'url' => route('auth.login'), 'password' => $request->password], $request->language ?? 'en'),
                         'email' => env('MAIL_USERNAME'),
                         'name_surname' => env('APP_NAME'),
                         'type' => 'newregister',
@@ -86,26 +87,27 @@ class FunctionsController extends Controller
             $user = users($request->email, 'email');
             if (!empty($user)) {
                 // Email Gonder
-                $code = Helper::createRandomCode();
+                $code = Helper::createRandomCode('int', 4);
+                $token = Str::random(60);
                 DB::table('password_resets')->insert([
                     'email' => $request->email,
-                    'token' => Str::random(60),
+                    'token' => $token,
                     "code" => $code,
                     'created_at' => Carbon::now()
                 ]);
                 //Get the token just created above
                 $tokenData = DB::table('password_resets')
-                    ->where('email', $request->email)->first();
+                    ->where('email', $request->email)->where('token', $token)->first();
 
                 $datas = [
                     'message' => trans("additional.emailtemplates.service.updatepasswordmessage", ['name' => $user->name_surname, 'code' => $code, 'url' => route('password.change', ['email' => $request->email, 'token' => $tokenData->token])]),
-                    'email' => env('MAIL_USERNAME'),
-                    'name_surname' => env('APP_NAME'),
+                    'email' => $user->email,
+                    'name_surname' => $user->name_surname,
                     'type' => 'forgetpassword',
-                    'title' => trans("additional.emailtemplates.service.updtepassword"),
+                    'title' => trans("additional.emailtemplates.service.updatepassword"),
                     "id" => Helper::createRandomCode("int", 10),
                 ];
-                event(new SendEmailEvent($datas));
+                dispatch(new SendEmailJob($datas));
 
                 return response()->json(['status' => 'success', 'message' => trans('additional.messages.emailsendedupdatepassword', [], $request->language ?? 'en')]);
             } else {
@@ -122,10 +124,9 @@ class FunctionsController extends Controller
             if (!empty($user)) {
                 $tokenData = DB::table('password_resets')
                     ->where('email', $request->email)
-                    ->where('token', $request->token)->first();
-
-                if ($tokenData == $request->number1 . $request->number2 . $request->number3 . $request->number4) {
-                    return response()->json(['status' => 'success', 'message' => trans('additional.messages.passwordstrue', [], $request->language ?? 'en'), 'url' => route('password.change_view')]);
+                    ->where('token', $request->token)->latest()->first();
+                if ($tokenData->code == $request->number1 . $request->number2 . $request->number3 . $request->number4) {
+                    return response()->json(['status' => 'success', 'message' => trans('additional.messages.passwordstrue', [], $request->language ?? 'en'), 'url' => route('password.change_view', ['email' => $tokenData->email])]);
                 } else {
                     return response()->json(['status' => 'warning', 'message' => trans('additional.messages.passwordswrong', [], $request->language ?? 'en')]);
                 }
@@ -221,6 +222,31 @@ class FunctionsController extends Controller
             Helper::dbdeactive();
         }
     }
+    public function updatenewpassword(Request $request)
+    {
+        try {
+            $user = users($request->email, 'email');
+            if (
+                (isset($request->password) && !empty($request->password))
+                && (isset($request->password_confirmation) && !empty($request->password_confirmation))
+                && ($request->password == $request->password_confirmation)
+            ) {
+                $user->additionalinfo->update([
+                    "original_pass" => $request->password
+                ]);
+                $user->update([
+                    "password" => bcrypt($request->password)
+                ]);
+                return response()->json(['status' => 'success', 'message' => trans('additional.messages.datasupdated'),'url'=>route("auth.login")]);
+            } else {
+                return response()->json(['status' => 'error', 'message' => trans('additional.messages.passwordsdontmatch')]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        } finally {
+            Helper::dbdeactive();
+        }
+    }
     public function togglelog_multiple($status)
     {
         try {
@@ -255,16 +281,17 @@ class FunctionsController extends Controller
             Helper::dbdeactive();
         }
     }
-    public function callback(Request $request){
-        try{
-            $payment=Payments::where('payment_status',0)->orderBy('id','DESC')->first();
-            $guavapay=GUAVAPAY::checkstatus($payment->transaction_id,'en');
-            if(!empty($guavapay)){
-                return redirect(route("orders.show",$guavapay->uid));
-            }else{
+    public function callback(Request $request)
+    {
+        try {
+            $payment = Payments::where('payment_status', 0)->orderBy('id', 'DESC')->first();
+            $guavapay = GUAVAPAY::checkstatus($payment->transaction_id, 'en');
+            if (!empty($guavapay)) {
+                return redirect(route("orders.show", $guavapay->uid));
+            } else {
                 return redirect(route('messages.index'));
             }
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json($e->getMessage());
         }
     }

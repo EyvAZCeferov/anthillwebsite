@@ -4,8 +4,8 @@
 
         @if (App\Helpers\Helper::getstars($data->code) != 0)
             <div class="stars" style="margin:0;">
-                @for ($i = 1; $i < 6; $i++)
-                    <div class="star"><i class="@if (App\Helpers\Helper::getstars($data->code) == $i) lar @else las @endif la-star"></i>
+                @for ($i = 0; $i < 5; $i++)
+                    <div class="star"><i class="@if (App\Helpers\Helper::getstars($data->code) <= $i) lar @else las @endif la-star"></i>
                     </div>
                 @endfor
             </div>
@@ -19,9 +19,9 @@
                 <div class="rating_elements_one">
                     <span class="rating_key">{{ $i }}</span>
                     @php($division = floatval(floatval($ratings[$i]) / floatval($ratings['ratings'])))
-                    <span class="rating_value"
-                        @if ($division == 0) style="width:1%" @else
-                    style="width:{{ floatval(floatval($ratings[$i]) / floatval($ratings['ratings'])) * 100 }}%;" @endif>
+                    <span class="rating_value">
+                        <span class="rating_value_element" @if ($division == 0) style="width:1%" @else
+                        style="width:{{ floatval($division) * 100 }}%;" @endif ></span>
                     </span>
                 </div>
             @endfor

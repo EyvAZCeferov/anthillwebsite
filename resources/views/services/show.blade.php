@@ -222,7 +222,6 @@
         for (let i = 0; i < yildizlar.length; i++) {
             yildizlar[i].addEventListener("change", function() {
                 rating = parseInt(this.value);
-                console.log(rating);
             });
         }
     </script>

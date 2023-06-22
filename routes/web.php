@@ -34,7 +34,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('payments', [AuthController::class, 'payments'])->name('payments.index');
     Route::get('change_password', [AuthController::class, 'change_password'])->name('password.change');
     Route::get('change_password_view', [AuthController::class, 'change_password_view'])->name('password.change_view');
-    Route::get('newpassword_view', [AuthController::class, 'newpassword_view'])->name('password.new_password');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout.index');
     Route::get('messages', [AuthController::class, 'messages'])->name('messages.index');
     Route::get('settings', [AuthController::class, 'settings'])->name('settings.index');
@@ -49,6 +48,7 @@ Route::post("registerpost",[FunctionsController::class,'register'])->name("posts
 Route::post("forgetpasswordpost",[FunctionsController::class,'forgetpassword'])->name("posts.forgetpassword");
 Route::post("submitpinpost",[FunctionsController::class,'submitpin'])->name("posts.submitpin");
 Route::post("updatedata",[FunctionsController::class,'updatedata'])->name("auth.updatedata");
+Route::post("updatenewpassword",[FunctionsController::class,'updatenewpassword'])->name("auth.updatenewpassword");
 
 Route::post("bookmarktoggle",[ApisController::class,'bookmarktoggle'])->name("api.bookmarktoggle");
 

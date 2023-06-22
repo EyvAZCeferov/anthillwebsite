@@ -3753,10 +3753,16 @@ body section .rating_content .rating_elements .rating_elements_one .rating_key {
 }
 html section .rating_content .rating_elements .rating_elements_one .rating_value,
 body section .rating_content .rating_elements .rating_elements_one .rating_value {
-  background-color: #67C347;
+  background-color: #969696;
   height: 10px;
   border-radius: 10px;
+  width: 100%;
   display: inline-block;
+}
+html section .rating_content .rating_elements .rating_elements_one .rating_value .rating_value_element,
+body section .rating_content .rating_elements .rating_elements_one .rating_value .rating_value_element {
+  background-color: #67C347;
+  height: 100%;
 }
 html section .rating_content .bookmarkandcommentarea,
 body section .rating_content .bookmarkandcommentarea {
@@ -4196,14 +4202,6 @@ body section .newcommentwrite form .info .yildizlar label {
   color: #90A0A3;
   float: right;
 }
-html section .newcommentwrite form .info .yildizlar label:before,
-body section .newcommentwrite form .info .yildizlar label:before {
-  margin: 5px;
-  font-size: 2em;
-  font-family: FontAwesome;
-  content: "\f005";
-  display: inline-block;
-}
 html section .newcommentwrite form .info .yildizlar input,
 body section .newcommentwrite form .info .yildizlar input {
   display: none;
@@ -4267,16 +4265,14 @@ body section .bg_sliders .bg_slider {
   background-blend-mode: darken;
   position: relative;
 }
-html section .bg_sliders .bg_slider p.slider_description,
-body section .bg_sliders .bg_slider p.slider_description {
+html section .bg_sliders .bg_slider div.slider_description,
+body section .bg_sliders .bg_slider div.slider_description {
   word-wrap: break-word;
   position: absolute;
   bottom: 35%;
   left: 7%;
   color: #fff;
   width: 500px;
-  font-size: 15px;
-  line-height: 15px;
   padding: 0;
   margin: 0;
 }
@@ -5925,7 +5921,7 @@ body #app .message_elements_area .service_element_on_modal .right button.buttons
 html #app .visibility,
 body #app .visibility {
   position: absolute;
-  bottom: 100px;
+  bottom: 55px;
   background-color: #3E5DAA;
   color: #fff;
   padding: 7px 12px;
@@ -5947,16 +5943,17 @@ body #app .visibility:active {
 }
 html #app .message_attributes,
 body #app .message_attributes {
-  width: 95%;
+  width: 80%;
   display: flex;
   position: absolute;
-  bottom: 50px;
+  bottom: 45px;
   padding: 0 10px;
   overflow: hidden;
   overflow-x: scroll;
   margin: 0 auto;
   white-space: nowrap;
   flex-direction: row;
+  left: 14%;
 }
 html #app .message_attributes .message_attribute,
 body #app .message_attributes .message_attribute {
@@ -6645,8 +6642,8 @@ body #app .message_attributes::-webkit-scrollbar-thumb:hover {
     margin: 10px 0;
     height: 300px;
   }
-  html section .bg_sliders .bg_slider p.slider_description,
-  body section .bg_sliders .bg_slider p.slider_description {
+  html section .bg_sliders .bg_slider div.slider_description,
+  body section .bg_sliders .bg_slider div.slider_description {
     bottom: 25%;
     left: 3%;
     width: 600px;
@@ -7572,8 +7569,8 @@ body #app .message_attributes::-webkit-scrollbar-thumb:hover {
   body section .bg_sliders {
     margin: 5px 0;
   }
-  html section .bg_sliders .bg_slider p.slider_description,
-  body section .bg_sliders .bg_slider p.slider_description {
+  html section .bg_sliders .bg_slider div.slider_description,
+  body section .bg_sliders .bg_slider div.slider_description {
     width: 350px;
   }
   html section .orders_page,

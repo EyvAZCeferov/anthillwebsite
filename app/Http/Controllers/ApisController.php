@@ -177,9 +177,9 @@ class ApisController extends Controller
                     ->orWhere('slugs->en_slug', Str::slug($name['en_name']))->get();
 
                 $slugs = [
-                    'az_slug' => count($countofproducts) == 0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']) . '-' . count($countofproducts) + 1,
-                    'ru_slug' => count($countofproducts) == 0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']) . '-' . count($countofproducts) + 1,
-                    'en_slug' => count($countofproducts) == 0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']) . '-' . count($countofproducts) + 1,
+                    'az_slug' => count($countofproducts) == 0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']) . '-' . count($countofproducts) *2,
+                    'ru_slug' => count($countofproducts) == 0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']) . '-' . count($countofproducts) *2,
+                    'en_slug' => count($countofproducts) == 0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']) . '-' . count($countofproducts) *2,
                 ];
                 $product = new Products;
 
@@ -312,9 +312,9 @@ class ApisController extends Controller
                     ->orWhere('slugs->en_slug', Str::slug($name['en_name']))->get();
 
                 $slugs = [
-                    'az_slug' => count($countofproducts) == 0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']) . '-' . count($countofproducts) + 1,
-                    'ru_slug' => count($countofproducts) == 0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']) . '-' . count($countofproducts) + 1,
-                    'en_slug' => count($countofproducts) == 0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']) . '-' . count($countofproducts) + 1,
+                    'az_slug' => count($countofproducts) == 0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']) . '-' . count($countofproducts) *2,
+                    'ru_slug' => count($countofproducts) == 0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']) . '-' . count($countofproducts) *2,
+                    'en_slug' => count($countofproducts) == 0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']) . '-' . count($countofproducts) *2,
                 ];
                 DB::transaction(function () use ($request, $codeofproduct, $name, $description, $slugs, &$product) {
 
@@ -414,7 +414,7 @@ class ApisController extends Controller
                 $comment = new Comments();
                 $comment->user_id = $request->user_id;
                 $comment->product_id = $request->product_id;
-                $comment->rating = $request->rating ?? 5;
+                $comment->rating = $request->yildiz ?? 5;
                 $comment->comment = $request->message;
                 $comment->status = true;
                 $comment->save();
@@ -623,7 +623,6 @@ class ApisController extends Controller
     {
         try {
             DB::transaction(function () use ($request) {
-
                 $contactus = new ContactUs();
                 $contactus->message = $request->message;
                 $contactus->name = $request->name;
@@ -674,7 +673,6 @@ class ApisController extends Controller
             Helper::dbdeactive();
         }
     }
-
     public function checkpayment($transaction_id)
     {
         try {

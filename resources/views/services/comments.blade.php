@@ -14,9 +14,9 @@
                     <h3 class="name">{{ $comment->user->name_surname }}</h3>
                     @if ($comment->rating != 0)
                         <div class="stars">
-                            @for ($i = 1; $i < 6; $i++)
+                            @for ($i = 0; $i < 5; $i++)
                                 <div class="star"><i
-                                        class="@if ($comment->rating == $i) lar @else las @endif la-star"></i>
+                                        class="@if ($comment->rating <= $i) lar @else las @endif la-star"></i>
                                 </div>
                             @endfor
                         </div>
@@ -42,8 +42,8 @@
                             />
                     </div>
                     <div class="info ">
-                        <div class="yildizlar">
-                            @for ($i = 1; $i < 6; $i++)
+                        <div class="yildizlar" style="margin-top:0">
+                            @for ($i = 5; $i > 0; $i--)
                                 <input type="radio" id="yildiz{{ $i }}" name="yildiz" value="{{ $i }}" />
                                 <label class="star" for="yildiz{{ $i }}" title="Awesome" aria-hidden="true"><i class="las la-star"></i></label>
                             @endfor

@@ -31,7 +31,6 @@ class SendEmailEventListener implements ShouldQueue
     {
         try{
             $event=$event->datas;
-            \Log::info($event);
             return Mail::send(new GeneralMail($event['type'], $event['title'], $event['message'], $event['email'], $event['name_surname']));
         }catch(\Exception $e){
             \Log::info(['sendemailjoberror',$e->getMessage()]);

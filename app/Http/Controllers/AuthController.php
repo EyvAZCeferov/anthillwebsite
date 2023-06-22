@@ -41,7 +41,6 @@ class AuthController extends Controller
             return $e->getMessage();
         }
     }
-
     public function logout()
     {
         try {
@@ -51,7 +50,6 @@ class AuthController extends Controller
             return $e->getMessage();
         }
     }
-
     public function profile()
     {
         try {
@@ -61,7 +59,6 @@ class AuthController extends Controller
             return $e->getMessage();
         }
     }
-
     public function settings()
     {
         try {
@@ -151,6 +148,14 @@ class AuthController extends Controller
             }
         } catch (\Exception $e) {
             return redirect()->back()->with('error',$e->getMessage());
+        }
+    }
+    public function change_password_view()
+    {
+        try {
+            return view('auth.change_password_view');
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
     }
 }

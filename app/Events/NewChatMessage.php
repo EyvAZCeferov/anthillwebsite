@@ -16,29 +16,13 @@ class NewChatMessage implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $messageelement;
 
-
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
     public function __construct(MessageElements $messageelement)
     {
         $this->messageelement = $messageelement;
     }
-    
-    // public function broadcastOn()
-    // {
-    //     return new PrivateChannel('chat.'.$this->messageelement->message_group_id);
-    // }
 
     public function broadcastOn()
     {
-        return ['chat.' . $this->messageelement->message_group_id];
-    }
-
-    public function broadcastAs()
-    {
-        return 'newmessage';
+        return new PrivateChannel('chat.' . $this->messageelement->message_group_id);
     }
 }

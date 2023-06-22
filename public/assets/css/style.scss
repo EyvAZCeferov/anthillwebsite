@@ -1992,10 +1992,15 @@ body {
                         display: inline-block;
                     }
                     .rating_value {
-                        background-color: $primary-color;
+                        background-color: $gray-color;
                         height: 10px;
                         border-radius: 10px;
+                        width: 100%;
                         display: inline-block;
+                        .rating_value_element {
+                            background-color: $primary-color;
+                            height: 100%;
+                        }
                     }
                 }
             }
@@ -2372,13 +2377,6 @@ body {
                         label {
                             color: #90A0A3;
                             float: right;
-                            &:before {
-                                margin: 5px;
-                                font-size: 2em;
-                                font-family: FontAwesome;
-                                content: "\f005";
-                                display: inline-block;
-                            }
                         }
                         input {
                             display: none;
@@ -2430,15 +2428,15 @@ body {
                 background-color: rgba(0, 0, 0, 0.4);
                 background-blend-mode: darken;
                 position: relative;
-                p.slider_description {
+                div.slider_description {
                     word-wrap: break-word;
                     position: absolute;
                     bottom: 35%;
                     left: 7%;
                     color: #fff;
                     width: 500px;
-                    font-size: 15px;
-                    line-height: 15px;
+                    // font-size: 15px;
+                    // line-height: 15px;
                     padding: 0;
                     margin: 0;
                 }
@@ -3800,7 +3798,7 @@ body {
         }
         .visibility {
             position: absolute;
-            bottom: 100px;
+            bottom: 55px;
             background-color: $secondary-color;
             color: #fff;
             padding: 7px 12px;
@@ -3820,16 +3818,17 @@ body {
             }
         }
         .message_attributes {
-            width: 95%;
+            width: 80%;
             display: flex;
             position: absolute;
-            bottom: 50px;
+            bottom: 45px;
             padding: 0 10px;
             overflow: hidden;
             overflow-x: scroll;
             margin: 0 auto;
             white-space: nowrap;
             flex-direction: row;
+            left: 14%;
             .message_attribute {
                 height: 100%;
                 padding: 7px 9px;
@@ -4429,7 +4428,7 @@ body {
                 margin: 10px 0;
                 height: 300px;
                 .bg_slider {
-                    p.slider_description {
+                    div.slider_description {
                         bottom: 25%;
                         left: 3%;
                         width: 600px;
@@ -5181,7 +5180,7 @@ body {
             .bg_sliders {
                 margin: 5px 0;
                 .bg_slider {
-                    p.slider_description {
+                    div.slider_description {
                         width: 350px;
                     }
                 }

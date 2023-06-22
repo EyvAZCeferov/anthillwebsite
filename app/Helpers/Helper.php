@@ -19,7 +19,7 @@ class Helper
 {
     public static function getImageUrl($image, $clasore, $local = false)
     {
-        try{
+        try {
             if ($local == true) {
                 $url = public_path('uploads/' . $clasore . '/' . $image);
             } else {
@@ -32,7 +32,7 @@ class Helper
                 });
             }
             return url($tempurl);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return env("APP_ADMIN_URL") . "/uploads/" . $clasore . "/" . $image;
         }
     }
@@ -55,11 +55,11 @@ class Helper
     public static function getelementinbookmark($code)
     {
         $bookmarked = Session::has('bookmarks') ? Session::get('bookmarks') : [];
-if(in_array($code,$bookmarked)){
-    return "a";
-}else{
-    return "b";
-}
+        if (in_array($code, $bookmarked)) {
+            return "a";
+        } else {
+            return "b";
+        }
         // foreach ($bookmarked as $bookmark) {
         //     if ($bookmark == $code) {
         //         return "a";
@@ -100,21 +100,20 @@ if(in_array($code,$bookmarked)){
     public static function getstarswithdetail($code)
     {
         $product = product($code, true);
-        $ratings=[
-            "5"=>0,
-            "4"=>0,
-            "3"=>0,
-            "2"=>0,
-            "1"=>0,
-            "ratings"=>count($product->comments)
+        $ratings = [
+            "5" => 0,
+            "4" => 0,
+            "3" => 0,
+            "2" => 0,
+            "1" => 0,
+            "ratings" => count($product->comments)
         ];
         if (!empty($product)) {
             $comments = $product->comments;
             if (!empty($comments) && count($comments) > 0) {
                 foreach ($comments as $comment) {
-                    $ratings[$comment->rating]+=1;
+                    $ratings[$comment->rating] += 1;
                 }
-
             }
         }
         return $ratings;
@@ -126,6 +125,8 @@ if(in_array($code,$bookmarked)){
                 return random_int(1000, 9999);
             } elseif ($length == 49) {
                 return random_int(100000000000000, 999999999999999);
+            } elseif ($length == 10) {
+                return random_int(1000000000, 9999999999);
             }
         } elseif ($type == "string") {
             $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -165,7 +166,7 @@ if(in_array($code,$bookmarked)){
     {
         try {
             $client = new Client();
-// dd(env('APP_ADMIN_URL') . '/api/image_upload/');
+            // dd(env('APP_ADMIN_URL') . '/api/image_upload/');
             $response = $client->request('POST', env('APP_ADMIN_URL') . '/api/image_upload/' . $clasore, [
                 'multipart' => [
                     [
@@ -191,18 +192,25 @@ if(in_array($code,$bookmarked)){
             return $timeStamp->format('d.m.Y');
         }
     }
-    public static function getnotreadedmessagescount(){
+    public static function getnotreadedmessagescount()
+    {
 
         $notreadedmessages = 0;
-        $messages=MessageElements::where('status',false)->whereHas('group',function($query){
-            $query->where('receiver_id',Auth::id())->orWhere('sender_id',Auth::id());
-        })->get();
+        $user = Auth::user();
+        $messages = MessageElements::where('status', false)
+            ->where('user_id', '<>', $user->id)
+            ->whereHas('group', function ($query) use ($user) {
+                if ($user->type == 3) {
+                    $query->where('sender_id', $user->id);
+                } else {
+                    $query->where('receiver_id', $user->id);
+                }
+            })->get();
 
-        if(!empty($messages)){
-            $notreadedmessages+=count($messages);
+        if (!empty($messages)) {
+            $notreadedmessages += count($messages);
         }
 
         return $notreadedmessages;
-
     }
 }

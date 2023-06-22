@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SendEmailEvent implements ShouldBroadcast
+class SendEmailEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -23,24 +23,8 @@ class SendEmailEvent implements ShouldBroadcast
      */
     public function __construct($datas)
     {
-        \Log::info($datas);
         $this->datas=$datas;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        // if ($this instanceof SendEmailEvent) {
-        //     return new Channel('redis-channel');
-        // }
-
-        // return null;
-
-        return new Channel('my-channel');
-    }
 
 }

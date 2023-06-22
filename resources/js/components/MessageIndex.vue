@@ -9,8 +9,9 @@
                 <div class="message_right_column" v-if="currentroom.id">
                     <messages-container :authenticated="authenticated[0]" :messages="messages" :locale="locale"
                         v-on:readedMessage="getAllData($event)" :currentroom="currentroom"></messages-container>
-                    <messages-attributes v-if="currentroom.senderinfo.id!=authenticated[0].id" :key="attributes.length" :authenticated="authenticated[0]" :currentroom="currentroom" :attributes="attributes"
-                        :locale="locale" @sendmessage="getAllData" ></messages-attributes>
+                    <messages-attributes v-if="currentroom.senderinfo.id != authenticated[0].id" :key="attributes.length"
+                        :authenticated="authenticated[0]" :currentroom="currentroom" :attributes="attributes"
+                        :locale="locale" @sendmessage="getAllData"></messages-attributes>
                     <message-input :currentroom="currentroom" :authenticated="authenticated[0]" :locale="locale"
                         @showmodalsendlink="openservicemodal" @sendmessage="getAllData"></message-input>
                 </div>
@@ -56,7 +57,7 @@ export default {
             authenticated: [],
             showmodal: false,
             userservices: [],
-            attributes:[],
+            attributes: [],
         };
     },
     watch: {
@@ -65,13 +66,15 @@ export default {
                 this.disconnect(oldval);
             }
             this.connect();
-        }
+        },
     },
     methods: {
         connect() {
-            if (this.currentroom != null && this.currentroom.id) {
+            if (this.currentroom.id) {
                 let vm = this;
-                window.Echo.public('chat.' + this.currentroom.id).listen('NewChatMessage', (e) => {
+                window.Echo.private('chat.' + this.currentroom.id).listen('NewChatMessage', (e) => {
+                    console.log("Chat Api1");
+                    console.log(e);
                     vm.getAllData();
                 });
             }
@@ -141,8 +144,8 @@ export default {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('createdvia');
         },
-        getAttributes(){
-            if(this.currentroom!=null && this.currentroom.product_id!=null && this.currentroom.product_id){
+        getAttributes() {
+            if (this.currentroom != null && this.currentroom.product_id != null && this.currentroom.product_id) {
                 axios.get('/fetchattributes/' + this.currentroom.product_id).then(response => {
                     this.attributes = response.data.data;
                 }).catch(error => console.log(error));

@@ -197,9 +197,9 @@
                         <div class="bg_slider lazyload"
                             style="background-image:url('{{ App\Helpers\Helper::getImageUrl($slider->image, 'sliders') }}')">
                             @if (!empty($slider->description) && !empty(trim($slider->description[app()->getLocale() . '_description'])))
-                                <p class="slider_description">
-                                    {{ App\Helpers\Helper::strip_tags_with_whitespace(trim($slider->description[app()->getLocale() . '_description'])) }}
-                                </p>
+                                <div class="slider_description">
+                                    {!! trim($slider->description[app()->getLocale() . '_description']) !!}
+                                </div>
                             @endif
                             @if (isset($slider->url) && !empty($slider->url))
                                 <button class="slider_button"

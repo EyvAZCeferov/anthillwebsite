@@ -18,6 +18,7 @@ class SendChatMessageNotification
      */
     public function __construct(MessageElements $messageelement)
     {
+        
     }
 
     /**

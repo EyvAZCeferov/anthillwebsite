@@ -1,21 +1,21 @@
 @extends('layouts.app')
 @section('title')
-    @if(!empty(standartpages('login','type')))
-        {{standartpages('login','type')->seo->name[app()->getLocale().'_meta_title']}}
+    @if (!empty(standartpages('login', 'type')))
+        {{ standartpages('login', 'type')->seo->name[app()->getLocale() . '_meta_title'] }}
     @else
         @lang('additional.urls.welcome')
     @endif
 @endsection
 @section('description')
-    @if(!empty(standartpages('login','type')))
-        {{standartpages('login','type')->seo->description[app()->getLocale().'_meta_description']}}
+    @if (!empty(standartpages('login', 'type')))
+        {{ standartpages('login', 'type')->seo->description[app()->getLocale() . '_meta_description'] }}
     @else
         @lang('additional.urls.welcome')
     @endif
 @endsection
 @section('keywords')
-    @if(!empty(standartpages('login','type')))
-        {{standartpages('login','type')->seo->keywords[app()->getLocale().'_meta_keywords']}}
+    @if (!empty(standartpages('login', 'type')))
+        {{ standartpages('login', 'type')->seo->keywords[app()->getLocale() . '_meta_keywords'] }}
     @else
         @lang('additional.urls.welcome')
     @endif
@@ -28,7 +28,7 @@
     <section class="padding-y-100 padding-mobile-y-20">
         <div class="row">
             <div class="column column-45 bg_area bg_image mobile_column-0 border-rightradius bg_with_size"
-                @if(!empty(background_images('login'))) style="background-image:url({{ App\Helpers\Helper::getImageUrl(background_images('login')->image, 'bgimages') }})" @else style="background-image:url({{ asset('assets/images/login_bg.png') }})" @endif>
+                @if (!empty(background_images('login'))) style="background-image:url({{ App\Helpers\Helper::getImageUrl(background_images('login')->image, 'bgimages') }})" @else style="background-image:url({{ asset('assets/images/login_bg.png') }})" @endif>
             </div>
             <div class="column column-45 mobile_column-100">
                 <h1 class="text-center section_title_with_green">@lang('additional.urls.login')</h1>
@@ -112,8 +112,8 @@
                         hideLoader();
                         let parsedResponse = JSON.parse(response);
                         createalert(parsedResponse.status, parsedResponse.message);
-                        if(parsedResponse.url!=null && parsedResponse.url.length>0){
-                            window.location.href=parsedResponse.url;
+                        if (parsedResponse.url != null && parsedResponse.url.length > 0) {
+                            window.location.href = parsedResponse.url;
                         }
                     }
                 });

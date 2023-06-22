@@ -11,8 +11,8 @@
     @endif
     @if (App\Helpers\Helper::getstars($product->code) != 0)
         <div class="stars" style="margin:0;">
-            @for ($i = 1; $i < 6; $i++)
-                <div class="star"><i class="@if (App\Helpers\Helper::getstars($product->code) == $i) lar @else las @endif la-star"></i>
+            @for ($i = 0; $i < 5; $i++)
+                <div class="star"><i class="@if (App\Helpers\Helper::getstars($product->code) <= $i) lar @else las @endif la-star"></i>
                 </div>
             @endfor
         </div>

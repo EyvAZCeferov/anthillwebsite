@@ -259,13 +259,13 @@ if (!function_exists('users')) {
     {
         if (isset($key) && !empty($key)) {
             if (!empty($type) && $type == 'email') {
-                $model = User::orderBy('id', 'DESC')->where('status', true)->where('email', $key)->with(['additionalinfo'])->first();
+                $model = User::orderBy('id', 'DESC')->where('status', true)->where('email', $key)->with('additionalinfo')->first();
             } else if (!empty($type) && $type == 'phone') {
-                $model = User::orderBy('id', 'DESC')->where('status', true)->where('phone', $key)->with(['additionalinfo'])->first();
+                $model = User::orderBy('id', 'DESC')->where('status', true)->where('phone', $key)->with('additionalinfo')->first();
             } else if (!empty($type) && $type == 'id') {
-                $model = User::orderBy('id', 'DESC')->where('status', true)->where('id', $key)->with(['additionalinfo'])->first();
+                $model = User::orderBy('id', 'DESC')->where('status', true)->where('id', $key)->with('additionalinfo')->first();
             } else {
-                $model = User::orderBy('id', 'DESC')->where('status', true)->where('id', $key)->with(['additionalinfo'])->first();
+                $model = User::orderBy('id', 'DESC')->where('status', true)->where('id', $key)->with('additionalinfo')->first();
             }
         } else {
             $model = User::orderBy('id', 'DESC')->where('status', true)->get();
