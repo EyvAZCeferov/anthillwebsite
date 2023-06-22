@@ -19,18 +19,22 @@ class Helper
 {
     public static function getImageUrl($image, $clasore, $local = false)
     {
-        if ($local == true) {
-            $url = public_path('uploads/' . $clasore . '/' . $image);
-        } else {
-            $url = env("APP_ADMIN_URL") . "/uploads/" . $clasore . "/" . $image;
+        try{
+            if ($local == true) {
+                $url = public_path('uploads/' . $clasore . '/' . $image);
+            } else {
+                $url = env("APP_ADMIN_URL") . "/uploads/" . $clasore . "/" . $image;
+            }
+            $tempurl = 'temp/' . $image;
+            if (!File::exists(public_path($tempurl))) {
+                $img = Image::cache(function ($image) use ($url, $tempurl) {
+                    return $image->make($url)->save(public_path($tempurl));
+                });
+            }
+            return url($tempurl);
+        }catch(\Exception $e){
+            return env("APP_ADMIN_URL") . "/uploads/" . $clasore . "/" . $image;
         }
-        $tempurl = 'temp/' . $image;
-        if (!File::exists(public_path($tempurl))) {
-            $img = Image::cache(function ($image) use ($url, $tempurl) {
-                return $image->make($url)->save(public_path($tempurl));
-            });
-        }
-        return url($tempurl);
     }
     public static function strip_tags_with_whitespace($string, $allowable_tags = null)
     {

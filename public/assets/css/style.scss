@@ -3218,8 +3218,8 @@ body {
         .modal_section {
             box-shadow: 7px 8px 15px rgba(0, 0, 0, 0.25);
             border-radius: 5px;
-            width: 600px;
-            height: 330px;
+            width: 700px;
+            height: 390px;
             display: flex;
             flex-direction: column;
             padding: 10px;
@@ -3798,18 +3798,38 @@ body {
                 }
             }
         }
+        .visibility {
+            position: absolute;
+            bottom: 100px;
+            background-color: $secondary-color;
+            color: #fff;
+            padding: 7px 12px;
+            border-radius: 10px;
+            outline: none;
+            border: 1px solid $secondary-color;
+            transition: all ease 0.5s;
+            font-size: 13px;
+            font-weight: bold;
+            left: 15px;
+            &:hover,
+            &:focus,
+            &:active {
+                color: $secondary-color;
+                background-color: #fff;
+                cursor: pointer;
+            }
+        }
         .message_attributes {
-            width: 50%;
+            width: 95%;
             display: flex;
             position: absolute;
             bottom: 50px;
             padding: 0 10px;
             overflow: hidden;
-            overflow-y: scroll;
+            overflow-x: scroll;
             margin: 0 auto;
             white-space: nowrap;
-            flex-direction: column;
-            right: 0;
+            flex-direction: row;
             .message_attribute {
                 height: 100%;
                 padding: 7px 9px;

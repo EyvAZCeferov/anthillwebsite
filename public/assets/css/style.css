@@ -5252,8 +5252,8 @@ html #modal-wrapper .modal_section,
 body #modal-wrapper .modal_section {
   box-shadow: 7px 8px 15px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  width: 600px;
-  height: 330px;
+  width: 700px;
+  height: 390px;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -5922,19 +5922,41 @@ body #app .message_elements_area .service_element_on_modal .right button.buttons
   background-color: #3E5DAA;
   cursor: pointer;
 }
+html #app .visibility,
+body #app .visibility {
+  position: absolute;
+  bottom: 100px;
+  background-color: #3E5DAA;
+  color: #fff;
+  padding: 7px 12px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #3E5DAA;
+  transition: all ease 0.5s;
+  font-size: 13px;
+  font-weight: bold;
+  left: 15px;
+}
+html #app .visibility:hover, html #app .visibility:focus, html #app .visibility:active,
+body #app .visibility:hover,
+body #app .visibility:focus,
+body #app .visibility:active {
+  color: #3E5DAA;
+  background-color: #fff;
+  cursor: pointer;
+}
 html #app .message_attributes,
 body #app .message_attributes {
-  width: 50%;
+  width: 95%;
   display: flex;
   position: absolute;
   bottom: 50px;
   padding: 0 10px;
   overflow: hidden;
-  overflow-y: scroll;
+  overflow-x: scroll;
   margin: 0 auto;
   white-space: nowrap;
-  flex-direction: column;
-  right: 0;
+  flex-direction: row;
 }
 html #app .message_attributes .message_attribute,
 body #app .message_attributes .message_attribute {

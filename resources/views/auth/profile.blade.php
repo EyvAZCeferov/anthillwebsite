@@ -1,12 +1,9 @@
 @extends('layouts.app')
 @section('title')
-    @if (isset($data->additionalinfo) &&
-            !empty($data->additionalinfo) &&
-            isset($data->additionalinfo[app()->getLocale() . '_name']) &&
-            !empty($data->additionalinfo[app()->getLocale() . '_name']))
-        {{ $data->additionalinfo->company_name[app()->getLocale() . '_name'] }}
+    @if ($data->type == 1)
+        {{ $data->name_surname ?? null }}
     @else
-        {{ $data->name_surname??null }}
+        {{ $data->additionalinfo->company_name[app()->getLocale() . '_name'] ?? $data->name_surname }}
     @endif
 @endsection
 @section('description')
@@ -24,12 +21,12 @@
             </div>
             @php
                 $routes = [];
-                if (auth()->user()->type == 3) {
+                if ($data->type == 3) {
                     array_push($routes, [
                         'name' => trans('additional.urls.myservices'),
                         'icon' => '<i class="las la-cube"></i>',
                         'url' => route('myservices.index'),
-                        'count' => !empty($data->products) ? count($data->products) : ' 0 ',
+                        'count' =>!empty($data->products) ? count($data->products) : 0 ,
                         'type' => 'company',
                     ]);
                 }
@@ -38,25 +35,25 @@
                         'name' => trans('additional.urls.wishlist'),
                         'icon' => '<i class="las la-bookmark"></i>',
                         'url' => route('wishlist.index'),
-                        'count' => !empty(session()->get('bookmarked')) ? count(session()->get('bookmarked')) : ' 0 ',
+                        'count' => !empty(session()->get('bookmarks'))? count(session()->get('bookmarks')??[]) ?? 0 : 0,
                     ],
                     [
                         'name' => trans('additional.urls.payments'),
                         'icon' => '<i class="las la-file-invoice-dollar"></i>',
                         'url' => route('payments.index'),
-                        'count' => !empty($data->orders) ? App\Helpers\Helper::sumpayments($data->orders) : ' 0 ',
+                        'count' => count($data->payments??[]) > 0 ? App\Helpers\Helper::sumpayments($data->payments) : 0,
                     ],
                     [
                         'name' => trans('additional.urls.messages'),
                         'icon' => '<i class="las la-sms"></i>',
                         'url' => route('messages.index'),
-                        'count' => !empty($data->messages) ? count($data->messages) : ' 0 ',
+                        'count' => count($data->message_groups??[])>0? App\Helpers\Helper::getnotreadedmessagescount() ?? 0 : 0 ,
                     ],
                     [
                         'name' => trans('additional.urls.orders'),
                         'icon' => '<i class="las la-folder-open"></i>',
                         'url' => route('orders.index'),
-                        'count' => !empty($data->orders) ? count($data->orders) : ' 0 ',
+                        'count' => count($data->orders??[]) ?? 0,
                     ],
                     [
                         'name' => trans('additional.urls.settings'),

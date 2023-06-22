@@ -66,4 +66,19 @@ class User extends Authenticatable
     public function viewcount(){
         return $this->hasMany(ViewCounters::class,'element_id','id')->where('type','user');
     }
+    public function payments(){
+        if($this->type==1){
+            return $this->hasMany(Payments::class,'from_id','id')->where('payment_status',true);
+        }else if($this->type==3){
+            return $this->hasMany(Payments::class,'to_id','id')->where('payment_status',false);
+        }
+    }
+
+    public function orders(){
+        if($this->type==1){
+            return $this->hasMany(Orders::class,'to_id','id');
+        }else if($this->type==3){
+            return $this->hasMany(Orders::class,'from_id','id');
+        }
+    }
 }

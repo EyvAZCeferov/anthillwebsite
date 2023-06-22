@@ -88,7 +88,9 @@ export default {
     },
     updated() {
         this.messages.forEach(message => {
-            if(message.status==false && message.user_id!=this.authenticated.id){
+// && message.user_id!=this.authenticated.id
+            if(message.status==false){
+                console.log(message);
                 this.readedMessage(message);
             }
         });
@@ -96,7 +98,7 @@ export default {
 
     mounted() {
         this.messages.forEach(message => {
-            if(message.status==false && message.user_id!=this.authenticated.id){
+            if(message.status==false && message.user_id!=this.authenticated[0].id){
                 this.readedMessage(message);
             }
         });

@@ -1,6 +1,6 @@
 <template>
+    <button @click="changevisibility()" class="visibility">Services</button>
     <div class="message_attributes">
-        <button @click="changevisibility()"><i class="las la-eye"></i></button>
         <div v-if="showattributes" v-for="(attributeel, index) in attributes" :key="index" class="message_attribute"
             @click="sendmessage(`${attributeel.attribute.group.name.en_name}: ${attributeel.attribute.name.en_name}${attributeel.attribute.group.datatype === 'price' ? ' €' : ''}`)">
             {{ attributeel.attribute.group.name.en_name }}: {{ attributeel.attribute.name.en_name }}
@@ -36,14 +36,6 @@ export default {
         changevisibility() {
             this.showattributes = !this.showattributes;
         }
-    },
-    created() {
-        console.log(this.attributes);
-        console.log(this.attributes.length);
-    },
-    updated() {
-        console.log(this.attributes);
-        console.log(this.attributes.length);
     }
 }
 </script>

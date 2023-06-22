@@ -1,6 +1,6 @@
 <template>
     <div v-for="userone in users" class="message_left_element" @click="$emit('roomchanged', userone)">
-        <div class="image" v-if="authenticated && authenticated.type==3">
+        <div class="image" v-if="authenticated && authenticated.type == 3">
             <img :src="userone.receiverinfo.additionalinfo != null && userone.receiverinfo.additionalinfo.company_image != null ? '/temp/' + userone.receiverinfo.additionalinfo.company_image : '/assets/images/no-user.png'"
                 :alt="userone.receiverinfo.name_surname" />
         </div>
@@ -10,7 +10,7 @@
         </div>
         <div class="content">
             <div class="info">
-                <h5 class="name" v-if="authenticated && authenticated.type==3">
+                <h5 class="name" v-if="authenticated && authenticated.type == 3">
                     {{ userone.receiverinfo.type == 1 ? userone.receiverinfo.name_surname :
                         userone.receiverinfo.additionalinfo.company_name.az_name }}
                 </h5>
@@ -26,7 +26,7 @@
             <div class="date">{{ formatDate(userone.message_elements[0].created_at) }}</div>
 
             <div class="status">
-                <span v-if="userone.message_elements[0].status == 0" class="badge">{{
+                <span v-if="countmessages(userone.message_elements) > 0" class="badge">{{
                     countmessages(userone.message_elements) }}</span>
                 <span v-else><i class="las la-check-double"></i></span>
             </div>
@@ -59,8 +59,10 @@ export default {
         },
         countmessages(messages) {
             var notreadedmessages = 0;
-            for (var i = 0; i < messages.length; i++) {
-                notreadedmessages += (messages[i].status === false) ? 1 : 0;
+            if (messages.length > 0) {
+                for (var i = 0; i < messages.length; i++) {
+                    notreadedmessages += (messages[i].status === false && messages[i].user_id != this.authenticated.id) ? 1 : 0;
+                }
             }
             return notreadedmessages;
         }

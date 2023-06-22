@@ -3,7 +3,9 @@
         <div class="row padding-x-5">
             <div
                 class="column column-15 mobile_column-50 mini_mobile_column-20 image">
-                <img src="{{ App\Helpers\Helper::getImageUrl(setting()->logo, 'settings') }}" class="brend-image"
+                <img
+                src="{{ App\Helpers\Helper::getImageUrl(setting()->logo, 'settings') }}"
+                class="brend-image"
                     onclick="window.location.href=`{{ route('welcome') }}`"
                     alt="{{ setting()->title[app()->getLocale() . '_title'] }}">
             </div>

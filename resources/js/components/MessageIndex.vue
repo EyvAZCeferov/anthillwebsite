@@ -9,7 +9,7 @@
                 <div class="message_right_column" v-if="currentroom.id">
                     <messages-container :authenticated="authenticated[0]" :messages="messages" :locale="locale"
                         v-on:readedMessage="getAllData($event)" :currentroom="currentroom"></messages-container>
-                    <messages-attributes :key="attributes.length" :authenticated="authenticated[0]" :currentroom="currentroom" :attributes="attributes"
+                    <messages-attributes v-if="currentroom.senderinfo.id!=authenticated[0].id" :key="attributes.length" :authenticated="authenticated[0]" :currentroom="currentroom" :attributes="attributes"
                         :locale="locale" @sendmessage="getAllData" ></messages-attributes>
                     <message-input :currentroom="currentroom" :authenticated="authenticated[0]" :locale="locale"
                         @showmodalsendlink="openservicemodal" @sendmessage="getAllData"></message-input>
@@ -71,7 +71,7 @@ export default {
         connect() {
             if (this.currentroom != null && this.currentroom.id) {
                 let vm = this;
-                window.Echo.private('chat.' + this.currentroom.id).listen('.App\\Events\\NewChatMessage', (e) => {
+                window.Echo.public('chat.' + this.currentroom.id).listen('NewChatMessage', (e) => {
                     vm.getAllData();
                 });
             }

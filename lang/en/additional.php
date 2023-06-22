@@ -92,7 +92,7 @@ return [
         "update" => "Update",
         "add" => "Add",
         'buyservice' => "Buy Service",
-        "sendchat" => "Order now",
+        "sendchat" => "Book now",
         "sharecomment" => "Share Comment",
         "delete" => "Delete",
         "createlink" => "Create Link",
