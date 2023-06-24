@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('menu_comments', 'open')
-@section('title', 'Şərhlər')
+@section('title', trand("additional.urls.comments"))
 
 @section('content')
     <!-- START CONTENT -->
@@ -11,7 +11,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Şərh
+                        <h1 class="title">@lang("additional.urls.comment")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
@@ -28,10 +28,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('comments.index') }}">Şərh</a>
+                                <a href="{{ route('comments.index') }}">@lang("additional.urls.comment")</a>
                             </li>
 
                         </ol>
@@ -43,7 +43,7 @@
 
             <div class="col-lg-12 p-3 bg-white" >
                     @if ($data->product && $data->product != null)
-                        <h1 class="py-4 px-3">Xidmət Məlumatları</h1>
+                        <h1 class="py-4 px-3">@lang("additional.urls.comment") @lang("additional.page_types.info")</h1>
                         <p class="d-block justify-space-evenly">
                             
                         <h4 class="d-inline-block">{{ $data->product->name['az_name'] }}</h4>
@@ -51,7 +51,7 @@
                     @endif
                     <br>
                     @if ($data->user && $data->user != null)
-                        <h1 class="py-4 px-3">İstifadəçi Məlumatları</h1>
+                        <h1 class="py-4 px-3">@lang("additional.urls.user") @lang("additional.page_types.info")</h1>
                         <p class="d-block justify-space-evenly">
 
                         <h4 class="d-inline-block">{{ $data->user->name }} {{ $data->user->surname }}</h4>
@@ -61,17 +61,17 @@
                     @endif
                     <br>
                     @if ($data && $data != null)
-                        <h1 class="py-4 px-3">Komment Məlumatları</h1>
-                        <p>Reytinq : {{ $data->rating }}</p>
+                        <h1 class="py-4 px-3">@lang("additional.urls.comment") @lang("additional.page_types.info")</h1>
+                        <p>@lang("additional.forms.rating") : {{ $data->rating }}</p>
                        
                         <p>
                             {{ $data->comment }}
                         </p>
                         <p>
                             Status : @if ($data->status == false)
-                                <span class="bg-danger">Passiv</span>
+                                <span class="bg-danger">@lang("additional.forms.statuses.passive")</span>
                             @else
-                                <span class="bg-success">Aktiv</span>
+                                <span class="bg-success">@lang("additional.forms.statuses.active")</span>
                             @endif
                         </p>
                     @endif

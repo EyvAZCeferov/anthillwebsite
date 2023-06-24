@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('menu_admins', 'open')
-@section('title', 'Adminlər')
+@section('title', trans("additional.urls.admins"))
 
 @section('css')
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
@@ -43,7 +43,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Adminlər
+                        <h1 class="title">@lang("additional.urls.admins")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons',['routename'=>'admins','harddelete'=>false,'add'=>true,'home'=>false,'restoreall'=>false])</span>
@@ -54,10 +54,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('admins.index') }}">Adminlər</a>
+                                <a href="{{ route('admins.index') }}">@lang("additional.urls.admins")</a>
                             </li>
 
                         </ol>
@@ -70,7 +70,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün Adminlər</h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @lang("additional.urls.admins")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -85,16 +85,16 @@
                                     cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>Ad</th>
-                                            <th>Email</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.forms.name")</th>
+                                            <th>@lang("additional.forms.email")</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         @foreach ($data as $dat)
                                             <tr>
-                                                <td>{{ $dat->name }}</td>
+                                                <td>{{ $dat->name_surname }}</td>
                                                 <td>{{ $dat->email }}</td>
                                                 <td>@include('layouts.buttons',["data"=>$dat,'routename'=>'admins','view'=>false,'edit'=>true,'destroy'=>true,'harddelete'=>false,'recover'=>false])
                                                 </td>

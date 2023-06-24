@@ -118,7 +118,7 @@ class CommentsController extends Controller
         try {
             $data=comments($id);
             $data->delete();
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{

@@ -62,7 +62,7 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
                                 <a href="{{ route('orders.index') }}">Sifarişlər</a>
@@ -146,7 +146,7 @@
                                 <span style="font-weight: bold"> &nbsp; Ad Soyad :
                                 </span>{{ $data->deliveryaddress->receiver_name }}
                                 {{ $data->deliveryaddress->receiver_surname }}
-                                <span style="font-weight: bold"> &nbsp; E-mail: </span>
+                                <span style="font-weight: bold"> &nbsp; @lang("additional.forms.email"): </span>
                                 {{ $data->deliveryaddress->receiver_email }}
                                 <span style="font-weight: bold"> &nbsp; Phone: </span>
                                 {{ $data->deliveryaddress->receiver_phone }}

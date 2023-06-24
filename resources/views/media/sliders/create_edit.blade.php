@@ -2,9 +2,9 @@
 @section('menu_media', 'open')
 @section('title')
     @if (isset($data) && !empty($data))
-         Slayder yenilə
+        @lang('additional.urls.slider') @lang('additional.page_types.update')
     @else
-        Slayder əlavə et
+        @lang('additional.urls.slider') @lang('additional.page_types.create')
     @endif
 @endsection
 @section('content')
@@ -15,7 +15,7 @@
 @section('javascript')
     @include('layouts.ckeditor.ckeditorService', [
         'uploadUrl' => route('ckEditorUpload'),
-        'editors' => ['az_description', 'ru_description', 'en_description'],
+        'editors' => ['en_description'],
     ])
 @endsection
 
@@ -29,10 +29,10 @@
                 <div class="pull-left">
                     <h1 class="title">
                         @if (isset($data) && !empty($data))
-                             Slayder yenilə
+                            @lang('additional.urls.slider') @lang('additional.page_types.update')
                         @else
-                            Slayder əlavə et
-                        @endif əlavə et
+                            @lang('additional.urls.slider') @lang('additional.page_types.create')
+                        @endif @lang('additional.page_types.create')
                         &nbsp;&nbsp;
                         <span>
                             @include('layouts.topbarbuttons', [
@@ -49,10 +49,10 @@
                 <div class="pull-right hidden-xs">
                     <ol class="breadcrumb">
                         <li>
-                            <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                            <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang('additional.urls.dashboard')</a>
                         </li>
                         <li>
-                            <a href="{{ route('sliders.index') }}">Slayderlər</a>
+                            <a href="{{ route('sliders.index') }}">@lang('additional.urls.sliders')</a>
                         </li>
 
                     </ol>
@@ -84,52 +84,11 @@
 
                             <div class="row">
 
-                                <ul class="nav nav-tabs nav-justified primary">
-                                    <li class="active">
-                                        <a href="#az" data-toggle="tab">
-                                            <span class="flag-icon flag-icon-az"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#ru" data-toggle="tab">
-                                            <span class="flag-icon flag-icon-ru"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#en" data-toggle="tab">
-                                            <span class="flag-icon flag-icon-um"></span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                <br>
 
-                                <div class="tab-content primary">
-
-                                    <div class="tab-pane fade in active" id="az">
-                                        <br>
-                                        
-                                        <textarea class="form-control az_description" placeholder="Açıqlama daxil edin ..." name="az_description"
-                                            style="width: 100%; height: 300px; font-size: 14px; line-height: 23px;padding:15px;">{{ isset($data) && !empty($data) && !empty($data->description['az_description']) ? $data->description['az_description'] : null }}</textarea>
-                                        <br>
-
-                                    </div>
-                                    <div class="tab-pane fade" id="ru">
-                                        <br>
-                                     
-                                        <textarea class="form-control ru_description" placeholder="Введите описание ..." name="ru_description"
-                                            style="width: 100%; height: 300px; font-size: 14px; line-height: 23px;padding:15px;">{{ isset($data) && !empty($data) && isset($data->description['ru_description']) ? $data->description['ru_description'] : null }}</textarea>
-                                        <br>
-
-                                    </div>
-                                    <div class="tab-pane fade" id="en">
-                                        <br>
-                                       
-                                        <textarea class="bootstrap-wysihtml5-textarea  en_description" placeholder="Enter the description ..."
-                                            name="en_description" style="width: 100%; height: 300px; font-size: 14px; line-height: 23px;padding:15px;">{{ isset($data) && !empty($data) && isset($data->description['en_description']) ? $data->description['en_description'] : null }}</textarea>
-                                        <br>
-
-                                    </div>
-
-                                </div>
+                                <textarea class="bootstrap-wysihtml5-textarea  en_description" placeholder="@lang('additional.forms.description') ..."
+                                    name="en_description" style="width: 100%; height: 300px; font-size: 14px; line-height: 23px;padding:15px;">{{ isset($data) && !empty($data) && isset($data->description['en_description']) ? $data->description['en_description'] : null }}</textarea>
+                                <br>
 
                             </div>
                             <br>
@@ -141,7 +100,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
                                     <div class="form-group">
-                                        <label class="form-label">Şəkil</label>
+                                        <label class="form-label">@lang('additional.forms.image')</label>
                                         @if (isset($data) && !empty($data) && !empty($data->image))
                                             <img width="125" src="{{ asset('/uploads/sliders/' . $data->image) }}">
                                         @endif
@@ -154,7 +113,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
                                     <div class="form-group">
-                                        <label class="form-label">Url</label>
+                                        <label class="form-label">@lang('additional.forms.url')</label>
                                         <div class="controls">
                                             <input type="url" class="form-control" name="url"
                                                 @if (isset($data) && !empty($data) && isset($data->url)) value="{{ $data->url }}" @endif>
@@ -165,7 +124,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
                                     <div class="form-group">
-                                        <label class="form-label">Sıralama</label>
+                                        <label class="form-label">@lang('additional.forms.order')</label>
                                         <div class="controls">
                                             <input type="number" class="form-control" name="order"
                                                 @if (isset($data) && !empty($data) && isset($data->order)) value="{{ $data->order }}" @else value="1" @endif>
@@ -179,9 +138,9 @@
 
                             <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
                                 <div class="text-left">
-                                    <button type="submit" class="btn btn-primary">Təsdiq et</button>
-                                    <a type="button" href="{{ route('sliders.index') }}" class="btn">Ləğv
-                                        et</a>
+                                    <button type="submit" class="btn btn-primary">@lang('additional.buttons.submit')</button>
+                                    <a type="button" href="{{ route('category.index') }}"
+                                        class="btn">@lang('additional.buttons.cancel')</a>
                                 </div>
                             </div>
                         </form>

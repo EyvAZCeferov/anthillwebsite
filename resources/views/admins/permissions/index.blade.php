@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('menu_admins', 'open')
-@section('title', 'İcazələr')
+@section('title', trans("additional.urls.permissions"))
 
 @section('css')
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
@@ -43,7 +43,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">İcazələr
+                        <h1 class="title">@lang("additional.urls.permissions")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
@@ -60,10 +60,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('permissions.index') }}">İcazələr</a>
+                                <a href="{{ route('permissions.index') }}">@lang("additional.urls.permissions")</a>
                             </li>
 
                         </ol>
@@ -76,7 +76,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün İcazələr</h2>
+                        <h2 class="title pull-left">Bütün @lang("additional.urls.permissions")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -91,8 +91,8 @@
                                     cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>Ad</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.forms.name")</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 

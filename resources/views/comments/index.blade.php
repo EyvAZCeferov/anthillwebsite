@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('menu_comments', 'open')
-@section('title', 'Şərhlər')
+@section('title', trans("additional.urls.comments"))
 
 @section('css')
     <meta name="_token" content="{{ csrf_token() }}">
@@ -111,42 +111,15 @@
                 },
                 type: 'patch',
                 success: function(data) {
-                    toastr.success("Məlumat yeniləndi");
+                    toastr.success(trans("additional.messages.updated"));
                 },
                 error: function(data) {
-                    toastr.error("Yenidən cəhd göstərin");
+                    toastr.error(trans("additional.messages.tryagain"));
                 }
             })
         }
     </script>
     {{-- Change Stat --}}
-    {{-- Edit function --}}
-    {{-- <script>
-        function getEdit(id) {
-
-            var url = '{{ env('APP_URL ') }}/comments/' + id;
-            $.ajax({
-                url: `${url}`,
-                dataType: 'json',
-                type: 'get',
-                success: function(data) {
-                    console.log(data);
-                    $("form#attributeUpdate input#comment_id").val(data.id);
-                    // $("form#attributeUpdate input#comment_username").val(data.user.name + ' ' + data.user
-                    //     .surname);
-                    // $("form#attributeUpdate input#comment_productname").val(data.product.name);
-                    $("form#attributeUpdate input#comment_rating").val(data.rating);
-                    $("form#attributeUpdate input#comment_message").text(data.comment);
-
-                    $('#editModal').modal('toggle');
-
-                },
-                error: function(data) {
-                    toastr.error("Yenidən cəhd göstərin");
-                }
-            })
-        }
-    </script> --}}
 @endsection
 
 @section('content')
@@ -158,7 +131,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Şərhlər
+                        <h1 class="title">@lang('additional.urls.comments')
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
@@ -175,10 +148,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('comments.index') }}">Şərhlər</a>
+                                <a href="{{ route('comments.index') }}">@lang('additional.urls.comments')</a>
                             </li>
 
                         </ol>
@@ -191,7 +164,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün Şərhlər</h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @lang('additional.urls.comments')</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -205,10 +178,10 @@
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Məhsul</th>
-                                            <th>Şərh</th>
-                                            <th>Status</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.urls.service")</th>
+                                            <th>@lang("additional.urls.comment")</th>
+                                            <th>@lang("additional.forms.status")</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 
@@ -216,7 +189,7 @@
                                         @foreach ($data as $dat)
                                             <tr>
 
-                                                <td>{{ $dat->product->name['az_name'] }}</td>
+                                                <td>{{ $dat->product->name['en_name'] }}</td>
                                                 <td>{{ $dat->comment }}</td>
                                                 <td>
                                                     <label class="switch">
@@ -228,8 +201,6 @@
                                                     </label>
                                                 </td>
                                                 <td>
-                                                    
-
                                                     @include('layouts.buttons', [
                                                         'data' => $dat,
                                                         'routename' => 'comments',

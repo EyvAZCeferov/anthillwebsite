@@ -79,7 +79,7 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
                                 <a href="{{ route('users.index') }}">İstifadəçilər</a>
@@ -127,7 +127,7 @@
                                                 <th>Şirkət</th>
                                                 <th>Elanlar</th>
                                             @endif
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 

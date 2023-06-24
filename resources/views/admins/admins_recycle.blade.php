@@ -41,7 +41,7 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
                                 <a href="{{ route('admins.index') }}">Silinmiş Adminlər</a>
@@ -74,7 +74,7 @@
                                         <tr>
                                             <th>Ad</th>
                                             <th>Email</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 

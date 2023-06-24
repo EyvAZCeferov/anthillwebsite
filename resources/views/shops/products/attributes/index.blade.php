@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('menu_products_elements', 'open')
-@section('title', 'Atributlar')
+@section('title')
+@lang("additional.urls.attributes")
+@endsection
 
 @section('css')
     <meta name="_token" content="{{ csrf_token() }}">
@@ -108,8 +110,6 @@
 
             // Get some values from elements on the page:
             var
-                az_name = $("form#attributeStore input#attribute_az_name").val(),
-                ru_name = $("form#attributeStore input#attribute_ru_name").val(),
                 en_name = $("form#attributeStore input#attribute_en_name").val();
                 group_id = $("form#attributeStore select#group_id").val(),
                 datatype = $("form#attributeStore select#datatype").val();
@@ -117,8 +117,6 @@
 
             var name = {};
 
-            name['az_name'] = az_name;
-            name['ru_name'] = ru_name;
             name['en_name'] = en_name;
             token = $("input[name='_token']").val();
 
@@ -135,18 +133,18 @@
                 type: 'post',
                 success: function(data) {
                     if (data == 1) {
-                        toastr.success("Məlumat yükləndi");
+                        toastr.success(trans('additional.messages.created'));
                         $('#exampleModal').modal('toggle');
                         window.location.href = "{{ url()->current() }}";
                     } else {
-                        toastr.error("Yenidən cəhd göstərin");
+                        toastr.error(trans("additional.messages.tryagain"));
                     }
                 },
                 error: function(data) {
                     if (data == 0) {
-                        toastr.error("Yenidən cəhd göstərin");
+                        toastr.error(trans("additional.messages.tryagain"));
                     } else {
-                        toastr.success("Məlumat yükləndi");
+                        toastr.success(trans('additional.messages.created'));
                         $('#exampleModal').modal('toggle');
                         window.location.href = "{{ url()->current() }}";
                     }
@@ -168,10 +166,7 @@
                 type: 'get',
                 success: function(data) {
                     $("form#attributeUpdate input#attribute_id").val(data['id']);
-                    $("form#attributeUpdate input#attribute_az_name").val(data['name']['az_name']);
-                    $("form#attributeUpdate input#attribute_ru_name").val(data['name']['ru_name']);
                     $("form#attributeUpdate input#attribute_en_name").val(data['name']['en_name']);
-                    $("form#attributeUpdate input#attribute_tr_name").val(data['name']['tr_name']);
                     $("form#attributeUpdate select#attribute_group").val(data['type']);
                     $("form#attributeUpdate input#attribute_order").val(data['order_att']);
                     if (data['group_id'] != null || data['group_id'] !== null) {
@@ -187,7 +182,7 @@
 
                 },
                 error: function(data) {
-                    toastr.error("Yenidən cəhd göstərin");
+                    toastr.error(trans("additional.messages.tryagain"));
                 }
             })
         }
@@ -203,10 +198,7 @@
 
             // Get some values from elements on the page:
             var
-                az_name = $("form#attributeUpdate input#attribute_az_name").val(),
-                ru_name = $("form#attributeUpdate input#attribute_ru_name").val(),
                 en_name = $("form#attributeUpdate input#attribute_en_name").val(),
-                tr_name = $("form#attributeUpdate input#attribute_tr_name").val(),
                 group_id = $("form#attributeUpdate select#group_id").val(),
                 datatype = $("form#attributeUpdate select#datatype").val(),
                 order = $("form#attributeUpdate input#attribute_order").val();
@@ -231,24 +223,21 @@
                 type: 'patch',
                 success: function(data) {
                     if (data == 1) {
-                        toastr.success("Məlumat yeniləndi");
+                        toastr.success("@lang('additional.messages.updated')");
                         $('#editModal').modal('toggle');
                         $("form#attributeUpdate input#attribute_id").val();
-                        $("form#attributeUpdate input#attribute_az_name").val();
-                        $("form#attributeUpdate input#attribute_ru_name").val();
                         $("form#attributeUpdate input#attribute_en_name").val();
-                        $("form#attributeUpdate input#attribute_tr_name").val();
                         $("form#attributeUpdate input#attribute_order").val();
                         window.location.href = "{{ url()->current() }}";
                     } else {
-                        toastr.error("Yenidən cəhd göstərin");
+                        toastr.error(trans("additional.messages.tryagain"));
                     }
                 },
                 error: function(data) {
                     if (data == 0) {
-                        toastr.error("Yenidən cəhd göstərin");
+                        toastr.error(trans("additional.messages.tryagain"));
                     } else {
-                        toastr.success("Məlumat yeniləndi");
+                        toastr.success("@lang('additional.messages.updated')");
                         $('#editModal').modal('toggle');
                         window.location.href = "{{ url()->current() }}";
                     }
@@ -302,10 +291,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('attributes.index') }}">Atributlar</a>
+                                <a href="{{ route('attributes.index') }}">@lang("additional.urls.attributes")</a>
                             </li>
 
                         </ol>
@@ -318,7 +307,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün Atributlar</h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @lang("additional.urls.attributes")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -333,58 +322,56 @@
                                     style="width:100%">
                                     <thead>
                                         <tr>
-                                            <td>ID</td>
-                                            <th>Ad</th>
-                                            <th>Rusca Ad</th>
-                                            <th>Aid olduğu qrup</th>
+                                            <th>@lang("additional.forms.name")</th>
+                                            <th>@lang("additional.forms.assigned")</th>
                                             <th>Növü</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         @foreach ($data as $dat)
-                                            <tr class="ui-state-default">
-                                                <td>{{ $dat->id }}</td>
-                                                <td>{{ $dat->name['az_name'] }}</td>
-                                                <td>{{ $dat->name['ru_name'] }}</td>
+                                            @if(!empty(trim($dat->name['en_name'])))
+                                                <tr class="ui-state-default">
+                                                    <td>{{ $dat->id }}</td>
+                                                    <td>{{ $dat->name['en_name'] }}</td>
+                                                    <td>
+                                                        @if ($dat->group_id != null || $dat->group_id !== null)
+                                                            {{ $dat->group->name['en_name'] }}
+                                                        @else
+                                                            <span class="text-small text-danger"> @lang("additional.forms.attribute_group")</span>
+                                                        @endif
+                                                    </td>
 
-                                                <td>
-                                                    @if ($dat->group_id != null || $dat->group_id !== null)
-                                                        {{ $dat->group->name['az_name'] }}
-                                                    @else
-                                                        <span class="text-small text-danger"> Atribut qrupudur</span>
-                                                    @endif
-                                                </td>
+                                                    <td>
+                                                        @if ($dat->datatype == 'string')
+                                                            @lang("additional.inputtypes.string")
+                                                        @elseif($dat->datatype == 'integer')
+                                                        @lang("additional.inputtypes.integer")
+                                                        @elseif($dat->datatype == 'price')
+                                                        @lang("additional.inputtypes.price")
+                                                        @elseif($dat->datatype == 'boolean')
+                                                        @lang("additional.inputtypes.dropdown")
+                                                        @endif
+                                                    </td>
 
-                                                <td>
-                                                    @if ($dat->datatype == 'string')
-                                                        Yazı
-                                                    @elseif($dat->datatype == 'integer')
-                                                        Rəqəm
-                                                    @elseif($dat->datatype == 'price')
-                                                        Məbləğ
-                                                    @elseif($dat->datatype == 'boolean')
-                                                        Seçim
-                                                    @endif
-                                                </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-warning d-inline-block"
+                                                            onClick="getEdit({{ $dat->id }});"><i
+                                                                class="fa fa-edit"></i></button>
 
-                                                <td>
-                                                    <button type="button" class="btn btn-warning d-inline-block"
-                                                        onClick="getEdit({{ $dat->id }});"><i
-                                                            class="fa fa-edit"></i></button>
-
-                                                    @include('layouts.buttons', [
-                                                        'data' => $dat,
-                                                        'routename' => 'attributes',
-                                                        'view' => false,
-                                                        'edit' => false,
-                                                        'destroy' => true,
-                                                        'harddelete' => false,
-                                                        'recover' => false,
-                                                    ])
-                                                </td>
-                                            </tr>
+                                                        @include('layouts.buttons', [
+                                                            'data' => $dat,
+                                                            'routename' => 'attributes',
+                                                            'view' => false,
+                                                            'edit' => false,
+                                                            'destroy' => true,
+                                                            'harddelete' => false,
+                                                            'recover' => false,
+                                                        ])
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                     </tbody>
 
@@ -408,7 +395,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Atribut məlumatlarını yenilə</h5>
+                    <h5 class="modal-title" id="editModalLabel">@lang("additional.urls.attributes") @lang("additional.page_types.update")</h5>
                     <button type="button" class="close ml-5" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -417,50 +404,44 @@
                     <form method="POST" id="attributeUpdate">
                         @csrf
                         <input type="hidden" name="attribute_id" id="attribute_id" value="">
-                        <input type="text" value="" placeholder="Adı daxil edin..." class="form-control"
-                            name="attribute_az_name" id="attribute_az_name">
-                        <br>
-                        <input type="text" value="" placeholder="Введите имя ..." class="form-control"
-                            name="attribute_ru_name" id="attribute_ru_name">
-                        <br>
+                       
                         <input type="text" value="" placeholder="Enter the name ..." class="form-control"
                             name="attribute_en_name" id="attribute_en_name">
                         <br>
                         
-                        <span style="font-size: 14px; margin-bottom:5px;display:block;">Sıra nömrəsi</span>
-                        <input type="number" value="" placeholder="Sıra nömrəsi yazın ..." class="form-control"
+                        <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.order")</span>
+                        <input type="number" value="" placeholder="@lang("additional.forms.order") ..." class="form-control"
                             name="attribute_order" id="attribute_order">
                         <br/>
-                        <span style="font-size: 14px; margin-bottom:5px;display:block;">Tip</span>
+                        <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.type")</span>
                         <select class="form-control" name="attribute_group" id="attribute_group">
-                            <option value="0">Atribut</option>
-                            <option value="1">Atribut Qrupu</option>
+                            <option value="0">@lang("additional.inputtypes.attribute_0")t</option>
+                            <option value="1">@lang("additional.inputtypes.attribute_1")</option>
                         </select>
                         <br>
                         <div id="getGrrId" class="d-none">
-                            <span style="font-size: 14px; margin-bottom:5px;display:block;">Atributun aid olduğu qrup</span>
+                            <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.assigned")</span>
 
                             <select name="group_id" class="form-control" id="group_id">
-                                <option value="">Qrup seç</option>
+                                <option value=""></option>
                                 @foreach ($data->whereNull("group_id") as $group)
-                                    <option value="{{ $group->id }}">{{ $group->name['az_name'] }}</option>
+                                    <option value="{{ $group->id }}">{{ $group->name['en_name'] }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <br>
-                        <span style="font-size: 14px; margin-bottom:5px;display:block;">Məlumat tipi</span>
+                        <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.type")</span>
                         <select class="form-control" name="datatype" id="datatype">
-                            <option value="string">Yazı</option>
-                            <option value="integer">Ədəd (rəqəm)</option>
-                            <option value="price">Məbləğ (€)</option>
-                            <option value="boolean">Seçim</option>
+                            <option value="string">@lang("additional.inputtypes.string")</option>
+                            <option value="integer">@lang("additional.inputtypes.integer")</option>
+                            <option value="price">@lang("additional.inputtypes.price")</option>
+                            <option value="boolean">@lang("additional.inputtypes.dropdown")</option>
                         </select>
                         <br>
 
                         <div class="align-right justify-content-end text-right">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Bağla</button>
-                            <button type="button" onclick="attributeUpdate()" class="btn btn-primary">Yadda
-                                saxla</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang("additional.buttons.cancel")</button>
+                            <button type="button" onclick="attributeUpdate()" class="btn btn-primary">@lang("additional.buttons.submit")</button>
                         </div>
                     </form>
                 </div>

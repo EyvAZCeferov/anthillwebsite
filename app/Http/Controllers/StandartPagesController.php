@@ -128,7 +128,7 @@ class StandartPagesController extends Controller
             $seo->element_id = $about->id;
             $seo->save();
 
-            return redirect(route('standartpages.index'))->with('info', 'Uğurlu');
+            return redirect(route('standartpages.index'))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{
@@ -237,7 +237,7 @@ class StandartPagesController extends Controller
             $seo->type = "standartpages";
             $seo->element_id = $standartpage->id;
             $seo->update();
-            return redirect(route('standartpages.index'))->with('info', 'Uğurlu');
+            return redirect(route('standartpages.index'))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{
@@ -255,7 +255,7 @@ class StandartPagesController extends Controller
     {
         try {           
             StandartPages::where("id", $id)->delete();
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{

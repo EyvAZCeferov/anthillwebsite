@@ -2,9 +2,9 @@
 @section('menu_admins', 'open')
 @section('title')
     @if (isset($data) && !empty($data))
-        İcazə Yenilə
+        @lang('additional.urls.permissions') @lang('additional.page_types.update')
     @else
-        İcazə Əlavə et
+        @lang('additional.urls.permissions') @lang('additional.page_types.create')
     @endif
 @endsection
 @section('content')
@@ -48,9 +48,9 @@
                 <div class="pull-left">
                     <h1 class="title">
                         @if (isset($data) && !empty($data))
-                            İcazə Yenilə
+                            @lang('additional.urls.permissions') @lang('additional.page_types.update')
                         @else
-                            İcazə Əlavə et
+                            @lang('additional.urls.permissions') @lang('additional.page_types.create')
                         @endif
                         &nbsp;&nbsp;
                         <span>
@@ -68,10 +68,10 @@
                 <div class="pull-right hidden-xs">
                     <ol class="breadcrumb">
                         <li>
-                            <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                            <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang('additional.urls.dashboard')</a>
                         </li>
                         <li>
-                            <a href="{{ route('permissions.index') }}">İcazə</a>
+                            <a href="{{ route('permissions.index') }}">@lang('additional.urls.permissions')</a>
                         </li>
 
                     </ol>
@@ -103,7 +103,7 @@
                             <div class="row">
 
 
-                                <input type="text" placeholder="Adları , lə daxil edin..." class="form-control"
+                                <input type="text" placeholder="@lang('additional.forms.addnameswithindicator(,)')" class="form-control"
                                     name="names"
                                     value="{{ !empty($data) && isset($data->name) ? $data->name : null }}">
                                 <br>
@@ -113,9 +113,9 @@
 
                             <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
                                 <div class="text-left">
-                                    <button type="submit" class="btn btn-primary">Təsdiq et</button>
-                                    <a type="button" href="{{ route('permissions.index') }}" class="btn">Ləğv
-                                        et</a>
+                                    <button type="submit" class="btn btn-primary">@lang('additional.buttons.submit')</button>
+                                    <a type="button" href="{{ route('permissions.index') }}"
+                                        class="btn">@lang('additional.buttons.cancel')</a>
                                 </div>
                             </div>
                         </form>

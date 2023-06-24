@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('menu_orders', 'open')
-@section('title', 'Sifarişlər')
+@section('title', trans('additional.urls.orders'))
 
 @section('css')
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
@@ -43,7 +43,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Sifarişlər
+                        <h1 class="title">@lang('additional.urls.orders')
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
@@ -60,10 +60,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang('additional.urls.dashboard')</a>
                             </li>
                             <li>
-                                <a href="{{ route('orders.index') }}">Sifarişlər</a>
+                                <a href="{{ route('orders.index') }}">@lang('additional.urls.orders')</a>
                             </li>
 
                         </ol>
@@ -76,7 +76,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün Sifarişlər</h2>
+                        <h2 class="title pull-left">@lang('additional.page_types.all') @lang('additional.urls.orders')</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -92,13 +92,13 @@
                                     <thead>
                                         <tr>
                                             <th>Uid</th>
-                                            <th>Şirkət</th>
-                                            <th>İstifadəçi</th>
-                                            <th>Məhsul</th>
-                                            <th>Məbləğ</th>
-                                            <th>Tarix</th>
-                                            <th>Status</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang('additional.urls.freelancer')</th>
+                                            <th>@lang('additional.urls.user')</th>
+                                            <th>@lang('additional.urls.service')</th>
+                                            <th>@lang('additional.forms.ammount')</th>
+                                            <th>@lang('additional.forms.date')</th>
+                                            <th>@lang('additional.forms.status')</th>
+                                            <th>@lang('additional.buttons.buttons')</th>
                                         </tr>
                                     </thead>
 
@@ -112,7 +112,7 @@
                                                         {{ users($dat->from_id, 'id')->name_surname }}-
                                                         {{ users($dat->from_id, 'id')->email }}
                                                     @else
-                                                        <span class="text-danger">Qeydiyyatsız şirkət</span>
+                                                        <span class="text-danger">@lang('additional.forms.notregistered_freelancer')</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -120,14 +120,15 @@
                                                         {{ users($dat->to_id, 'id')->name_surname }} --
                                                         {{ users($dat->to_id, 'id')->email }}
                                                     @else
-                                                        <span class="text-danger">Qeydiyyatsız istifadəçi</span>
+                                                        <span class="text-danger">@lang('additional.forms.notregistered_freelancer')</span>
                                                     @endif
                                                 </td>
                                                 <td>
                                                     @if (isset($dat->product_id) && !empty($dat->product_id))
                                                         {{ products($dat->product_id, false)[0]->name['az_name'] }}
                                                     @else
-                                                        <p class="text-center text-danger">Məhsul yoxdur</p>
+                                                        <p class="text-center text-danger">@lang('additional.urls.service')
+                                                            @lang('additional.forms.notfound')</p>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -140,15 +141,14 @@
 
                                                 <td class="text-center p-2">
                                                     @if ($dat->status == 0)
-                                                        <span class=" w-100 h-100 text-danger p-2">Sifariş qeydə
-                                                            alındı</span>
+                                                        <span class=" w-100 h-100 text-danger p-2">@lang('additional.order_statuese.statu_0')</span>
                                                     @elseif($dat->status == 1)
-                                                        <span class=" w-100 h-100 text-info p-2">Sifariş qəbul olundu</span>
+                                                        <span class=" w-100 h-100 text-info p-2">@lang('additional.order_statuese.statu_1')</span>
                                                     @elseif($dat->status == 2)
-                                                        <span class=" w-100 h-100 text-warning p-2">Sifariş icra
-                                                            edilir</span>
+                                                        <span
+                                                            class=" w-100 h-100 text-warning p-2">@lang('additional.order_statuese.statu_2')</span>
                                                     @elseif($dat->status == 3)
-                                                        <span class=" w-100 h-100 text-dark p-2">Sifariş tamamlandı</span>
+                                                        <span class=" w-100 h-100 text-dark p-2">@lang('additional.order_statuese.statu_3')</span>
                                                     @endif
                                                 </td>
 

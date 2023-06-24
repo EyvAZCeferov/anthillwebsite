@@ -211,7 +211,7 @@ class ProductsController extends Controller
 
         }
 
-            return redirect(route("products.index"))->with('info', 'Uğurlu');
+            return redirect(route("products.index"))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
@@ -400,7 +400,7 @@ class ProductsController extends Controller
                 $ima->update(['product_id' => $data->id,'code'=>$request->code]);
             }
 
-            return redirect(route("products.index"))->with('info', 'Uğurlu');
+            return redirect(route("products.index"))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
@@ -425,7 +425,7 @@ class ProductsController extends Controller
     {
         try {
             ProductsAttributes::where('id', $id)->delete();
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } finally {

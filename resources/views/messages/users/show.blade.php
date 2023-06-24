@@ -262,7 +262,7 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
                                 @if ($data->type == 1)
@@ -298,7 +298,7 @@
                             </div>
 
                             <div class="col-sm-3">
-                                E-mail: {{ $data->email }}
+                                @lang("additional.forms.email"): {{ $data->email }}
                             </div>
                             <div class="col-sm-3">
                                 Telefon: {{ $data->phone }}

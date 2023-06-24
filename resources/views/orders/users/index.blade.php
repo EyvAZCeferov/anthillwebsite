@@ -2,9 +2,9 @@
 @section('menu_users', 'open')
 @section('title')
     @if ($type == 'normal')
-        Normal İstifadəçilər
+        @lang("additional.urls.user")
     @elseif($type == 'company')
-        Şirkətlər
+        @lang("additional.urls.freelancers")
     @endif
 @endsection
 
@@ -51,9 +51,9 @@
                     <div class="pull-left">
                         <h1 class="title">
                             @if ($type == 'normal')
-                                Normal İstifadəçilər
+                                @lang("additional.urls.user")
                             @elseif($type == 'company')
-                                Şirkətlər
+                                @lang("additional.urls.freelancers")
                             @endif
                             &nbsp;&nbsp;
                             <span>
@@ -71,10 +71,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('users.index') }}">İstifadəçilər</a>
+                                <a href="{{ route('users.index') }}">@lang("additional.urls.users")</a>
                             </li>
 
                         </ol>
@@ -87,10 +87,10 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün @if ($type == 'normal')
-                                Normal İstifadəçilər
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @if ($type == 'normal')
+                                @lang("additional.urls.user")
                             @elseif($type == 'company')
-                                Şirkətlər
+                                @lang("additional.urls.freelancers")
                             @endif
                         </h2>
                         <div class="actions panel_actions pull-right">
@@ -107,15 +107,15 @@
                                     cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>Ad</th>
-                                            <th>Email</th>
-                                            <th>Telefon</th>
+                                            <th>@lang("additional.forms.name")</th>
+                                            <th>@lang("additional.forms.email")</th>
+                                            <th>@lang("additional.forms.phone")</th>
                                             @if ($type != 'normal')
-                                                <th>Şirkət</th>
-                                                <th>Xidmətlər</th>
-                                                <th>Baxış sayı</th>
+                                                <th>@lang("additional.urls.freelancer")</th>
+                                                <th>@lang("additional.urls.services")</th>
+                                                <th>@lang("additional.forms.viewcount")</th>
                                             @endif
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 
@@ -127,7 +127,7 @@
                                                 <td>{{ $dat->phone }}</td>
 
                                                 @if ($type != 'normal')
-                                                    <td>{{ $dat->additionalinfo->company_name['az_name'] ?? null }}</td>
+                                                    <td>{{ $dat->additionalinfo->company_name['en_name'] ?? null }}</td>
                                                     <td>{{ count($dat->products) }}</td>
 
                                                     <td>{{ count($dat->viewcount) }}</td>

@@ -11,7 +11,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Ana Səhifə</h1>
+                        <h1 class="title">@lang("additional.urls.dashboard")</h1>
                     </div>
 
 
@@ -54,7 +54,7 @@
                             <i class="pull-left fa fa-users icon-md icon-rounded icon-black"></i>
                             <div class="stats">
                                 <h4><strong>{{ count(users()->where('is_admin',false)) }}</strong></h4>
-                                <span>İstifadəçi sayı</span>
+                                <span>@lang("additional.urls.users")</span>
                                 <br>
                                 <a href="{{ route('users.index') }}">Ətraflı
                                 </a>
@@ -67,7 +67,7 @@
                             <i class="pull-left fa fa-folder icon-md icon-rounded icon-danger"></i>
                             <div class="stats">
                                 <h4><strong>{{ count(products()) }}</strong></h4>
-                                <span>Xidmət sayı</span>
+                                <span>@lang("additional.urls.services")</span>
                                 <br>
                                 <a href="{{ route('products.index',['status'=>'published']) }}">Ətraflı
                                 </a>

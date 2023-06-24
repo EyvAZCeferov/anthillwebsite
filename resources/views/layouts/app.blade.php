@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html class=" ">
-
 <head>
-
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
-    <title>@yield('title', env('IMAGE_WATERMARKER_WRITE') . ' Admin Panel')</title>
+    <title>@yield('title', env('IMAGE_WATERMARKER_WRITE') . ' @lang("additional.urls.admin_panel")')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta content="EyvAZCeferov by Markotic Studio" name="author" />
+    <meta content="Globalmart Group" name="author" />
+    <meta content="Globalmart Group" name="generator" />
 
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon" /> <!-- Favicon -->
     <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/images/apple-touch-icon-57-precomposed.png') }}">
@@ -80,7 +79,7 @@
                                     {{ Auth::user()->name_surname }}
                                 @endauth
                                 @guest
-                                    İstifadəçi adı
+                                    @lang("additional.general.username")
                                 @endguest
 
                                 <i class="fa fa-angle-down"></i></span>
@@ -89,14 +88,14 @@
                             <li>
                                 <a href="{{ route('settings.index') }}">
                                     <i class="fa fa-wrench"></i>
-                                    Parametrlər
+                                    @lang("additional.urls.settings")
                                 </a>
                             </li>
 
                             <li>
                                 <a href="{{ route('auth.logout') }}">
                                     <i class="fa fa-lock"></i>
-                                    Çıxış
+                                    @lang("additional.general.logout")
                                 </a>
                             </li>
                         </ul>
@@ -137,7 +136,7 @@
                             <span class="profile-status online"></span>
                         </h3>
 
-                        <p class="profile-title">Admin panel</p>
+                        <p class="profile-title">@lang("additional.urls.admin_panel")</p>
 
                     </div>
 
@@ -151,7 +150,7 @@
                     <li class="@yield('menu_dashboard')">
                         <a href="{{ route('dashboard') }}">
                             <i class="fa fa-dashboard"></i>
-                            <span class="title">Ana səhifə</span>
+                            <span class="title">@lang("additional.urls.dashboard")</span>
                         </a>
                     </li>
 
@@ -164,7 +163,7 @@
                         <li class="@yield('menu_media')">
                             <a href="javascript:;">
                                 <i class="fa fa-photo"></i>
-                                <span class="title">Media</span>
+                                <span class="title">@lang("additional.urls.media")</span>
                                 <span class="arrow "></span>
                             </a>
                             <ul class="sub-menu">
@@ -172,7 +171,7 @@
                                         !empty(auth()->user()) &&
                                         auth()->user()->can('category'))
                                     <li>
-                                        <a class="" href="{{ route('category.index') }}">Kateqoriya</a>
+                                        <a class="" href="{{ route('category.index') }}">@lang("additional.urls.categories")</a>
                                     </li>
                                 @endif
 
@@ -180,7 +179,7 @@
                                         !empty(auth()->user()) &&
                                         auth()->user()->can('sliders'))
                                     <li>
-                                        <a class="" href="{{ route('sliders.index') }}">Slayder</a>
+                                        <a class="" href="{{ route('sliders.index') }}">@lang("additional.urls.sliders")</a>
                                     </li>
                                 @endif
 
@@ -188,7 +187,7 @@
                                         !empty(auth()->user()) &&
                                         auth()->user()->can('background_images'))
                                     <li>
-                                        <a class="" href="{{ route('background_images.index') }}">Arxafon şəkilləri</a>
+                                        <a class="" href="{{ route('background_images.index') }}">@lang("additional.urls.background_images")</a>
                                     </li>
                                 @endif
                                
@@ -201,15 +200,14 @@
                         <li class="@yield('menu_products')">
                             <a href="javascript:;">
                                 <i class="fa fa-file"></i>
-                                <span class="title">Xidmətlar</span>
+                                <span class="title">@lang("additional.urls.services")</span>
                                 <span class="arrow "></span>
                             </a>
                             <ul class="sub-menu">
 
                                 <li>
                                     <a class=""
-                                        href="{{ route('products.index', ['status' => 'active']) }}">Aktiv
-                                        Xidmətlar</a>
+                                        href="{{ route('products.index', ['status' => 'active']) }}">@lang("additional.urls.services")</a>
                                 </li>
 
 
@@ -225,7 +223,7 @@
                         <li class="@yield('menu_products_elements')">
                             <a href="javascript:;">
                                 <i class="fa fa-search"></i>
-                                <span class="title">Xidmət elementləri</span>
+                                <span class="title">@lang("additional.urls.service_elements")</span>
                                 <span class="arrow "></span>
                             </a>
                             <ul class="sub-menu">
@@ -233,7 +231,7 @@
                                         !empty(auth()->user()) &&
                                         auth()->user()->can('attributes'))
                                     <li>
-                                        <a class="" href="{{ route('attributes.index') }}">Attributlar</a>
+                                        <a class="" href="{{ route('attributes.index') }}">@lang("additional.urls.attributes")</a>
                                     </li>
                                 @endif
 
@@ -241,7 +239,7 @@
                                         !empty(auth()->user()) &&
                                         auth()->user()->can('comments'))
                                     <li>
-                                        <a class="" href="{{ route('comments.index') }}">Şərhlər</a>
+                                        <a class="" href="{{ route('comments.index') }}">@lang("additional.urls.comments")</a>
                                     </li>
                                 @endif
                                 
@@ -257,7 +255,7 @@
                         <li class="@yield('menu_payments')">
                             <a href="{{ route('payments.index') }}">
                                 <i class="fa fa-credit-card"></i>
-                                <span class="title">Ödənişlər</span>
+                                <span class="title">@lang("additional.urls.payments")</span>
                             </a>
                         </li>
                     @endif
@@ -269,7 +267,7 @@
                         <li class="@yield('menu_orders')">
                             <a href="{{ route('orders.index') }}">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span class="title">Sifarişlər</span>
+                                <span class="title">@lang("additional.urls.orders")</span>
                             </a>
                         </li>
                     @endif
@@ -285,7 +283,7 @@
                         <li class="@yield('menu_website')">
                             <a href="javascript:;">
                                 <i class="fa fa-windows"></i>
-                                <span class="title">Sayt</span>
+                                <span class="title">@lang("additional.urls.site")</span>
                                 <span class="arrow "></span>
                             </a>
                             <ul class="sub-menu">
@@ -293,8 +291,7 @@
                                         !empty(auth()->user()) &&
                                         auth()->user()->can('standartpages'))
                                     <li>
-                                        <a class="" href="{{ route('standartpages.index') }}">Standart
-                                            Səhifələr</a>
+                                        <a class="" href="{{ route('standartpages.index') }}">@lang("additional.urls.standart_pages")</a>
                                     </li>
                                 @endif
 
@@ -302,7 +299,7 @@
                                         !empty(auth()->user()) &&
                                         auth()->user()->can('contactus'))
                                     <li>
-                                        <a class="" href="{{ route('contactus.index') }}">Bizimlə əlaqə</a>
+                                        <a class="" href="{{ route('contactus.index') }}">@lang("additional.urls.contactus")</a>
                                     </li>
                                 @endif
 
@@ -310,7 +307,7 @@
                                         !empty(auth()->user()) &&
                                         auth()->user()->can('settings'))
                                     <li>
-                                        <a class="" href="{{ route('settings.index') }}">Parametrlər</a>
+                                        <a class="" href="{{ route('settings.index') }}">@lang("additional.urls.settings")</a>
                                     </li>
                                 @endif
                             </ul>
@@ -324,18 +321,17 @@
                         <li class="@yield('menu_users')">
                             <a href="javascript:;">
                                 <i class="fa fa-user"></i>
-                                <span class="title">İstifadəçilər</span>
+                                <span class="title">@lang("additional.urls.users")</span>
                                 <span class="arrow "></span>
                             </a>
                             <ul class="sub-menu">
 
                                 <li>
-                                    <a class="" href="{{ route('users.index', ['type' => 'normal']) }}">Adi
-                                        istifadəçilər</a>
+                                    <a class="" href="{{ route('users.index', ['type' => 'normal']) }}">@lang("additional.urls.users")</a>
                                 </li>
                                 <li>
                                     <a class=""
-                                        href="{{ route('users.index', ['type' => 'company']) }}">Şirkətlər</a>
+                                        href="{{ route('users.index', ['type' => 'company']) }}">@lang("additional.urls.freelancers")</a>
                                 </li>
                                
                             </ul>
@@ -352,7 +348,7 @@
                         <li class="@yield('menu_admins')">
                             <a href="javascript:;">
                                 <i class="fa fa-cog"></i>
-                                <span class="title">Adminstrativ</span>
+                                <span class="title">@lang("additional.urls.adminstrative")</span>
                                 <span class="arrow "></span>
                             </a>
                             <ul class="sub-menu">
@@ -361,7 +357,7 @@
                                         !empty(auth()->user()) &&
                                         auth()->user()->can('admins'))
                                     <li>
-                                        <a class="" href="{{ route('admins.index') }}">Adminlər</a>
+                                        <a class="" href="{{ route('admins.index') }}">@lang("additional.urls.admins")</a>
                                     </li>
                                 @endif
 
@@ -369,7 +365,7 @@
                                         !empty(auth()->user()) &&
                                         auth()->user()->can('permissions'))
                                     <li>
-                                        <a class="" href="{{ route('permissions.index') }}">İcazələr</a>
+                                        <a class="" href="{{ route('permissions.index') }}">@lang("additional.urls.permissions")</a>
                                     </li>
                                 @endif
                             </ul>

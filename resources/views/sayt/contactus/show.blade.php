@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('menu_website', 'open')
-@section('title', $data->name . ' məktub')
+@section('title', $data->name )
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/plugins/flags/css/flag-icons.min.css') }}">
@@ -27,10 +27,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('contactus.index') }}">Məktublər</a>
+                                <a href="{{ route('contactus.index') }}">@lang("additional.urls.contactus")</a>
                             </li>
 
                         </ol>
@@ -43,7 +43,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Məktub məlumatları</h2>
+                        <h2 class="title pull-left">@lang("additional.urls.contactus") @lang("additional.page_types.info")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -55,21 +55,21 @@
 
                         <div class="row">
                             <div class="col-sm-3">
-                                <h3>Ad</h3>
+                                <h3>@lang("additional.forms.name")</h3>
                                 <p>{{ $data->name }}</p>
                             </div>
                             <div class="col-sm-3">
-                                <h3>E-Mail</h3>
+                                <h3>@lang("additional.forms.email")</h3>
                                 <p><a
                                     href="mailto:{{ $data->email }}">{{ $data->email }}</a></p>
                             </div>
                             <div class="col-sm-3">
-                                <h3>Phone</h3>
+                                <h3>@lang("additional.forms.phone")</h3>
                                 <p><a
                                     href="tel:{{ $data->phone }}">{{ $data->phone }}</a></p>
                             </div>
                             <div class="col-sm-3">
-                                <h3>İpaddress</h3>
+                                <h3>@lang("additional.forms.ipaddress")</h3>
                                 <p>{{ $data->ipadress }}</p>
                             </div>
                         </div>

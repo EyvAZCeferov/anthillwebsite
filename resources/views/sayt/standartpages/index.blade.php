@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('menu_website', 'open')
-@section('title', 'Standart Səhifələr')
+@section('title')
+    @lang("additional.urls.standart_pages")
+@endsection
 
 @section('css')
     <meta name="_token" content="{{ csrf_token() }}">
@@ -108,7 +110,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Standart Səhifələr
+                        <h1 class="title">@lang("additional.urls.standart_pages")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
@@ -125,10 +127,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('standartpages.index') }}">Standart Səhifələr</a>
+                                <a href="{{ route('standartpages.index') }}">@lang("additional.urls.standart_pages")</a>
                             </li>
 
                         </ol>
@@ -141,7 +143,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün Standart Səhifələr</h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @lang("additional.urls.standart_pages")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -155,9 +157,8 @@
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Ad</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.forms.name")</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 

@@ -77,7 +77,7 @@ class SlidersController extends Controller
             $data->url = $request->url;
             $data->order = $request->order;
             $data->save();
-            return redirect(route("sliders.index"))->with('info', 'Uğurlu');
+            return redirect(route("sliders.index"))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{
@@ -147,7 +147,7 @@ class SlidersController extends Controller
             $data->url = $request->url;
             $data->order = $request->order;
             $data->update();
-            return redirect(route("sliders.index"))->with('info', 'Uğurlu');
+            return redirect(route("sliders.index"))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{
@@ -168,7 +168,7 @@ class SlidersController extends Controller
                 Storage::disk("uploads")->delete("sliders/" . Sliders::where("id", $id)->first()->image);
             }
             Sliders::where("id", $id)->delete();
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('menu_media', 'open')
-@section('title', 'Arxafon Şəkli')
+@section('title', trans("additional.urls.background_images"))
 
 @section('css')
     <meta name="_token" content="{{ csrf_token() }}">
@@ -39,7 +39,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Arxafon Şəkli
+                        <h1 class="title">@lang("additional.urls.background_images")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
@@ -56,10 +56,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('background_images.index') }}">Arxafon Şəkli</a>
+                                <a href="{{ route('background_images.index') }}">@lang("additional.urls.background_images")</a>
                             </li>
 
                         </ol>
@@ -72,7 +72,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün Arxafon Şəkli</h2>
+                        <h2 class="title pull-left">Bütün @lang("additional.urls.background_images")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -86,10 +86,9 @@
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Şəkil</th>
-                                            <th>Tip</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.forms.image")</th>
+                                            <th>@lang("additional.forms.type")</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 

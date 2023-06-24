@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('menu_website', 'open')
-@section('title', 'Parametrlər')
+@section('title')
+    @lang("additional.urls.settings")
+@endsection
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/plugins/flags/css/flag-icons.min.css') }}">
@@ -21,17 +23,17 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Parametrlər</h1>
+                        <h1 class="title">@lang("additional.urls.settings")</h1>
 
                     </div>
 
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('settings.index') }}">Parametrlər</a>
+                                <a href="{{ route('settings.index') }}">@lang("additional.urls.settings")</a>
                             </li>
 
                         </ol>
@@ -44,7 +46,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Parametrlər</h2>
+                        <h2 class="title pull-left">@lang("additional.urls.settings")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -64,79 +66,7 @@
                                         @method('PATCH')
                                     @endif
                                     <div class="row">
-
-                                        <ul class="nav nav-tabs nav-justified primary">
-                                            <li class="active">
-                                                <a href="#az" data-toggle="tab">
-                                                    <span class="flag-icon flag-icon-az"></span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#ru" data-toggle="tab">
-                                                    <span class="flag-icon flag-icon-ru"></span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#en" data-toggle="tab">
-                                                    <span class="flag-icon flag-icon-um"></span>
-                                                </a>
-                                            </li>
-                                            {{-- <li>
-                                                <a href="#tr" data-toggle="tab">
-                                                    <span class="flag-icon flag-icon-tr"></span>
-                                                </a>
-                                            </li> --}}
-
-                                        </ul>
-
-                                        <div class="tab-content primary">
-
-                                            <div class="tab-pane fade in active" id="az">
-                                                <br>
-
-                                                <input type="text" name="az_title" class="form-control"
-                                                    placeholder="Başlıq Daxil edin"
-                                                    value="{{ $data != null && $data->title != null && isset($data->title['az_title']) ? $data->title['az_title'] : null }}">
-                                                <br>
-
-                                                <input type="text" name="az_address" class="form-control"
-                                                    placeholder="Adresi Daxil edin"
-                                                    value="{{ $data != null && $data->address != null && isset($data->address['az_address']) ? $data->address['az_address'] : null }}">
-                                                <br>
-
-                                                <input type="text" name="az_open_hours" class="form-control"
-                                                    placeholder="Açıq saatları Daxil edin"
-                                                    value="{{ $data != null && $data->open_hours != null && isset($data->open_hours['az_open_hours']) ? $data->open_hours['az_open_hours'] : null }}">
-                                                <br>
-                                                <textarea class="form-control" placeholder="Açıqlama daxil edin ..." name="az_description" maxlength="300"
-                                                    style="width: 100%; height: 300px; font-size: 14px; line-height: 23px;padding:15px;">{!! $data != null && $data->description != null && isset($data->description['az_description'])
-                                                        ? $data->description['az_description']
-                                                        : null !!}</textarea>
-                                                <br>
-
-                                            </div>
-                                            <div class="tab-pane fade" id="ru">
-                                                <br>
-
-                                                <input type="text" name="ru_title" class="form-control"
-                                                    placeholder="Введите название"
-                                                    value="{{ $data != null && $data->title != null && isset($data->title['ru_title']) ? $data->title['ru_title'] : null }}">
-                                                <br>
-                                                <input type="text" name="ru_address" class="form-control"
-                                                    placeholder="Включите адрес"
-                                                    value="{{ $data != null && $data->address != null && isset($data->address['ru_address']) ? $data->address['ru_address'] : null }}">
-                                                <br>
-                                                <input type="text" name="ru_open_hours" class="form-control"
-                                                    placeholder="Введите часы работы"
-                                                    value="{{ $data != null && $data->open_hours != null && isset($data->open_hours['ru_open_hours']) ? $data->open_hours['ru_open_hours'] : null }}">
-                                                <br>
-                                                <textarea class="form-control" placeholder="Введите описание ..." name="ru_description" maxlength="300"
-                                                    style="width: 100%; height: 300px; font-size: 14px; line-height: 23px;padding:15px;">{!! $data != null && $data->description != null && isset($data->description['ru_description'])
-                                                        ? $data->description['ru_description']
-                                                        : null !!}</textarea>
-                                                <br>
-                                            </div>
-                                            <div class="tab-pane fade" id="en">
+<div class="col-sm-12 col-md-12 col-lg-12">
                                                 <br>
 
                                                 <input type="text" name="en_title" class="form-control"
@@ -144,7 +74,7 @@
                                                     value="{{ $data != null && $data->title != null && isset($data->title['en_title']) ? $data->title['en_title'] : null }}">
                                                 <br>
                                                 <input type="text" name="en_address" class="form-control"
-                                                    placeholder="Include the address"
+                                                    placeholder="Enter the address"
                                                     value="{{ $data != null && $data->address != null && isset($data->address['en_address']) ? $data->address['en_address'] : null }}">
                                                 <br>
                                                 <input type="text" name="en_open_hours" class="form-control"
@@ -157,27 +87,6 @@
                                                         : null !!}</textarea>
                                                 <br>
                                             </div>
-                                            {{-- <div class="tab-pane fade" id="tr">
-                                                <br>
-
-                                                <input type="text" name="tr_title" class="form-control"
-                                                    placeholder="Adı giriniz"
-                                                    value="{{ $data != null && $data->title != null && isset($data->title['tr_title']) ? $data->title['tr_title'] : null }}">
-                                                <br>
-                                                <input type="text" name="tr_address" class="form-control"
-                                                    placeholder="Adresi giriniz"
-                                                    value="{{ $data != null && $data->address != null && isset($data->address['tr_address']) ? $data->address['tr_address'] : null }}">
-                                                <br>
-                                                <input type="text" name="tr_open_hours" class="form-control"
-                                                    placeholder="İş saatlerini giriniz"
-                                                    value="{{ $data != null && $data->open_hours != null && isset($data->open_hours['tr_open_hours']) ? $data->open_hours['tr_open_hours'] : null }}">
-                                                <br>
-                                                <textarea class="form-control" placeholder="Açıklama giriniz ..." name="tr_description" maxlength="300"
-                                                    style="width: 100%; height: 300px; font-size: 14px; line-height: 23px;padding:15px;">{!! $data != null && $data->description != null && isset($data->description['tr_description'])
-                                                        ? $data->description['tr_description']
-                                                        : null !!}</textarea>
-                                                <br>
-                                            </div> --}}
 
                                         </div>
 
@@ -186,7 +95,7 @@
                                     <br>
 
                                     <div class="row">
-                                        <h2>Sosial media linklər</h2>
+                                        <h2>@lang("additional.forms.social_media")</h2>
                                     </div>
                                     <br>
 
@@ -230,7 +139,7 @@
                                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
                                             <div class="form-group">
-                                                <label class="form-label">Mobil Telefon </label>
+                                                <label class="form-label">@lang("additional.forms.phone") </label>
                                                 <div class="controls">
                                                     <input type="text"
                                                         value="{{ $data != null && $data->social_media != null && $data->social_media['mobile_phone'] != null ? $data->social_media['mobile_phone'] : null }}"
@@ -242,7 +151,7 @@
                                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
                                             <div class="form-group">
-                                                <label class="form-label">Telefon </label>
+                                                <label class="form-label">@lang("additional.forms.phone2") </label>
                                                 <div class="controls">
                                                     <input type="text"
                                                         value="{{ $data != null && $data->social_media != null && $data->social_media['home_phone'] != null ? $data->social_media['home_phone'] : null }}"
@@ -266,23 +175,11 @@
                                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
                                             <div class="form-group">
-                                                <label class="form-label">E-mail</label>
+                                                <label class="form-label">@lang("additional.forms.email")</label>
                                                 <div class="controls">
                                                     <input type="text"
                                                         value="{{ $data != null && $data->social_media != null && $data->social_media['email'] != null ? $data->social_media['email'] : null }}"
                                                         class="form-control" name="email">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-
-                                            <div class="form-group">
-                                                <label class="form-label">Tiktok</label>
-                                                <div class="controls">
-                                                    <input type="text"
-                                                        value="{{ $data != null && $data->social_media != null && $data->social_media['tiktok'] != null ? $data->social_media['tiktok'] : null }}"
-                                                        class="form-control" name="tiktok">
                                                 </div>
                                             </div>
                                         </div>
@@ -302,7 +199,7 @@
                                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
                                             <div class="form-group">
-                                                <label class="form-label">Yandex Metrika</label>
+                                                <label class="form-label">Yandex Metrica</label>
                                                 <div class="controls">
                                                     <input type="text"
                                                         value="{{!empty($data) && !empty($data->social_media) && isset($data->social_media['yandex_metrica']) && !empty($data->social_media['yandex_metrica']) ? $data->social_media['yandex_metrica'] : null }}"
@@ -326,9 +223,9 @@
 
                                     </div>
 
-                                    <br>
+                                    {{-- <br>
                                     <div class="row">
-                                        <h2>Sayt Dili</h2>
+                                        <h2>@lang("additional.forms.website_language")</h2>
                                     </div>
                                     <div class="row">
                                         @foreach (languages_admin() as $language)
@@ -342,19 +239,19 @@
                                             </div>
                                         @endforeach
 
-                                    </div>
+                                    </div> --}}
 
                                     <br>
 
                                     <div class="row">
-                                        <h2>Şəkillər</h2>
+                                        <h2>@lang("additional.forms.image")</h2>
                                     </div>
                                     <br>
 
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6 col-lg-6">
                                             <div class="form-group">
-                                                <label class="form-label">Logo</label>
+                                                <label class="form-label">@lang("additional.forms.logo")</label>
                                                 <br>
                                                 <div class="row">
                                                     @if ($data != null && $data->logo != null)
@@ -371,7 +268,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-12 col-md-6 col-lg-6">
+                                        {{-- <div class="col-sm-12 col-md-6 col-lg-6">
                                             <div class="form-group">
                                                 <label class="form-label">Ikon</label>
                                                 <br>
@@ -388,7 +285,7 @@
                                                     <input type="file" class="form-control" name="icon">
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
 
                                     </div>
@@ -396,10 +293,8 @@
                                     <div class="row">
                                         <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
                                             <div class="text-left">
-                                                <button type="submit" class="btn btn-primary">Təsdiq et</button>
-                                                <a type="button" href="{{ route('settings.index') }}"
-                                                    class="btn">Ləğv
-                                                    et</a>
+                                                <button type="submit" class="btn btn-primary">@lang("additional.buttons.submit")</button>
+                                                <a type="button" href="{{ route('settings.index') }}" class="btn">@lang("additional.buttons.cancel")</a>
                                             </div>
                                         </div>
                                     </div>

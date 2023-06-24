@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('menu_payments', 'open')
-@section('title', 'Ödənişlər')
+@section('title')
+    @lang("additional.urls.payments")
+@endsection
 
 @section('css')
     <meta name="_token" content="{{ csrf_token() }}">
@@ -112,10 +114,10 @@
                 },
                 type: 'patch',
                 success: function(data) {
-                    toastr.success("Məlumat yeniləndi");
+                    toastr.success("@lang('additional.messages.updated')");
                 },
                 error: function(data) {
-                    toastr.error("Yenidən cəhd göstərin");
+                    toastr.error(trans("additional.messages.tryagain"));
                 }
             })
         }
@@ -132,7 +134,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Ödənişlər
+                        <h1 class="title">@lang("additional.urls.payments")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
@@ -148,10 +150,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('payments.index') }}">Ödənişlər</a>
+                                <a href="{{ route('payments.index') }}">@lang("additional.urls.payments")</a>
                             </li>
 
                         </ol>
@@ -165,7 +167,7 @@
                             <i class="pull-left fa fa-cash icon-md icon-rounded icon-orange"></i>
                             <div class="stats">
                                 <h4><strong>{{ App\Models\Payments::sum('amount') }}€</strong></h4>
-                                <span>Ümumi məbləğ</span>
+                                <span>@lang("additional.general.general_ammount")</span>
                                 <br>
                                 </a>
                             </div>
@@ -177,7 +179,7 @@
                             <div class="stats">
                                 <h4><strong>{{ App\Models\Payments::whereDate('created_at', Carbon\Carbon::today())->sum('amount') }}€</strong>
                                 </h4>
-                                <span>Bugünki məbləğ</span>
+                                <span>@lang("additional.general.today_ammount")</span>
                                 <br>
                                 </a>
                             </div>
@@ -190,7 +192,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün Ödənişlər</h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @lang("additional.urls.payments")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -204,13 +206,13 @@
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Tranzaksiya id</th>
-                                            <th>Status</th>
-                                            <th>Məbləğ</th>
-                                            <th>Şirkət</th>
-                                            <th>Ödəyən</th>
-                                            <th>Xidmət</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.forms.transaction_id")</th>
+                                            <th>@lang("additional.forms.status")</th>
+                                            <th>@lang("additional.forms.ammount")</th>
+                                            <th>@lang("additional.urls.freelancer")</th>
+                                            <th>@lang("additional.urls.user")</th>
+                                            <th>@lang("additional.urls.service")</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 
@@ -225,9 +227,9 @@
                                                 </td>
                                                 <td>
                                                     @if ($dat->payment_status == 0)
-                                                        <span class="text-danger">Ödənilməyib</span>
+                                                        <span class="text-danger">@lang("additional.order_statuese.payed_0")</span>
                                                     @else
-                                                        <span class="text-success">Ödənilib</span>
+                                                        <span class="text-success">@lang("additional.order_statuese.payed_1")</span>
                                                     @endif
                                                 </td>
 
@@ -238,7 +240,7 @@
                                                             -- {{ users($dat->from_id, 'id')->email }} --
                                                             {{ users($dat->from_id, 'id')->phone }}</a>
                                                     @else
-                                                        <p class="text-center text-danger">Məlumat yodxdur</p>
+                                                        <p class="text-center text-danger">@lang("additional.forms.notfound")</p>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -248,7 +250,7 @@
                                                             -- {{ users($dat->to_id, 'id')->email }} --
                                                             {{ users($dat->to_id, 'id')->phone }}</a>
                                                     @else
-                                                        <p class="text-center text-danger">Qeydiyyatsız istifadəçi</p>
+                                                        <p class="text-center text-danger">@lang("additional.forms.notregistered_user")</p>
                                                     @endif
                                                     </a>
                                                 </td>

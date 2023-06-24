@@ -81,15 +81,13 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
                                 @if ($data->type == 1)
-                                    <a href="{{ route('users.index', ['type' => 'normal']) }}">İstifadəçilər</a>
-                                @elseif($data->type == 2)
-                                    <a href="{{ route('users.index', ['type' => 'agency']) }}">Vasitəçi</a>
+                                    <a href="{{ route('users.index', ['type' => 'normal']) }}">@lang("additional.urls.user")</a>
                                 @elseif($data->type == 3)
-                                    <a href="{{ route('users.index', ['type' => 'company']) }}">Şirkətlər</a>
+                                    <a href="{{ route('users.index', ['type' => 'company']) }}">@lang("additional.urls.freelancer")</a>
                                 @endif
                             </li>
 
@@ -103,7 +101,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Məlumatlar</h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.info")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -113,21 +111,21 @@
                         <div class="row">
                             <!-- ********************************************** -->
                             <div class="col-sm-3">
-                                Ad Soyad: {{ $data->name_surname }}
+                                @lang("additional.forms.name_surname"): {{ $data->name_surname }}
                             </div>
 
                             <div class="col-sm-3">
-                                E-mail: {{ $data->email }}
+                                @lang("additional.forms.email"): {{ $data->email }}
                             </div>
                             <div class="col-sm-3">
-                                Telefon: {{ $data->phone }}
+                                @lang("additional.forms.main_phone"): {{ $data->phone }}
                             </div>
                             <div class="col-sm-3">
-                                Telefon 2: {{ $data->phone_2 ?? null }}
+                                @lang("additional.forms.additional_phone"): {{ $data->phone_2 ?? null }}
                             </div>
                             @if ($data->hasRole('Admin'))
                                 <div class="col-sm-3">
-                                    Şifrə: {{ $data->additionalinfo->original_pass }}
+                                    @lang("additional.forms.password"): {{ $data->additionalinfo->original_pass??' ' }}
                                 </div>
                             @endif
                             <!-- ********************************************** -->
@@ -135,9 +133,8 @@
 
                             @if ($data->type != 1)
                                 <div class="col-sm-3">
-                                    Şirkət: {{ $data->additionalinfo->company_name['az_name'] ?? null }} <br />
-                                    Şirkət Adresi: {{ $data->additionalinfo->company_address['az_address'] ?? ' ' }}<br />
-                                    Şirkət Haqqında:
+                                    @lang("additional.urls.freelancer"): {{ $data->additionalinfo->company_name['az_name'] ?? null }} <br />
+                                    @lang("additional.forms.description"):
                                     {{ $data->additionalinfo->company_description['az_description'] ?? ' ' }}
 
                                 </div>
@@ -145,7 +142,7 @@
 
                             @if (isset($data->additionalinfo->company_image) && !empty($data->additionalinfo->company_image))
                                 <div class="col-sm-3">
-                                    Profil şəkli: <img
+                                    @lang("additional.forms.image"): <img
                                         src="{{asset('/uploads/users/' . $data->additionalinfo->company_image)  }}"
                                         height="40" class="img-fluid img-responsive"
                                         alt="{{ $data->additionalinfo->company_name['az_name'] ?? $data->name_surname }}"
@@ -161,22 +158,19 @@
                         <br>
                         <div class="row">
                             <!-- ********************************************** -->
-                            <h3>Xidmətlər</h3>
+                            <h3>@lang("additional.urls.services")</h3>
                             <table class="table table-responsive">
                                 <thead>
                                     <th>
-                                        Şəkli
+                                        @lang("additional.forms.image")
                                     </th>
 
                                     <th>
-                                        Əlaqə məlumatları
-                                    </th>
-                                    <th>
-                                        Qiymət
+                                        @lang("additional.forms.ammount")
                                     </th>
 
                                     <th>
-                                        Dərc Tarixi
+                                        @lang("additional.forms.date")
                                     </th>
                                 </thead>
                                 <tbody>
@@ -189,10 +183,6 @@
                                                 </a>
                                             </td>
 
-                                            <td>
-                                                {{ $product->user->name_surname }} --
-                                                {{ $product->user->phone }}
-                                            </td>
                                             <td>
                                                 @if ($product->type == 2)
                                                     {{ $product->price }}€

@@ -19,7 +19,7 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
                                 <a href="{{ route('excellimportPage') }}">Məktub göndər</a>
@@ -65,7 +65,7 @@
 
                                     <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
                                         <div class="text-left">
-                                            <button type="submit" class="btn btn-primary">Təsdiq et</button>
+                                            <button type="submit" class="btn btn-primary">@lang("additional.buttons.submit")</button>
                                             <a type="button" href="{{ route('excellimportPage') }}" class="btn">Ləğv
                                                 et</a>
                                         </div>

@@ -62,10 +62,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang('additional.urls.dashboard')</a>
                             </li>
                             <li>
-                                <a href="{{ route('orders.index') }}">Sifarişlər</a>
+                                <a href="{{ route('orders.index') }}">@lang('additional.urls.orders')</a>
                             </li>
 
                         </ol>
@@ -78,7 +78,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Məlumatlar</h2>
+                        <h2 class="title pull-left">@lang('additional.page_types.info')</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -92,12 +92,12 @@
                             </div>
 
                             <div class="col-sm-4" style="margin-bottom: 1em">
-                                Şirkət: {{ users($data->from_id, 'id')->name_surname }}
+                                @lang('additional.urls.freelancer'): {{ users($data->from_id, 'id')->name_surname }}
                                 {{ users($data->from_id, 'id')->email }}
                                 {{ users($data->from_id, 'id')->phone }}
                             </div>
                             <div class="col-sm-4" style="margin-bottom: 1em">
-                                İstifadəçi: {{ users($data->to_id, 'id')->name_surname }}
+                                @lang('additional.urls.user'): {{ users($data->to_id, 'id')->name_surname }}
                                 {{ users($data->to_id, 'id')->email }}
                                 {{ users($data->to_id, 'id')->phone }}
                             </div>
@@ -107,21 +107,21 @@
                             <br>
                             <!-- ********************************************** -->
                             <div class="col-sm-4" style="margin-bottom: 1em">
-                                Status: @if ($data->status == 0)
-                                    <span class="bg-danger p-2">Sifariş qeydə alındı</span>
+                                @lang("additional.forms.status"): @if ($data->status == 0)
+                                    <span class="bg-danger p-2">@lang('additional.order_statuese.statu_0')</span>
                                 @elseif($data->status == 1)
-                                    <span class="bg-info p-2">Sifariş qəbul olundu</span>
+                                    <span class="bg-info p-2">@lang('additional.order_statuese.statu_1')</span>
                                 @elseif($data->status == 2)
-                                    <span class="bg-warning p-2">Sifariş icra edilir</span>
+                                    <span class="bg-warning p-2">@lang('additional.order_statuese.statu_2')</span>
                                 @elseif($data->status == 3)
-                                    <span class="bg-dark p-2">Sifariş tamamlandı</span>
+                                    <span class="bg-dark p-2">@lang('additional.order_statuese.statu_3')</span>
                                 @endif
                             </div>
                             <div class="col-sm-4" style="margin-bottom: 1em">
-                                Məbləğ: {{ $data->price }}€
+                                @lang('additional.forms.ammount'): {{ $data->price }}€
                             </div>
                             <div class="col-sm-4" style="margin-bottom: 1em">
-                                İp address: {{ $data->ipaddress }}
+                                @lang('additional.forms.ipaddress'): {{ $data->ipaddress }}
                             </div>
 
 
@@ -129,21 +129,21 @@
                         </div>
                         <br>
                         <div class="row">
-                            <h2>Ödəniş</h2>
+                            <h2>@lang('additional.urls.payment')</h2>
                         </div>
                         <div class="row">
-                            <p>Tranzaksiya idsi: {{ payments($data->payment_id, 'id')->transaction_id }}</p>
+                            <p>@lang('additional.forms.transaction_id'): {{ payments($data->payment_id, 'id')->transaction_id }}</p>
                         </div>
                         <br />
 
                         <div class="row">
-                            <h2>Məhsul</h2>
+                            <h2>@lang('additional.urls.service')</h2>
                         </div>
                         <div class="row">
-                            <p>Məhsul adı: {{ products($data->product_id, 'id')[0]->name['az_name'] }}</p>
+                            <p>{{ products($data->product_id, 'id')[0]->name['az_name'] }}</p>
                         </div>
                         <br />
-                        <h2>Sifariş statusu</h2>
+                        <h2>@lang('additional.forms.order_status')</h2>
 
                         <div class="row">
                             <form action="{{ route('order.changestat', $data->id) }}" method="post">
@@ -152,35 +152,35 @@
                                 <div class="col-sm-6">
                                     <select name="status" class="form-control">
                                         <option value="0" @if ($data->status == 0) selected @endif>
-                                            Sifariş qeydə alındı
+                                            @lang('additional.order_statuese.statu_0')
                                         </option>
-                                        <option value="1" @if ($data->status == 1) selected @endif>Sifariş
-                                            qəbul olundu</option>
-                                        <option value="2" @if ($data->status == 2) selected @endif>Sifariş
-                                            icra edilir
+                                        <option value="1" @if ($data->status == 1) selected @endif>
+                                            @lang('additional.order_statuese.statu_1')</option>
+                                        <option value="2" @if ($data->status == 2) selected @endif>
+                                            @lang('additional.order_statuese.statu_2')
                                         </option>
-                                        <option value="3" @if ($data->status == 3) selected @endif>Sifariş
-                                            tamamlandı
+                                        <option value="3" @if ($data->status == 3) selected @endif>
+                                            @lang('additional.order_statuese.statu_3')
                                         </option>
                                     </select>
                                 </div>
                                 <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-info">Təsdiqlə</button>
+                                    <button type="submit" class="btn btn-info">@lang('additional.buttons.submit')</button>
                                 </div>
                             </form>
                         </div>
 
                         <br>
-                        <h2>Məbləği geri qaytar</h2>
+                        <h2>@lang('additional.forms.refundammount')</h2>
 
                         <div class="row">
                             <form action="{{ route('order.refund', $data->id) }}" method="post">
                                 @csrf
                                 <div class="col-sm-6">
-                                    <input type="text" name="price" class="form-control" value="{{ $data->price }}" >
+                                    <input type="text" name="price" class="form-control" value="{{ $data->price }}">
                                 </div>
                                 <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-info">Təsdiqlə</button>
+                                    <button type="submit" class="btn btn-info">@lang('additional.buttons.submit')</button>
                                 </div>
                             </form>
                         </div>
@@ -189,10 +189,9 @@
                     </div>
             </div>
         </section>
-        </div>
+    </section>
 
-    </section>
-    </section>
+
     <!-- END CONTENT -->
 
 @endsection

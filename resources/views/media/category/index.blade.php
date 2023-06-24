@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('menu_media', 'open')
-@section('title', 'Kateqoriyalar')
+@section('title', trans("additional.urls.categories"))
 
 @section('css')
     <meta name="_token" content="{{ csrf_token() }}">
@@ -112,10 +112,10 @@
                 },
                 type: 'patch',
                 success: function(data) {
-                    toastr.success("Məlumat yeniləndi");
+                    toastr.success("@lang('additional.messages.updated')");
                 },
                 error: function(data) {
-                    toastr.error("Yenidən cəhd göstərin");
+                    toastr.error(trans("additional.messages.tryagain"));
                 }
             })
         }
@@ -132,7 +132,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Kateqoriyalar
+                        <h1 class="title">@lang("additional.urls.categories")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
@@ -149,10 +149,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('category.index') }}">Kateqoriyalar</a>
+                                <a href="{{ route('category.index') }}">@lang("additional.urls.categories")</a>
                             </li>
 
                         </ol>
@@ -165,7 +165,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün Kateqoriyalar</h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @lang("additional.urls.categories")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -179,20 +179,16 @@
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Şəkil</th>
-                                            <th>Ad</th>
-                                            <th>Rusca Ad</th>
-                                            <th>Üst Kateqoriya</th>
+                                            <th>@lang("additional.forms.image")</th>
+                                            <th>@lang("additional.forms.name")</th>
                                             <th>Status</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         @foreach (categories() as $dat)
                                             <tr>
-                                                <td>{{ $dat->id }}</td>
                                                 <td>
                                                     @if ($dat->image != null)
                                                         <img width="125"
@@ -200,15 +196,7 @@
                                                     @endif
                                                 </td>
 
-                                                <td>{{ $dat->name['az_name'] }}</td>
-                                                <td>{{ $dat->name['ru_name'] }}</td>
-                                                <td>
-                                                    @if ($dat->top_id != null)
-                                                        {{ $dat->top_category->name['az_name'] }}
-                                                    @else
-                                                        <span class="text-success">Üst kateqoriya yoxdur</span>
-                                                    @endif
-                                                </td>
+                                                <td>{{ $dat->name['en_name'] }}</td>
                                                 <td>
                                                     <label class="switch">
                                                         <input type="checkbox" name="category_status"

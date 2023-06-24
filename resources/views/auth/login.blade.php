@@ -12,7 +12,7 @@
         -->
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
-    <title>Daxil ol</title>
+    <title>@lang("additional.urls.login")</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <<meta content="EyvAZCeferov" name="author" />
 
@@ -57,18 +57,18 @@
             <form action="{{ route('auth') }}" method="post">
                 @csrf
                 <p>
-                    <label for="user_login">E-mail<br />
+                    <label for="user_login">@lang("additional.forms.email")<br />
                         <input type="text" name="email" id="user_login" class="input" size="20" value="{{ old('email') }}"/>
                     </label>
                 </p>
                 <p>
-                    <label for="user_pass">Password<br />
+                    <label for="user_pass">@lang("additional.forms.password")<br />
                         <input type="password" name="password" id="user_pass" class="input" size="20" /></label>
                 </p>
 
                 <p class="submit">
                     <input type="submit" name="wp-submit" id="wp-submit" class="btn btn-orange btn-block"
-                        value="Daxil ol" />
+                        value="@lang("additional.urls.login")" />
                 </p>
             </form>
 

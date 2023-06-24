@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('menu_products', 'open')
-@section('title', 'Xidmətlər')
+@section('title')
+@lang("additional.urls.services")
+@endsection
 
 @section('css')
     <meta name="_token" content="{{ csrf_token() }}">
@@ -116,7 +118,7 @@
 
                     <div class="pull-left">
                         <h1 class="title">
-                            Xidmətlər
+                            @lang("additional.urls.services")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
@@ -133,10 +135,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('products.index') }}">Xidmətlər</a>
+                                <a href="{{ route('products.index') }}">@lang("additional.urls.services")</a>
                             </li>
 
                         </ol>
@@ -149,7 +151,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün Xidmətlər</h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @lang("additional.urls.services")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -163,14 +165,14 @@
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Şəkil</th>
-                                            <th>Ad</th>
-                                            <th>Kod</th>
-                                            <th>Qiymət</th>
-                                            <th>Kateqoriya</th>
-                                            <th>İstifadəçi</th>
-                                            <th>Baxış sayı</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.forms.image")</th>
+                                            <th>@lang("additional.forms.name")</th>
+                                            <th>@lang("additional.forms.code")</th>
+                                            <th>@lang("additional.forms.ammount")</th>
+                                            <th>@lang("additional.urls.category")</th>
+                                            <th>@lang("additioanl.urls.freelancer")</th>
+                                            <th>@lang("additional.forms.viewcount")</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 
@@ -197,7 +199,7 @@
                                                             <span class="text-info">
                                                                 {{ $dat->category->name['az_name'] }}</span></a>
                                                     @else
-                                                        <span class="text-danger">Kateqoriya yoxdur</span>
+                                                        <span class="text-danger">@lang("additional.forms.notfound")</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -205,16 +207,14 @@
                                                         <a
                                                             href="{{ url()->current() }}?status={{ $status ?? 'all' }}&user_id={{ $dat->user_id }} ">
                                                             <span class="text-info">
-                                                                {{ $dat->user->name_surname ?? 'Silinmiş İstifadəçi' }}
+                                                                {{ $dat->user->name_surname ?? trans("additional.forms.notregistered_freelancer") }}
                                                                 {{ $dat->user->phone ?? null }}</span></a>
                                                     @else
-                                                        <span class="text-danger">İstifadəçi yoxdur</span>
+                                                        <span class="text-danger">@lang("additional.forms.notregistered_freelancer")</span>
                                                     @endif
                                                 </td>
                                                 <td>{{ count($dat->viewcount) }}</td>
                                                 </td>
-
-
                                                 <td>
                                                     <span>@include('layouts.buttons', [
                                                         'data' => $dat,

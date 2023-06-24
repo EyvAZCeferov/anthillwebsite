@@ -166,7 +166,7 @@ class AttributesController extends Controller
     {
         try {
             $attribute=Attributes::where("id",$id)->delete();
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{

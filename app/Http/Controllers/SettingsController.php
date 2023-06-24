@@ -127,7 +127,7 @@ class SettingsController extends Controller
                 }
             }
 
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{
@@ -224,7 +224,7 @@ class SettingsController extends Controller
             $data->icon = $iconurl;
             $data->save();
 
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{

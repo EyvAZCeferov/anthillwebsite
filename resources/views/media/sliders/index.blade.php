@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('menu_media', 'open')
-@section('title', 'Slayder')
+@section('title')
+@lang("additional.urls.sliders")
+@endsection
 
 @section('css')
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
@@ -24,7 +26,7 @@
             setTimeout(function() {
                 $('#example').DataTable({
                     responsive: true,
-                    "ordering": true,
+                    "ordering": false,
                     "info": true,
                     "scrollCollapse": true,
                 });
@@ -43,7 +45,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Slayder
+                        <h1 class="title">@lang("additional.urls.sliders")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons',['routename'=>'sliders','harddelete'=>false,'add'=>true,'home'=>false,'restoreall'=>false])</span>
@@ -54,10 +56,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('sliders.index') }}">Slayder</a>
+                                <a href="{{ route('sliders.index') }}">@lang("additional.urls.sliders")</a>
                             </li>
 
                         </ol>
@@ -70,7 +72,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün Slayderlər</h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @lang("additional.urls.sliders")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -84,10 +86,10 @@
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Şəkil</th>
-                                            <th>Url</th>
-                                            <th>Sıralama</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.forms.image")</th>
+                                            <th>@lang("additional.forms.url")</th>
+                                            <th>@lang("additional.forms.order")</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 

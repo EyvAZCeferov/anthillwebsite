@@ -131,7 +131,7 @@ class CategoryController extends Controller
             $seo->element_id = $data->id;
             $seo->save();
 
-            return redirect(route("category.index"))->with('info', 'Uğurlu');
+            return redirect(route("category.index"))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{
@@ -270,7 +270,7 @@ class CategoryController extends Controller
             $seo->update();
 
 
-            return redirect(route("category.index"))->with('info', 'Uğurlu');
+            return redirect(route("category.index"))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{
@@ -317,7 +317,7 @@ class CategoryController extends Controller
            
             $data->delete();
             MetaSEO::where("element_id", $id)->where("type", 'category')->delete();
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }finally{

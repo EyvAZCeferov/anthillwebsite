@@ -260,7 +260,7 @@ class UsersController extends Controller
             }
 
 
-            return back()->with('info', 'Uğurlu');
+            return back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } finally {

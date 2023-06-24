@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('menu_website', 'open')
-@section('title', 'Bizimlə Əlaqə')
+@section('title')
+@lang("additional.urls.contactus")
+@endsection
 
 @section('css')
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
@@ -43,7 +45,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Bizimlə Əlaqə
+                        <h1 class="title">@lang("additional.urls.contactus")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
@@ -60,10 +62,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('contactus.index') }}">Bizimlə Əlaqə</a>
+                                <a href="{{ route('contactus.index') }}">@lang("additional.urls.contactus")</a>
                             </li>
 
                         </ol>
@@ -76,7 +78,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün Bizimlə Əlaqə</h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @lang("additional.urls.contactus")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -90,11 +92,11 @@
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Ad</th>
-                                            <th>E-mail</th>
-                                            <th>Telefon</th>
-                                            <th>Ip Address</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.forms.name")</th>
+                                            <th>@lang("additional.forms.email")</th>
+                                            <th>@lang("additional.forms.phone")</th>
+                                            <th>@lang("additional.forms.ipaddress")</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 

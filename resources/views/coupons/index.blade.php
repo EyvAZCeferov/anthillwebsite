@@ -111,10 +111,10 @@
                 },
                 type: 'patch',
                 success: function(data) {
-                    toastr.success("Məlumat yeniləndi");
+                    toastr.success("@lang('additional.messages.updated')");
                 },
                 error: function(data) {
-                    toastr.error("Yenidən cəhd göstərin");
+                    toastr.error(trans("additional.messages.tryagain"));
                 }
             })
         }
@@ -148,7 +148,7 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
                                 <a href="{{ route('coupons.index') }}">Kupon kodlar</a>
@@ -182,7 +182,7 @@
                                             <th>Kod</th>
                                             <th>Miqdar</th>
                                             <th>Status</th>
-                                            <th>Düymələr</th>
+                                            <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 

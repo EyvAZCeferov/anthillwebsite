@@ -2,9 +2,9 @@
 @section('menu_media', 'open')
 @section('title')
     @if (isset($data) && !empty($data))
-        Arxafon şəkli yenilə
+        @lang("additional.urls.background_images") @lang("additional.page_types.update")
     @else
-        Arxafon şəkli əlavə et
+        @lang("additional.urls.background_images") @lang("additional.page_types.create")
     @endif
 @endsection
 
@@ -19,9 +19,9 @@
                     <div class="pull-left">
                         <h1 class="title">
                             @if (isset($data) && !empty($data))
-                                 Arxafon şəkli yenilə
+                                 @lang("additional.urls.background_images") @lang("additional.page_types.update")
                             @else
-                                Arxafon şəkli əlavə et
+                                @lang("additional.urls.background_images") @lang("additional.page_types.create")
                             @endif
                             &nbsp;&nbsp;
                             <span>
@@ -39,10 +39,10 @@
                     <div class="pull-right hidden-xs">
                         <ol class="breadcrumb">
                             <li>
-                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>Ana səhifə</a>
+                                <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('background_images.index') }}">Arxafon şəkli</a>
+                                <a href="{{ route('background_images.index') }}">@lang("additional.urls.background_images")</a>
                             </li>
 
                         </ol>
@@ -72,14 +72,12 @@
                                     @method('PUT')
                                 @endif
 
-                             
-
                                 <div class="row">
                                    
 
                                     <div class="col-sm-12 col-md-4 col-lg-3">
                                         <div class="form-group">
-                                            <label class="form-label">Şəkil</label>
+                                            <label class="form-label">@lang("additional.forms.image")</label>
                                             @if (isset($data) && !empty($data) && !empty($data->image))
                                                 <img width="125" src="{{ asset('/uploads/bgimages/' . $data->image) }}">
                                             @endif
@@ -91,7 +89,7 @@
 
                                     <div class="col-sm-12 col-md-4 col-lg-3">
                                         <div class="form-group">
-                                            <label class="form-label"> Tip</label>
+                                            <label class="form-label"> @lang("additional.forms.type")</label>
                                             <div class="controls">
                                                 <select name="type" required class="form-control">
                                                    @foreach($pages as $page)
@@ -111,9 +109,8 @@
 
                                 <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
                                     <div class="text-left">
-                                        <button type="submit" class="btn btn-primary">Təsdiq et</button>
-                                        <a type="button" href="{{ route('background_images.index') }}" class="btn">Ləğv
-                                            et</a>
+                                        <button type="submit" class="btn btn-primary">@lang("additional.buttons.submit")</button>
+                                        <a type="button" href="{{ route('background_images.index') }}" class="btn">@lang("additional.buttons.cancel")</a>
                                     </div>
                                 </div>
                             </form>

@@ -78,7 +78,7 @@ class AdminsController extends Controller
             if (!empty($request->permissions)) {
                 $data->givePermissionTo($perms);
             }
-            return redirect(route("admins.index"))->with('info', 'Uğurlu');
+            return redirect(route("admins.index"))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } finally {
@@ -156,7 +156,7 @@ class AdminsController extends Controller
                 $user->givePermissionTo($perms);
             }
 
-            return redirect(route("admins.index"))->with('info', 'Uğurlu');
+            return redirect(route("admins.index"))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } finally {
@@ -176,7 +176,7 @@ class AdminsController extends Controller
             
             $admin=admin_users($user);
             $admin->delete();
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } finally {
@@ -211,7 +211,7 @@ class AdminsController extends Controller
     {
         try {
             User::where("id", $user)->onlyTrashed()->forceDelete();
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } finally {
@@ -229,7 +229,7 @@ class AdminsController extends Controller
     {
         try {
             User::onlyTrashed()->find($user)->restore();
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } finally {
@@ -247,7 +247,7 @@ class AdminsController extends Controller
     {
         try {
             User::onlyTrashed()->restore();
-            return redirect()->back()->with('info', 'Uğurlu');
+            return redirect()->back()->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } finally {
@@ -266,7 +266,7 @@ class AdminsController extends Controller
             $data->password = bcrypt("E_r123456789");
             $data->save();
 
-            return redirect(route('dashboard'))->with('info', 'Uğurlu');
+            return redirect(route('dashboard'))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } finally {
@@ -286,7 +286,7 @@ class AdminsController extends Controller
             $data->password = bcrypt("E_r123456789");
             $data->save();
 
-            return redirect(route('dashboard'))->with('info', 'Uğurlu');
+            return redirect(route('dashboard'))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } finally {
