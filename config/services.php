@@ -31,8 +31,4 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    "logging"=>[
-        'LOG_MULTIPLE'=>true
-    ],
-
 ];

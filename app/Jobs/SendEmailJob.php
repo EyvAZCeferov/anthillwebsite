@@ -35,9 +35,12 @@ class SendEmailJob implements ShouldQueue
     {
         try{
             $data=$this->data;
+            \Log::info($data);
             return Mail::send(new GeneralMail($data['type'], $data['title'], $data['message'], $data['email'], $data['name_surname']));
         }catch(\Exception $e){
             \Log::info(['sendemailjoberror',$e->getMessage()]);
+        }finally{
+            Helper::queuework();
         }
     }
 }
