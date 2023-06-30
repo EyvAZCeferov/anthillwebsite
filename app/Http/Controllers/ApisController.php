@@ -10,7 +10,9 @@ use App\Models\Comments;
 use App\Models\Payments;
 use App\Models\Products;
 use App\Helpers\GUAVAPAY;
+use App\Mail\GeneralMail;
 use App\Models\ContactUs;
+use App\Jobs\SendEmailJob;
 use App\Models\Attributes;
 use App\Models\Categories;
 use Illuminate\Support\Str;
@@ -27,6 +29,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\ProductEncodedImages;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Stichoza\GoogleTranslate\GoogleTranslate;
@@ -177,9 +180,9 @@ class ApisController extends Controller
                     ->orWhere('slugs->en_slug', Str::slug($name['en_name']))->get();
 
                 $slugs = [
-                    'az_slug' => count($countofproducts) == 0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']) . '-' . count($countofproducts) *2,
-                    'ru_slug' => count($countofproducts) == 0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']) . '-' . count($countofproducts) *2,
-                    'en_slug' => count($countofproducts) == 0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']) . '-' . count($countofproducts) *2,
+                    'az_slug' => count($countofproducts) == 0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']) . '-' . count($countofproducts) * 2,
+                    'ru_slug' => count($countofproducts) == 0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']) . '-' . count($countofproducts) * 2,
+                    'en_slug' => count($countofproducts) == 0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']) . '-' . count($countofproducts) * 2,
                 ];
                 $product = new Products;
 
@@ -312,9 +315,9 @@ class ApisController extends Controller
                     ->orWhere('slugs->en_slug', Str::slug($name['en_name']))->get();
 
                 $slugs = [
-                    'az_slug' => count($countofproducts) == 0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']) . '-' . count($countofproducts) *2,
-                    'ru_slug' => count($countofproducts) == 0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']) . '-' . count($countofproducts) *2,
-                    'en_slug' => count($countofproducts) == 0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']) . '-' . count($countofproducts) *2,
+                    'az_slug' => count($countofproducts) == 0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']) . '-' . count($countofproducts) * 2,
+                    'ru_slug' => count($countofproducts) == 0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']) . '-' . count($countofproducts) * 2,
+                    'en_slug' => count($countofproducts) == 0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']) . '-' . count($countofproducts) * 2,
                 ];
                 DB::transaction(function () use ($request, $codeofproduct, $name, $description, $slugs, &$product) {
 
@@ -386,16 +389,16 @@ class ApisController extends Controller
                         $ima->update(['product_id' => $product->id, "code" => $codeofproduct]);
                     }
 
-                    $user = users($request->user_id, 'id');
+                    // $user = users($request->user_id, 'id');
 
-                    $datas = [
-                        'message' => trans("additional.emailtemplates.service.updateservicemessage", ['username' => $user->name_surname, 'website' => env("WEBSITE_NAME"), 'name' => $product->name[app()->getLocale() . '_name']]),
-                        'email' => $user->email,
-                        'name_surname' => $user->name_surname,
-                        'type' => 'updateelan',
-                        'title' => trans("additional.emailtemplates.service.updateservice", [], $request->language)
-                    ];
-                    event(new SendEmailEvent($datas));
+                    // $datas = [
+                    //     'message' => trans("additional.emailtemplates.service.updateservicemessage", ['username' => $user->name_surname, 'website' => env("WEBSITE_NAME"), 'name' => $product->name[app()->getLocale() . '_name']]),
+                    //     'email' => $user->email,
+                    //     'name_surname' => $user->name_surname,
+                    //     'type' => 'updateelan',
+                    //     'title' => trans("additional.emailtemplates.service.updateservice", [], $request->language)
+                    // ];
+                    // event(new SendEmailEvent($datas));
                 });
                 return response()->json(['status' => "success", 'url' => route("myservices.index")]);
             } else {
@@ -622,8 +625,8 @@ class ApisController extends Controller
     public function sendform(Request $request)
     {
         try {
-            DB::transaction(function () use ($request) {
-                $contactus = new ContactUs();
+            $contactus = new ContactUs();
+            DB::transaction(function () use ($request, &$contactus) {
                 $contactus->message = $request->message;
                 $contactus->name = $request->name;
                 $contactus->email = $request->email;
@@ -634,11 +637,22 @@ class ApisController extends Controller
                 }
                 $contactus->save();
             });
+
+            $datas = [
+                'message' => trans("additional.emailtemplates.contactusmessage", ['username' => $contactus->name ?? null, 'email' => $contactus->email, 'tel' => $contactus->phone, 'desc' => $contactus->message]),
+                'email' => $contactus->email,
+                'name_surname' => $contactus->name,
+                'type' => 'contactus',
+                'title' => trans('additional.emailtemplates.contactus')
+            ];
+
+            // \Log::info($datas);
+            // dispatch(new SendEmailJob($datas));
+            Mail::send(new GeneralMail($datas['type'], $datas['title'], $datas['message'],env('MAIL_USERNAME'), env('MAIL_FROM_NAME')));
+
             return response()->json(['status' => 'success', 'message' => trans('additional.messages.messagesended', [], $request->language ?? 'en')]);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
-        } finally {
-            Helper::dbdeactive();
         }
     }
     public function changestat_order(Request $request)
@@ -779,7 +793,7 @@ class ApisController extends Controller
                         'type' => 'newregister',
                         'title' => trans('additional.emailtemplates.service.registered')
                     ];
-                    event(new SendEmailEvent($datas));
+                    // event(new SendEmailEvent($datas));
                     Auth::login($user);
 
                     $data = new MessageGroups();
@@ -790,7 +804,7 @@ class ApisController extends Controller
                     }
                     $data->save();
 
-                    $messagecontent = '' . route("services.show", $data->product->slugs[app()->getLocale() . "_slug"]).'';
+                    $messagecontent = '' . route("services.show", $data->product->slugs[app()->getLocale() . "_slug"]) . '';
 
                     $message = new MessageElements();
                     $message->user_id = Auth::id();

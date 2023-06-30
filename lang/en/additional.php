@@ -181,6 +181,8 @@ return [
             "updatepassword" => "Reset Your Password",
             "updatepasswordmessage" => "<h1 style='text-align:center;font-size:19px;'>Welcome :name </h1><br/><p>Your verification code is: <h3>:code</h3></p><br/> <p>Click the <a href=':url'>reset password link</a> to update your password.</p>"
         ],
+        "contactus"=>"Contact us",
+        "contactusmessage"=>"<h1 style='text-align:center;font-size:19px;'> Contact us</h1><br/><p><h2>:username</h2><h3> <a href='mailto::email'>:email</a> </h3> <h3> <a href='tel::tel'>:tel</a> </h3> <br/> :desc</p>"
     ],
 
 ];

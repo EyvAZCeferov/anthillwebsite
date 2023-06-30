@@ -107,6 +107,7 @@ class FunctionsController extends Controller
                     'title' => trans("additional.emailtemplates.service.updatepassword"),
                     "id" => Helper::createRandomCode("int", 10),
                 ];
+                \Log::info($datas);
                 dispatch(new SendEmailJob($datas));
 
                 return response()->json(['status' => 'success', 'message' => trans('additional.messages.emailsendedupdatepassword', [], $request->language ?? 'en')]);
@@ -115,6 +116,8 @@ class FunctionsController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }finally{
+            Helper::queuework();
         }
     }
     public function submitpin(Request $request)

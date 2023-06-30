@@ -5,12 +5,13 @@ namespace App\Helpers;
 use Image;
 use GuzzleHttp\Client;
 use App\Models\Products;
-use App\Models\MessageElements;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Categories;
+use App\Models\MessageElements;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Stichoza\GoogleTranslate\GoogleTranslate;
@@ -218,5 +219,9 @@ class Helper
         } finally {
             DB::connection()->disconnect();
         }
+    }
+
+    public static function queuework(){
+        Artisan::call('queue:work');
     }
 }

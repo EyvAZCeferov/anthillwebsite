@@ -2,6 +2,7 @@
 
 use App\Helpers\GUAVAPAY;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\ApisController;
 use App\Http\Controllers\ChatsController;
 
@@ -41,3 +42,8 @@ Route::post('changestat_order',[ApisController::class,'changestat_order'])->name
 
 Route::get('checkpayment/{transaction_id}',[ApisController::class,'checkpayment'])->name("payment.check");
 Route::get("refundpayment/{id}/{amount}",[GUAVAPAY::class,'refund'])->name('payment.refund');
+
+Route::get('/queuework', function () {
+    exec('php /var/www/anthill/Website/artisan queue:work --timeout=60');
+    return "Queue work process started.";
+});

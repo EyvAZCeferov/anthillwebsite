@@ -7,6 +7,7 @@ use App\Models\Products;
 use Illuminate\Http\Request;
 use App\Models\MessageGroups;
 use App\Events\NewChatMessage;
+use App\Events\NewChatMessages;
 use App\Models\MessageElements;
 use App\Models\ProductsAttributes;
 use Illuminate\Support\Facades\DB;
@@ -41,7 +42,7 @@ class ChatsController extends Controller
     public function fetchmessages($roomid)
     {
         try {
-            $messages = MessageElements::where('message_group_id', $roomid)->orderBy('created_at', 'DESC')->with(['group','senderelement'])->get();
+            $messages = MessageElements::where('message_group_id', $roomid)->orderBy('created_at', 'DESC')->with(['group'])->get();
             return response()->json(['status' => 'success', 'data' => $messages]);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
@@ -89,13 +90,16 @@ class ChatsController extends Controller
                 $message->save();
 
                 broadcast(new NewChatMessage($message))->toOthers();
+                // broadcast(new NewChatMessages())->toOthers();
             });
+
 
             return response()->json(['status' => 'success', 'message' => "İsmarıc göndərildi"], 201);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         } finally {
             Helper::dbdeactive();
+            Helper::queuework();
         }
     }
     public function readmessage($messageid)
@@ -106,6 +110,8 @@ class ChatsController extends Controller
             return response()->json([$message], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }finally{
+            Helper::dbdeactive();
         }
     }
     public function create_and_redirect(Request $request)

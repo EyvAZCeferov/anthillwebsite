@@ -468,7 +468,7 @@ if (!function_exists('messagegroups')) {
                     'senderinfo',
                     'receiverinfo',
                     'message_elements',
-                    'product'
+
                 ])
                 ->get()
                 ->sortBy(function ($group) {
@@ -479,11 +479,11 @@ if (!function_exists('messagegroups')) {
                 });
             } else if (isset($type) && !empty($type) && $type == "id") {
                 $model = MessageGroups::where('id', $key)
-                    ->with(['senderinfo', 'receiverinfo', 'message_elements','product'])
+                    ->with(['senderinfo', 'receiverinfo', 'message_elements'])
                     ->frist();
             }
         } else {
-            $model = MessageGroups::orderBy('created_at', 'desc')->with(['senderinfo', 'receiverinfo', 'message_elements','product'])->get();
+            $model = MessageGroups::orderBy('created_at', 'desc')->with(['senderinfo', 'receiverinfo', 'message_elements'])->get();
         }
         return Cache::rememberForever("messagegroups" . $key . $type, fn () => $model);
     }
