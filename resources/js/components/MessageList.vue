@@ -39,7 +39,7 @@
 
 
 export default {
-    props: ['users', 'currentroom', 'locale', 'authenticated'],
+    props: ['users', 'currentroom', 'locale', 'authenticated', 'messages'],
     data: function () {
         return {
             selected: ''
@@ -59,11 +59,20 @@ export default {
         },
         countmessages(messages) {
             var notreadedmessages = 0;
-            if (messages.length > 0) {
-                for (var i = 0; i < messages.length; i++) {
-                    notreadedmessages += (messages[i].status === false && messages[i].user_id != this.authenticated.id) ? 1 : 0;
+            messages.forEach(message => {
+                if (message.status == 0 && message.user_id != this.authenticated.id) {
+                    if (this.authenticated.type == 3) {
+                        if (message.group.sender_id == this.authenticated.id) {
+                            notreadedmessages += 1;
+                        }
+                    } else {
+                        if (message.group.receiver_id == this.authenticated.id) {
+                            notreadedmessages += 1;
+
+                        }
+                    }
                 }
-            }
+            });
             return notreadedmessages;
         }
     },

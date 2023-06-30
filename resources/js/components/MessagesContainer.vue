@@ -1,6 +1,7 @@
 <template>
     <div class="message_containers">
-        <div class="receiver_area" @click="redirectToCompany(currentroom.senderinfo.additionalinfo.company_slugs)" v-if="authenticated && authenticated.type==1">
+        <div class="receiver_area" @click="redirectToCompany(currentroom.senderinfo.additionalinfo.company_slugs)"
+            v-if="authenticated && authenticated.type == 1">
             <div class="photo">
                 <img :src="currentroom.senderinfo.additionalinfo != null && currentroom.senderinfo.additionalinfo.company_image != null ? '/temp/' + currentroom.senderinfo.additionalinfo.company_image : '/assets/images/no-user.png'"
                     alt="currentroom.senderinfo.name_surname" />
@@ -28,10 +29,10 @@
                 <div class="message-content">
                     <template v-if="isURL(message.message)">
                         <a :href="message.message" target="_blank">{{ message.message }}</a>
-                      </template>
-                      <template v-else>
+                    </template>
+                    <template v-else>
                         {{ message.message }}
-                      </template>
+                    </template>
                 </div>
                 <div class="time">{{ formatDate(message.created_at) }}</div>
             </div>
@@ -66,14 +67,14 @@ export default {
                     });
             }
         },
-        redirectToCompany(slugs){
+        redirectToCompany(slugs) {
             var url;
-            if(this.locale=="az"){
-                url=`/company/${slugs.az_slug}`;
-            }else if(this.locale=="ru"){
-                url=`/company/${slugs.ru_slug}`;
-            }else if(this.locale=="en"){
-                url=`/company/${slugs.en_slug}`;
+            if (this.locale == "az") {
+                url = `/company/${slugs.az_slug}`;
+            } else if (this.locale == "ru") {
+                url = `/company/${slugs.ru_slug}`;
+            } else if (this.locale == "en") {
+                url = `/company/${slugs.en_slug}`;
             }
             window.open(url, '_blank');
         },
@@ -85,21 +86,24 @@ export default {
                 return false;
             }
         },
+        readmessages(messages) {
+            messages.forEach(message => {
+                if (message.status == 0 && message.user_id != this.authenticated.id) {
+                    this.readedMessage(message);
+                }
+            });
+        }
     },
     updated() {
-        this.messages.forEach(message => {
-            if(message.status==false && message.user_id!=this.authenticated[0].id){
-                this.readedMessage(message);
-            }
-        });
+        this.readmessages(this.messages);
     },
 
     mounted() {
-        this.messages.forEach(message => {
-            if(message.status==false && message.user_id!=this.authenticated[0].id){
-                this.readedMessage(message);
-            }
-        });
+        this.readmessages(this.messages);
+    },
+
+    created() {
+        this.readmessages(this.messages);
     },
 
 }

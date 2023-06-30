@@ -187,7 +187,7 @@
             autoplaySpeed: 2000,
         });
         $('.slider-nav').slick({
-            slidesToShow: 5,
+            slidesToShow: 4,
             slidesToScroll: 1,
             asNavFor: '.slider-for',
             dots: false,
@@ -195,19 +195,18 @@
             focusOnSelect: true,
             speed: 1000,
             lazyLoad: 'anticipated',
-            autoplay: true,
-            autoplaySpeed: 2000,
+
             responsive: [{
                     breakpoint: 1024, // Tablet
                     settings: {
-                        slidesToShow: 4, // Tablette 5 öğe gösterilecek
+                        slidesToShow: 3, // Tablette 5 öğe gösterilecek
                         slidesToScroll: 3
                     }
                 },
                 {
                     breakpoint: 768, // Mobil
                     settings: {
-                        slidesToShow: 3, // Mobilde 3 öğe gösterilecek
+                        slidesToShow: 2, // Mobilde 3 öğe gösterilecek
                         slidesToScroll: 3
                     }
                 }

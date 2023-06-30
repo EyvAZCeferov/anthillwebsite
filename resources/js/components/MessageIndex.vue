@@ -4,11 +4,13 @@
             <div class="w-100 row message_lists" v-if="users.length > 0">
                 <div class="message_left_column">
                     <message-list :authenticated="authenticated[0]" :users="users" :locale="locale"
+                    :messages="messages"
+                    :key="newmessage.length"
                         :currentroom="currentroom" v-on:roomchanged="setRoom($event)"></message-list>
                 </div>
                 <div class="message_right_column" v-if="currentroom.id">
                     <messages-container :authenticated="authenticated[0]" :messages="messages" :locale="locale"
-                        v-on:readedMessage="getAllData($event)" :currentroom="currentroom"></messages-container>
+                        @readedMessage="getAllData($event)" :currentroom="currentroom"></messages-container>
                     <messages-attributes v-if="currentroom.senderinfo.id != authenticated[0].id" :key="attributes.length"
                         :authenticated="authenticated[0]" :currentroom="currentroom" :attributes="attributes"
                         :locale="locale" @sendmessage="getAllData"></messages-attributes>
@@ -58,6 +60,7 @@ export default {
             showmodal: false,
             userservices: [],
             attributes: [],
+            newmessage:0,
         };
     },
     watch: {
@@ -73,8 +76,6 @@ export default {
             if (this.currentroom.id) {
                 let vm = this;
                 window.Echo.private('chat.' + this.currentroom.id).listen('NewChatMessage', (e) => {
-                    console.log("Chat Api1");
-                    console.log(e);
                     vm.getAllData();
                 });
             }
@@ -82,6 +83,7 @@ export default {
         disconnect(room) {
             if (room != null && room.id) {
                 window.Echo.leave('chat.' + room.id);
+                this.newmessage=0;
             }
         },
         getUsers() {
@@ -117,6 +119,9 @@ export default {
             this.getMessagesFromRoom();
             this.getUsers();
             this.getAttributes();
+            this.newmessage++;
+            this.setRoom(this.currentroom);
+            this.countmessages();
         },
         getauthenticated() {
             axios.get('/authenticated')
@@ -151,13 +156,32 @@ export default {
                 }).catch(error => console.log(error));
             }
         },
-
+        countmessages() {
+            var notreadedmessages = 0;
+            axios
+                    .post('/notreadedmessages')
+                    .then(response => {
+                        notreadedmessages+=response.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            return notreadedmessages;
+        }
     },
     created() {
         this.getauthenticated();
         this.getLocale();
         this.getUsers();
         this.getCreatedViaId();
+        this.countmessages();
+    },
+    updated() {
+        this.getauthenticated();
+        this.getLocale();
+        this.getUsers();
+        this.getCreatedViaId();
+        this.countmessages();
     },
 }
 </script>

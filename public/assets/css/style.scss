@@ -1997,9 +1997,11 @@ body {
                         border-radius: 10px;
                         width: 100%;
                         display: inline-block;
+                        position: relative;
                         .rating_value_element {
                             background-color: $primary-color;
-                            height: 100%;
+                            height: 10px;
+                            position: absolute;
                         }
                     }
                 }
@@ -2384,13 +2386,15 @@ body {
                         input:checked~label,
                         input:not(:checked)~label:hover,
                         input:not(:checked)~label:hover~label {
-                            color: #F79426;
+                            color: $primary-color;
+                            cursor: pointer;
                         }
                         input:checked+label:hover,
                         input:checked~label:hover,
                         label:hover~input:checked~label,
                         input:checked~label:hover~label {
-                            color: #FECE31;
+                            color: $secondary-color;
+                            cursor: pointer;
                         }
                     }
                 }

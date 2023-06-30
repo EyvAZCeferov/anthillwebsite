@@ -41,7 +41,7 @@ class ChatsController extends Controller
     public function fetchmessages($roomid)
     {
         try {
-            $messages = MessageElements::where('message_group_id', $roomid)->orderBy('created_at', 'DESC')->get();
+            $messages = MessageElements::where('message_group_id', $roomid)->orderBy('created_at', 'DESC')->with(['group','senderelement'])->get();
             return response()->json(['status' => 'success', 'data' => $messages]);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
@@ -103,7 +103,7 @@ class ChatsController extends Controller
         try {
             $message = messageelements($messageid, 'id');
             $message->update(['status' => true]);
-            return response()->json(['status' => 'success'], 200);
+            return response()->json([$message], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }

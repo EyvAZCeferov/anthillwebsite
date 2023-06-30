@@ -26,7 +26,7 @@ class MessageGroups extends Model
         return $this->hasOne(User::class,'id','sender_id')->with('additionalinfo');
     }
     public function message_elements(){
-        return $this->hasMany(MessageElements::class,'message_group_id','id')->orderBy('status','ASC')->orderBy('created_at','DESC');
+        return $this->hasMany(MessageElements::class,'message_group_id','id')->orderBy('status','ASC')->orderBy('created_at','DESC')->with(['group','senderelement']);
     }
     public function product(){
         return $this->hasOne(Products::class,'id','product_id')->orderBy('id','DESC')->orderBy('created_at','DESC');

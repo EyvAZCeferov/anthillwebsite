@@ -462,9 +462,21 @@ if (!function_exists('messagegroups')) {
     {
         if (isset($key) && !empty($key)) {
             if (isset($type) && !empty($type) && $type == "get_message_groups") {
-                $model = MessageGroups::where('receiver_id', $key)->orWhere('sender_id', $key)
-                    ->orderBy('created_at', 'desc')->orderBy('id','DESC')->with(['senderinfo', 'receiverinfo', 'message_elements','product'])
-                    ->get();
+                $model =MessageGroups::where('receiver_id', $key)
+                ->orWhere('sender_id', $key)
+                ->with([
+                    'senderinfo',
+                    'receiverinfo',
+                    'message_elements',
+                    'product'
+                ])
+                ->get()
+                ->sortBy(function ($group) {
+                    return [
+                        $group->message_elements->max('status'),
+                        $group->message_elements->max('created_at'),
+                    ];
+                });
             } else if (isset($type) && !empty($type) && $type == "id") {
                 $model = MessageGroups::where('id', $key)
                     ->with(['senderinfo', 'receiverinfo', 'message_elements','product'])

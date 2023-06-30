@@ -194,23 +194,29 @@ class Helper
     }
     public static function getnotreadedmessagescount()
     {
+        try {
+            $notReadMessages = 0;
+            $user = Auth::user();
+            $messages = MessageElements::where('status', false)->where('user_id', '!=', $user->id)
+                ->whereHas('group', function ($query) use ($user) {
+                    if ($user->type == 3) {
+                        $query->where('sender_id', $user->id);
+                    } else {
+                        $query->where('receiver_id', $user->id);
+                    }
+                });
+            $messages = $messages->get();
 
-        $notreadedmessages = 0;
-        $user = Auth::user();
-        $messages = MessageElements::where('status', false)
-            ->where('user_id', '<>', $user->id)
-            ->whereHas('group', function ($query) use ($user) {
-                if ($user->type == 3) {
-                    $query->where('sender_id', $user->id);
-                } else {
-                    $query->where('receiver_id', $user->id);
-                }
-            })->get();
+            if ($messages->isNotEmpty()) {
 
-        if (!empty($messages)) {
-            $notreadedmessages += count($messages);
+                $notReadMessages = $messages->count();
+            }
+
+            return $notReadMessages;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        } finally {
+            DB::connection()->disconnect();
         }
-
-        return $notreadedmessages;
     }
 }

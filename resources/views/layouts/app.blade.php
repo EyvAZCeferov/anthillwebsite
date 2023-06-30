@@ -134,7 +134,7 @@
                         // console.log(err);
                     } else {
                         let parsedResponse = JSON.parse(response);
-                        if (parsedResponse > 0) {
+                        if (parsedResponse!=null) {
                             var profil_section_on_header = document.getElementById('profil_section_on_header');
                             var spanElement = document.createElement('span');
                             spanElement.className = "badge";

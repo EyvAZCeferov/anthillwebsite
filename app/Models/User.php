@@ -63,6 +63,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(MessageGroups::class, 'receiver_id', 'id');
     }
+    public function message_elements()
+    {
+        return $this->hasMany(MessageElements::class, 'user_id', 'id')->with('group');
+    }
     public function viewcount(){
         return $this->hasMany(ViewCounters::class,'element_id','id')->where('type','user');
     }
