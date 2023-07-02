@@ -10,7 +10,7 @@
         "node": ">=12.20"
     },
     "server": {
-        "host": "51.158.237.178"
+        "host": "162.0.211.184"
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "^4.2.3",

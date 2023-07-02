@@ -80,27 +80,27 @@ class ChatsController extends Controller
 
     public function sendmessage(Request $request, $roomid)
     {
-        try {
-            DB::transaction(function () use ($request, $roomid) {
-                $message = new MessageElements();
+        // try {
+            $message = new MessageElements();
+
+            DB::transaction(function () use ($request, $roomid,&$message) {
                 $message->user_id = Auth::id();
                 $message->message_group_id = $roomid;
                 $message->message = $request->message;
                 $message->status = false;
                 $message->save();
-
-                broadcast(new NewChatMessage($message))->toOthers();
-                // broadcast(new NewChatMessages())->toOthers();
             });
 
-
+            broadcast(new NewChatMessage($message))->toOthers();
+            // broadcast(new NewChatMessages())->toOthers();
             return response()->json(['status' => 'success', 'message' => "İsmarıc göndərildi"], 201);
-        } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
-        } finally {
+
+        // } catch (\Exception $e) {
+        //     return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        // } finally {
             Helper::dbdeactive();
             Helper::queuework();
-        }
+        // }
     }
     public function readmessage($messageid)
     {

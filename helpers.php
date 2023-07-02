@@ -468,7 +468,6 @@ if (!function_exists('messagegroups')) {
                     'senderinfo',
                     'receiverinfo',
                     'message_elements',
-
                 ])
                 ->get()
                 ->sortBy(function ($group) {

@@ -47,7 +47,7 @@
                         'name' => trans('additional.urls.messages'),
                         'icon' => '<i class="las la-sms"></i>',
                         'url' => route('messages.index'),
-                        'count' => count($data->message_groups??[])>0? App\Helpers\Helper::getnotreadedmessagescount() ?? 0 : 0 ,
+                        'count' => ' '. App\Helpers\Helper::getnotreadedmessagescount() ?? 0 .' ' ,
                     ],
                     [
                         'name' => trans('additional.urls.orders'),

@@ -20,7 +20,7 @@
                             <div onclick="changetab('{{ $category->slugs[app()->getLocale() . '_slug'] }}')"
                                 class="tab {{ $category->slugs[app()->getLocale() . '_slug'] }}"
                                 id="{{ $category->name[app()->getLocale() . '_name'] }}">
-                                {{ $category->slugs[app()->getLocale() . '_slug'] }}</div>
+                                {{ $category->name[app()->getLocale() . '_name'] }}</div>
                         @endforeach
                     </div>
                 @endif

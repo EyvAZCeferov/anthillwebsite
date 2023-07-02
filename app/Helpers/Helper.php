@@ -222,6 +222,15 @@ class Helper
     }
 
     public static function queuework(){
-        Artisan::call('queue:work');
+        while (true) {
+            try {
+                Artisan::call('queue:work');
+            } catch (\Exception $e) {
+                // Hata yönetimi yapılabilir
+            }
+
+
+            sleep(1);
+        }
     }
 }

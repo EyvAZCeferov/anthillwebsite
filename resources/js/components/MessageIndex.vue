@@ -1,17 +1,16 @@
 <template>
     <section>
-        <div class="container" :key="authenticated.id">
+        <div class="container" :key="newmessage.length">
             <div class="w-100 row message_lists" v-if="users.length > 0">
                 <div class="message_left_column">
                     <message-list :authenticated="authenticated[0]" :users="users" :locale="locale"
                     :messages="messages"
-                    :key="newmessage.length"
                         :currentroom="currentroom" v-on:roomchanged="setRoom($event)"></message-list>
                 </div>
                 <div class="message_right_column" v-if="currentroom.id">
                     <messages-container :authenticated="authenticated[0]" :messages="messages" :locale="locale"
                         @readedMessage="getAllData($event)" :currentroom="currentroom"></messages-container>
-                    <messages-attributes v-if="currentroom.senderinfo.id != authenticated[0].id" :key="attributes.length"
+                    <messages-attributes v-if="currentroom.senderinfo.id != authenticated[0].id"
                         :authenticated="authenticated[0]" :currentroom="currentroom" :attributes="attributes"
                         :locale="locale" @sendmessage="getAllData"></messages-attributes>
                     <message-input :currentroom="currentroom" :authenticated="authenticated[0]" :locale="locale"
@@ -29,7 +28,7 @@
 
         </div>
         <modal-services @togglemodal="openservicemodal" @sendmessage="getAllData" :locale="locale" v-show="showmodal"
-            :authenticated="authenticated" :key="userservices.length" :userservices="userservices"
+            :authenticated="authenticated" :userservices="userservices"
             :currentroom="currentroom"></modal-services>
     </section>
     <br />
@@ -41,8 +40,7 @@ import MessagesContainer from './MessagesContainer.vue';
 import MessageInput from './MessageInput.vue';
 import ModalServices from './ModalServices.vue';
 import MessagesAttributes from './MessagesAttributes.vue';
-// import { connectecho } from '../getmessagecount';
-
+import {connectecho} from '../getmessagecount';
 
 export default {
     components: {
@@ -78,6 +76,8 @@ export default {
             if (this.currentroom.id) {
                 let vm = this;
                 window.Echo.private('chat.' + this.currentroom.id).listen('NewChatMessage', (e) => {
+                    vm.newmessage++;
+                    connectecho();
                     vm.getAllData();
                 });
             }
@@ -118,10 +118,7 @@ export default {
                 });
         },
         getAllData() {
-            this.getMessagesFromRoom();
             this.getUsers();
-            this.getAttributes();
-            this.newmessage++;
             this.setRoom(this.currentroom);
             this.countmessages();
         },
@@ -178,12 +175,9 @@ export default {
         this.getCreatedViaId();
         this.countmessages();
     },
-    updated() {
-        this.getauthenticated();
-        this.getLocale();
-        this.getUsers();
-        this.getCreatedViaId();
-        this.countmessages();
-    },
+    // updated() {
+    //     this.getUsers();
+    //     this.countmessages();
+    // },
 }
 </script>

@@ -88,7 +88,7 @@ export default {
         },
         readmessages(messages) {
             messages.forEach(message => {
-                if (message.status == 0 && message.user_id != this.authenticated.id) {
+                if ((message.status == 0 || message.status==false) && message.user_id != this.authenticated.id) {
                     this.readedMessage(message);
                 }
             });
@@ -97,11 +97,6 @@ export default {
     updated() {
         this.readmessages(this.messages);
     },
-
-    mounted() {
-        this.readmessages(this.messages);
-    },
-
     created() {
         this.readmessages(this.messages);
     },

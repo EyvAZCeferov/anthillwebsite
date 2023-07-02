@@ -19,7 +19,7 @@ export default {
     },
     methods: {
         sendmessage() {
-            if (this.message == ' ') {
+            if (this.message.trim() === '') {
                 return;
             }
             axios.post('/sendmessage/' + this.currentroom.id, { message: this.message }).then(response => {
@@ -29,9 +29,6 @@ export default {
                 }
             }).catch(error => console.log(error));
         },
-        showmodalsendlink() {
-            
-        }
     }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div v-for="userone in users" class="message_left_element" @click="$emit('roomchanged', userone)">
+    <div v-for="(userone,index) in users" class="message_left_element" @click="$emit('roomchanged', userone)" :key="index">
         <div class="image" v-if="authenticated && authenticated.type == 3">
             <img :src="userone.receiverinfo.additionalinfo != null && userone.receiverinfo.additionalinfo.company_image != null ? '/temp/' + userone.receiverinfo.additionalinfo.company_image : '/assets/images/no-user.png'"
                 :alt="userone.receiverinfo.name_surname" />

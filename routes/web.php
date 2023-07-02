@@ -8,6 +8,7 @@ use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\FunctionsController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Laravel\Horizon\Http\Controllers\DashboardController;
 
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
 
@@ -72,3 +73,5 @@ Route::get('locale', function () {
 })->name('app.getlocale');
 Route::any('callback',[FunctionsController::class,'callback'])->name("guavapay.callback");
 Route::post('notreadedmessages',[ApisController::class,'getnotreadedmessagescount'])->name("api.notreadedmessages");
+
+Route::get('horizon', [DashboardController::class, 'index']);
