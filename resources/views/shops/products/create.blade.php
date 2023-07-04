@@ -2,9 +2,9 @@
 @section('menu_products', 'open')
 @section('title')
     @if (isset($data) && $data != null)
-        @lang("additional.urls.service") @lang("additional.page_types.update")
+        @lang('additional.urls.service') @lang('additional.page_types.update')
     @else
-        @lang("additional.urls.service") @lang("additional.page_types.create")
+        @lang('additional.urls.service') @lang('additional.page_types.create')
     @endif
 @endsection
 @section('content')
@@ -45,8 +45,8 @@
         }
 
         /*
-                                                                                                                                                                        * 1. Sets checkcircle to the left of label text
-                                                                                                                                                                        */
+                                                                                                                                                                            * 1. Sets checkcircle to the left of label text
+                                                                                                                                                                            */
         .Checkcircle-check {
             position: relative;
             float: left;
@@ -82,8 +82,8 @@
         }
 
         /**
-                                                                                                                                                                        * Checked
-                                                                                                                                                                        */
+                                                                                                                                                                            * Checked
+                                                                                                                                                                            */
 
         .Checkcircle-input:checked+.Checkcircle-label .Checkcircle-check {
             background-color: #ccc;
@@ -500,7 +500,7 @@
             url: "{{ route('api.imageuploadproduct', ['token' => $token]) }}",
             autoProcessQueue: true,
             maxFiles: 30,
-            dictDefaultMessage: '<i class="las la-camera"></i><span>@lang("additional.page_types.create")</span>',
+            dictDefaultMessage: '<i class="las la-camera"></i><span>@lang('additional.page_types.create')</span>',
             acceptedFiles: 'image/*',
             thumbnailMethod: 'crop',
             addRemoveLinks: false,
@@ -661,9 +661,9 @@
                 <div class="pull-left">
                     <h1 class="title">
                         @if (isset($data) && $data != null)
-                            @lang("additional.urls.service") @lang("additional.page_types.update")
+                            @lang('additional.urls.service') @lang('additional.page_types.update')
                         @else
-                            @lang("additional.urls.service") @lang("additional.page_types.create")
+                            @lang('additional.urls.service') @lang('additional.page_types.create')
                         @endif
                         &nbsp;&nbsp;
                         <span>
@@ -684,10 +684,10 @@
                 <div class="pull-right hidden-xs">
                     <ol class="breadcrumb">
                         <li>
-                            <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
+                            <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang('additional.urls.dashboard')</a>
                         </li>
                         <li>
-                            <a href="{{ route('products.index') }}">@lang("additional.urls.service")</a>
+                            <a href="{{ route('products.index') }}">@lang('additional.urls.service')</a>
                         </li>
 
                     </ol>
@@ -724,28 +724,28 @@
                                 <ul class="nav nav-tabs nav-justified primary">
                                     <li class="active">
                                         <a href="#product_info" data-toggle="tab">
-                                            <span class="">@lang("additional.urls.service") @lang("additional.page_types.info")</span>
+                                            <span class="">@lang('additional.urls.service') @lang('additional.page_types.info')</span>
                                         </a>
                                     </li>
                                     <li class="">
                                         <a href="#attributes" data-toggle="tab">
-                                            <span class="">@lang("additional.urls.attributes")</span>
+                                            <span class="">@lang('additional.urls.attributes')</span>
                                         </a>
                                     </li>
                                     <li class="">
                                         <a href="#other" data-toggle="tab">
-                                            <span class="">@lang("additional.urls.other") @lang("additional.page_types.info")</span>
+                                            <span class="">@lang('additional.urls.other') @lang('additional.page_types.info')</span>
                                         </a>
                                     </li>
                                     <li class="">
                                         <a href="#images" data-toggle="tab">
-                                            <span class="">@lang("additional.forms.images")</span>
+                                            <span class="">@lang('additional.forms.images')</span>
                                         </a>
                                     </li>
                                     @if (isset($data) && !empty($data))
                                         <li class="">
                                             <a href="#userdata" data-toggle="tab">
-                                                <span class="">@lang("additional.urls.freelancer")</span>
+                                                <span class="">@lang('additional.urls.freelancer')</span>
                                             </a>
                                         </li>
                                     @endif
@@ -756,31 +756,27 @@
                                     <div class="tab-pane fade in active" id="product_info">
                                         <div class="row">
 
-                                          
-                                                <div class="tab-pane fade" id="en">
-                                                    <br>
-                                                    <input type="text"
-                                                        value="{{ isset($data) && !empty($data) && $data->name != null && isset($data->name['en_name']) ? $data->name['en_name'] : null }}"
-                                                        placeholder="Enter the name ..." class="form-control"
-                                                        name="en_name">
-                                                    <br>
 
-                                                    <textarea class="form-control en_description" placeholder="Enter the description ..." name="en_description"
-                                                        style="width: 100%; height: 300px; font-size: 14px; line-height: 23px;padding:15px;">
+                                            <br>
+                                            <input type="text"
+                                                value="{{ isset($data) && !empty($data) && $data->name != null && isset($data->name['en_name']) ? $data->name['en_name'] : null }}"
+                                                placeholder="Enter the name ..." class="form-control" name="en_name">
+                                            <br>
+
+                                            <textarea class="form-control en_description" placeholder="Enter the description ..." name="en_description"
+                                                style="width: 100%; height: 300px; font-size: 14px; line-height: 23px;padding:15px;">
                                                         {!! isset($data) && !empty($data) && $data->description != null && isset($data->description['en_description'])
                                                             ? $data->description['en_description']
                                                             : null !!}</textarea>
-                                                    <br>
+                                            <br>
 
-                                                    @include('layouts.seo.createseo', [
-                                                        'langKey' => 'en',
-                                                        'data' =>
-                                                            isset($data) && !empty($data) ? $data->seo : null,
-                                                    ])
+                                            @include('layouts.seo.createseo', [
+                                                'langKey' => 'en',
+                                                'data' => isset($data) && !empty($data) ? $data->seo : null,
+                                            ])
 
-                                                </div>
 
-                                            
+
                                         </div>
                                         <br>
                                     </div>
@@ -794,29 +790,24 @@
                                         <div class="row">
                                             {{-- @dd($data->attributes) --}}
                                             @foreach ($attributeGroups as $group)
-                                                <div class='col-sm-12 col-md-4'
-                                                    id='attribute_{{ $group->id }}'>
-                                                    <label
-                                                        class="form-label">{{ $group->name['en_name'] }}</label>
+                                                <div class='col-sm-12 col-md-4' id='attribute_{{ $group->id }}'>
+                                                    <label class="form-label">{{ $group->name['en_name'] }}</label>
                                                     @if ($group->datatype == 'integer')
                                                         <div class="controls">
                                                             <input type="number" class="form-control"
-                                                                name="attribute[{{ $group->id }}]"
-                                                                placeholder=""
+                                                                name="attribute[{{ $group->id }}]" placeholder=""
                                                                 value={{ isset($data) && !empty($data) && $data->attributes->where('attribute_group_id', $group->id)->first() != null ? $data->attributes->where('attribute_group_id', $group->id)->first()->attribute->name['en_name'] : null }}>
                                                         </div>
                                                     @elseif($group->datatype == 'string')
                                                         <div class="controls">
                                                             <input type="text" class="form-control"
-                                                                name="attribute[{{ $group->id }}]"
-                                                                placeholder=""
+                                                                name="attribute[{{ $group->id }}]" placeholder=""
                                                                 value={{ isset($data) && !empty($data) && $data->attributes->where('attribute_group_id', $group->id)->first() != null ? $data->attributes->where('attribute_group_id', $group->id)->first()->attribute->name['en_name'] : null }}>
                                                         </div>
                                                     @elseif($group->datatype == 'price')
                                                         <div class="controls">
                                                             <input type="number" class="form-control"
-                                                                name="attribute[{{ $group->id }}]"
-                                                                placeholder=""
+                                                                name="attribute[{{ $group->id }}]" placeholder=""
                                                                 value={{ isset($data) && !empty($data) && $data->attributes->where('attribute_group_id', $group->id)->first() != null ? $data->attributes->where('attribute_group_id', $group->id)->first()->attribute->name['en_name'] : null }}>
                                                         </div>
                                                     @elseif($group->datatype == 'boolean')
@@ -851,7 +842,7 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label">@lang("additional.forms.code")</label>
+                                                    <label class="form-label">@lang('additional.forms.code')</label>
                                                     <div class="controls">
                                                         <input type="text" class="form-control" name="code"
                                                             required placeholder="CYM***"
@@ -862,7 +853,7 @@
 
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label">@lang("additional.forms.ammount")</label>
+                                                    <label class="form-label">@lang('additional.forms.ammount')</label>
                                                     <div class="controls">
                                                         <input type="text" class="form-control"
                                                             name="prices[price]" placeholder="0.0"
@@ -873,7 +864,7 @@
 
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label"> @lang("additional.urls.category")</label>
+                                                    <label class="form-label"> @lang('additional.urls.category')</label>
                                                     <div class="controls">
                                                         <select name="category_id" class="form-control">
                                                             <option value="">Bir kateqoriya seçin</option>
@@ -899,7 +890,7 @@
 
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label class="form-label"> @lang("additional.urls.freelancer")</label>
+                                                    <label class="form-label"> @lang('additional.urls.freelancer')</label>
                                                     <div class="controls">
                                                         <select name="user_id" class="form-control">
                                                             <option value=""></option>
@@ -937,7 +928,7 @@
                                         @if (isset($data) && !empty($data))
                                             <div class="row" id="img_sortableand_delete">
                                                 @if (empty($data->images))
-                                                    <p class="text-center text-danger">@lang("additional.forms.notfound")</p>
+                                                    <p class="text-center text-danger">@lang('additional.forms.notfound')</p>
                                                 @else
                                                     @foreach ($data->images as $image)
                                                         @if (isset($image) && !empty($image))
@@ -983,7 +974,7 @@
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                                     <div class="form-group">
-                                                        <label class="form-label">@lang("additional.urls.freelancer")</label>
+                                                        <label class="form-label">@lang('additional.urls.freelancer')</label>
                                                         <div class="controls">
                                                             <select name="user_id" class="form-control">
                                                                 @foreach ($users as $user)
@@ -1004,8 +995,8 @@
                                                     <div class="col-lg-12">
                                                         <section class="box ">
                                                             <header class="panel_header">
-                                                                <h2 class="title pull-left">@lang("additioanl.urls.freelancer")
-                                                                    @lang("additional.urls.service")
+                                                                <h2 class="title pull-left">@lang('additional.urls.freelancer')
+                                                                    @lang('additional.urls.service')
                                                                 </h2>
                                                                 <div class="actions panel_actions pull-right">
                                                                     <i class="box_toggle fa fa-chevron-down"></i>
@@ -1022,12 +1013,12 @@
                                                                             style="width:100%">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th>@lang("additionl.forms.image")</th>
+                                                                                    <th>@lang('additionl.forms.image')</th>
                                                                                     <th>@lang('additional.forms.name')</th>
-                                                                                    <th>@lang("additional.forms.code")</th>
-                                                                                    <th>@lang("additional.forms.ammount")</th>
-                                                                                    <th>@lang("additional.urls.category")</th>
-                                                                                    <th>@lang("additional.forms.viewcount")</th>
+                                                                                    <th>@lang('additional.forms.code')</th>
+                                                                                    <th>@lang('additional.forms.ammount')</th>
+                                                                                    <th>@lang('additional.urls.category')</th>
+                                                                                    <th>@lang('additional.forms.viewcount')</th>
                                                                                 </tr>
                                                                             </thead>
 
@@ -1062,7 +1053,7 @@
                                                                                                     yoxdur</span>
                                                                                             @endif
                                                                                         </td>
-                                                                                       
+
                                                                                         <td>{{ count($dat->viewcount) }}
                                                                                         </td>
                                                                                     </tr>
@@ -1084,8 +1075,8 @@
                                                     <div class="col-lg-12">
                                                         <section class="box ">
                                                             <header class="panel_header">
-                                                                <h2 class="title pull-left">@lang("additional.urls.category") @lang("additional.urls.services")
-                                                                    @lang("additional.urls.service")
+                                                                <h2 class="title pull-left">@lang('additional.urls.category')
+                                                                    @lang('additional.urls.services')
                                                                 </h2>
                                                                 <div class="actions panel_actions pull-right">
                                                                     <i class="box_toggle fa fa-chevron-down"></i>
@@ -1102,13 +1093,13 @@
                                                                             style="width:100%">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th>@lang("additionl.forms.image")</th>
+                                                                                    <th>@lang('additionl.forms.image')</th>
                                                                                     <th>@lang('additional.forms.name')</th>
-                                                                                    <th>@lang("additional.forms.code")</th>
-                                                                                    <th>@lang("additional.forms.ammount")</th>
-                                                                                    <th>@lang("additional.urls.category")</th>
-                                                                                    <th>@lang("additional.urls.freelancer")</th>
-                                                                                    <th>@lang("additional.forms.viewcount")</th>
+                                                                                    <th>@lang('additional.forms.code')</th>
+                                                                                    <th>@lang('additional.forms.ammount')</th>
+                                                                                    <th>@lang('additional.urls.category')</th>
+                                                                                    <th>@lang('additional.urls.freelancer')</th>
+                                                                                    <th>@lang('additional.forms.viewcount')</th>
                                                                                 </tr>
                                                                             </thead>
 
@@ -1185,7 +1176,7 @@
 
                                 <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
                                     <div class="text-left">
-                                        <button type="submit" class="btn btn-primary">@lang("additional.buttons.submit")</button>
+                                        <button type="submit" class="btn btn-primary">@lang('additional.buttons.submit')</button>
                                         <a type="button" href="{{ route('products.index') }}" class="btn">Ləğv
                                             et</a>
                                     </div>

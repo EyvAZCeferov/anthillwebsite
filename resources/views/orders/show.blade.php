@@ -92,14 +92,17 @@
                             </div>
 
                             <div class="col-sm-4" style="margin-bottom: 1em">
-                                @lang('additional.urls.freelancer'): {{ users($data->from_id, 'id')->name_surname }}
-                                {{ users($data->from_id, 'id')->email }}
+                                
+                                @lang('additional.urls.freelancer'): @if(isset($data->from_id) && !empty($data->from_id) && !empty(users($data->from_id, 'id'))) {{ users($data->from_id, 'id')->name_surname }} 
+                                 {{ users($data->from_id, 'id')->email }}
                                 {{ users($data->from_id, 'id')->phone }}
+                                @else @lang('additional.forms.notregistered_freelancer') @endif
                             </div>
                             <div class="col-sm-4" style="margin-bottom: 1em">
-                                @lang('additional.urls.user'): {{ users($data->to_id, 'id')->name_surname }}
+                                @lang('additional.urls.user'): @if(isset($data->to_id) && !empty($data->to_id) && !empty(users($data->to_id, 'id'))) {{ users($data->to_id, 'id')->name_surname }}
                                 {{ users($data->to_id, 'id')->email }}
                                 {{ users($data->to_id, 'id')->phone }}
+                                @else @lang('additional.forms.notregistered_freelancer') @endif
                             </div>
 
                             <!-- ********************************************** -->

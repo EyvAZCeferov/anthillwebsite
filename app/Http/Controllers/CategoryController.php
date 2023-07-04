@@ -56,7 +56,6 @@ class CategoryController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'az_name' => 'required|string|max:255|min:1',
                 'image' => 'image|mimes:jpg,jpeg,pjpeg,pjp,avif,jfif,bmp,ico,cur,png,gif,svg,webp,tif,tiff',
             ]);
 
@@ -65,10 +64,10 @@ class CategoryController extends Controller
             }
 
             $name = [
-                'az_name' => $request->az_name,
-                'ru_name' => isset($request->ru_name) ? $request->ru_name : trim(GoogleTranslate::trans($request->az_name, 'ru')),
-                'en_name' => isset($request->en_name) ? $request->en_name : trim(GoogleTranslate::trans($request->az_name, 'en')),
-                'tr_name' => isset($request->tr_name) ? $request->tr_name : trim(GoogleTranslate::trans($request->az_name, 'tr')),
+                'az_name' => $request->en_name,
+                'ru_name' => isset($request->ru_name) ? $request->ru_name : trim(GoogleTranslate::trans($request->en_name, 'ru')),
+                'en_name' => isset($request->en_name) ? $request->en_name : trim(GoogleTranslate::trans($request->en_name, 'en')),
+                'tr_name' => isset($request->tr_name) ? $request->tr_name : trim(GoogleTranslate::trans($request->en_name, 'tr')),
             ];
 
             $slugs = [
@@ -187,7 +186,6 @@ class CategoryController extends Controller
         try {
             $data = categories($id);
             $validator = Validator::make($request->all(), [
-                'az_name' => 'required|string|max:255|min:1',
                 'image' => 'image|mimes:jpg,jpeg,pjpeg,pjp,avif,jfif,bmp,ico,cur,png,gif,svg,webp,tif,tiff',
             ]);
 
@@ -206,10 +204,10 @@ class CategoryController extends Controller
             }
 
             $name = [
-                'az_name' => $request->az_name,
-                'ru_name' => isset($request->ru_name) ? $request->ru_name : trim(GoogleTranslate::trans($request->az_name, 'ru')),
-                'en_name' => isset($request->en_name) ? $request->en_name : trim(GoogleTranslate::trans($request->az_name, 'en')),
-                'tr_name' => isset($request->tr_name) ? $request->tr_name : trim(GoogleTranslate::trans($request->az_name, 'tr')),
+                'az_name' => $request->en_name,
+                'ru_name' => isset($request->ru_name) ? $request->ru_name : trim(GoogleTranslate::trans($request->en_name, 'ru')),
+                'en_name' => isset($request->en_name) ? $request->en_name : trim(GoogleTranslate::trans($request->en_name, 'en')),
+                'tr_name' => isset($request->tr_name) ? $request->tr_name : trim(GoogleTranslate::trans($request->en_name, 'tr')),
             ];
 
             $slugs = [
