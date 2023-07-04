@@ -198,6 +198,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Tohidplus\Translation\TranslationServiceProvider::class,
+        Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider::class,
 
     ],
 
@@ -216,6 +217,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Pusher' => Pusher\Pusher::class,
+        'DbView'          => 'Flynsarmy\DbBladeCompiler\Facades\DbView',
     ])->toArray(),
 
 ];

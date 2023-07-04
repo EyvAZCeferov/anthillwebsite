@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "423f47675b666c5992b1b74334a3e668",
+    "content-hash": "23dc9cc9d4a8654327bf157dc58f43d2",
     "packages": [
         {
             "name": "brick/math",
@@ -621,6 +621,68 @@
                 "source": "https://github.com/ElementaryFramework/Streams/tree/v0.1.0"
             },
             "time": "2021-05-02T11:31:07+00:00"
+        },
+        {
+            "name": "flynsarmy/db-blade-compiler",
+            "version": "v9.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Flynsarmy/laravel-db-blade-compiler.git",
+                "reference": "e2cc1512c7f6af364160116560459962496255cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Flynsarmy/laravel-db-blade-compiler/zipball/e2cc1512c7f6af364160116560459962496255cb",
+                "reference": "e2cc1512c7f6af364160116560459962496255cb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Flynsarmy\\DbBladeCompiler\\DbBladeCompilerServiceProvider"
+                    ],
+                    "aliases": {
+                        "DbView": "Flynsarmy\\DbBladeCompiler\\Facades\\DbView"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Flynsarmy\\DbBladeCompiler\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Flyn San",
+                    "email": "flynsarmy@gmail.com"
+                },
+                {
+                    "name": "Ebrahim Radi",
+                    "email": "ebrahim.radi@gmail.com",
+                    "homepage": "http://me2bits.com"
+                }
+            ],
+            "description": "Render Blade templates from Eloquent Model Fields",
+            "keywords": [
+                "blade",
+                "compiler",
+                "eloquent",
+                "laravel",
+                "model"
+            ],
+            "support": {
+                "issues": "https://github.com/Flynsarmy/laravel-db-blade-compiler/issues",
+                "source": "https://github.com/Flynsarmy/laravel-db-blade-compiler/tree/v9.0.0"
+            },
+            "time": "2022-03-19T03:36:42+00:00"
         },
         {
             "name": "fruitcake/php-cors",

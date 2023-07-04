@@ -25,6 +25,7 @@
     <meta name='_token' content="{{ csrf_token() }}">
 @endpush
 @section('content')
+
     <section class="padding-y-100 padding-mobile-y-20">
         <div class="row">
             <div class="column column-45 bg_area bg_image mobile_column-0 border-rightradius bg_with_size"
