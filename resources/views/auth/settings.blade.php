@@ -80,16 +80,7 @@
                                             placeholder="@lang('additional.forms.enteremail')" class="form-control">
                                     </div>
                                 </div>
-                                <div class="column column-45">
-                                    <div class="form-group">
-                                        <label>
-                                            @lang('additional.forms.enterphone')
-                                        </label>
-                                        <input type="text" onkeyup="phonewriting('phone')" name="phone"
-                                            value="{{ $data->phone ?? null }}" placeholder="@lang('additional.forms.enterphone')"
-                                            class="form-control">
-                                    </div>
-                                </div>
+
                                 <div class="column column-45">
                                     <div class="form-group">
                                         <label>
@@ -160,16 +151,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="column column-45">
-                                        <div class="form-group">
-                                            <label>
-                                                @lang('additional.forms.enterphone_2')
-                                            </label>
-                                            <input type="text" onkeyup="phonewriting('phone_2')" name="phone_2"
-                                                value="{{ $data->phone_2 ?? null }}" placeholder="@lang('additional.forms.enterphone_2')"
-                                                class="form-control">
-                                        </div>
-                                    </div>
+
 
                                 </div>
                                 <div class="row">
@@ -200,13 +182,11 @@
                 var nexprocess = {
                     company_description: false,
                     company_name: false,
-                    phone_2: false,
                 };
             } else {
                 var nexprocess = {
                     email: false,
                     name_surname: false,
-                    phone: false,
                 };
             }
             var form = $(`form#${id}`)[0];
@@ -262,15 +242,7 @@
                     nexprocess['name_surname'] = true;
                 }
 
-                if (formData.get("phone") == null || formData.get("phone").length == 0) {
-                    hideLoader();
-                    createalert('error', '@lang('additional.messages.nullphone')', id);
-                    nexprocess['phone'] = false;
-                } else {
-                    var phonenumb = validPhone(formData.get('phone'));
-                    document.querySelector('input[name="phone"]').value = phonenumb;
-                    nexprocess['phone'] = true;
-                }
+
 
                 if (formData.get("email") == null || formData.get("email").length == 0) {
                     hideLoader();
@@ -286,8 +258,7 @@
                     }
                 }
 
-                if (nexprocess['email'] == true && nexprocess['name_surname'] == true &&
-                    nexprocess['phone'] == true) {
+                if (nexprocess['email'] == true && nexprocess['name_surname'] == true) {
                     $.ajax({
                         url: "{{ route('auth.updatedata') }}",
                         data: formData,

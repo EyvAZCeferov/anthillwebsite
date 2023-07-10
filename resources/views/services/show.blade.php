@@ -197,17 +197,17 @@
             lazyLoad: 'anticipated',
 
             responsive: [{
-                    breakpoint: 1024, // Tablet
+                    breakpoint: 1024, 
                     settings: {
-                        slidesToShow: 3, // Tablette 5 öğe gösterilecek
-                        slidesToScroll: 3
+                        slidesToShow: 3,
+                        slidesToScroll: 1
                     }
                 },
                 {
                     breakpoint: 768, // Mobil
                     settings: {
-                        slidesToShow: 2, // Mobilde 3 öğe gösterilecek
-                        slidesToScroll: 3
+                        slidesToShow: 1, // Mobilde 3 öğe gösterilecek
+                        slidesToScroll: 1
                     }
                 }
             ]

@@ -482,7 +482,12 @@ if (!function_exists('messagegroups')) {
                     ->frist();
             }
         } else {
-            $model = MessageGroups::orderBy('created_at', 'desc')->with(['senderinfo', 'receiverinfo', 'message_elements'])->get();
+            $model = MessageGroups::orderBy('created_at', 'desc')->with(['senderinfo', 'receiverinfo', 'message_elements'])->get()->sortBy(function ($group) {
+                return [
+                    $group->message_elements->max('status'),
+                    $group->message_elements->max('created_at'),
+                ];
+            });
         }
         return Cache::rememberForever("messagegroups" . $key . $type, fn () => $model);
     }

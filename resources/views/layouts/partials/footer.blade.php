@@ -3,7 +3,7 @@
         <div class="row padding-y-40 padding-mobile-y-15">
             <div class="column column-33 mobile_column-50 left_writes">
                 <img
-                src="{{ App\Helpers\Helper::getImageUrl(setting()->logo, 'settings') }}" 
+                src="{{ App\Helpers\Helper::getImageUrl(setting()->logo, 'settings') }}"
                 class="brend-image"
                     onclick="window.location.href=`{{ route('welcome') }}`"
                     alt="{{ setting()->title[app()->getLocale() . '_title'] }}">
@@ -30,6 +30,9 @@
                             referrerpolicy="no-referrer"><i class="lab la-twitter"></i></a>
                     @endif
 
+                </p>
+                <p class="master_card_logo">
+                    <img src="{{ asset("assets/images/mastercard.webp") }}" alt="MasterCard">
                 </p>
 
             </div>

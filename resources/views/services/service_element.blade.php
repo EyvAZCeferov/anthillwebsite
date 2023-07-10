@@ -54,14 +54,20 @@
             70
         ) !!}</p>
     @if (App\Helpers\Helper::getstars($data->code) != 0)
+    @php($ratings = App\Helpers\Helper::getstarswithdetail($data->code))
+
         <div class="stars"
+        style="margin:0;"
             onclick="window.open(`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`)">
-            @for ($i = 1; $i < 6; $i++)
-                <div class="star"><i class="@if (App\Helpers\Helper::getstars($data->code) == $i) lar @else las @endif la-star"></i>
+            @for ($i = 0; $i < 5; $i++)
+
+                <div class="star"><i class="@if (App\Helpers\Helper::getstars($data->code) <= $i) lar @else las @endif la-star"></i>
                 </div>
             @endfor
         </div>
     @endif
+
+
 
     <hr onclick="window.open(`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`)" />
     <p class="price" onclick="window.open(`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`)"><span style="font-size:12px;color:gray;font-weight:bold">Starts at</span>

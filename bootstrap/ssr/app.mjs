@@ -456,7 +456,7 @@ const _sfc_main = {
             this.showmodal = !this.showmodal;
             this.userservices = [];
             if (this.showmodal == true) {
-                axios.get("/api/services_user/" + this.currentroom.sender_id).then((response) => {
+                axios.get("/api/services_user_datas/" + this.currentroom.sender_id).then((response) => {
                     this.userservices = response.data;
                 }).catch((error) => {
                     console.error(error);

@@ -148,7 +148,6 @@ class FunctionsController extends Controller
                 if ($request->type_request == "profile") {
                     $user->update([
                         "name_surname" => $request->name_surname,
-                        "phone" => $request->phone,
                         "email" => $request->email,
                     ]);
 
@@ -179,11 +178,7 @@ class FunctionsController extends Controller
                     return response()->json(['status' => 'success', 'message' => trans('additional.messages.datasupdated')]);
                 } else {
 
-                    if (isset($request->phone_2) && !empty($request->phone_2)) {
-                        $user->update([
-                            "phone_2" => $request->phone_2,
-                        ]);
-                    }
+
                     if (isset($request->company_name) && !empty($request->company_name)) {
                         $name = [
                             'az_name' => trim($request->company_name),

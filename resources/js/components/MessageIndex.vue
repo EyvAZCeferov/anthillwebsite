@@ -135,7 +135,7 @@ export default {
             this.showmodal = !this.showmodal;
             this.userservices = [];
             if (this.showmodal == true) {
-                axios.get('/api/services_user/' + this.currentroom.sender_id)
+                axios.get('/api/services_user_datas/' + this.currentroom.sender_id)
                     .then(response => {
                         this.userservices = response.data;
                     })
@@ -171,7 +171,7 @@ export default {
     created() {
         this.getauthenticated();
         this.getLocale();
-        this.getUsers();
+        this.getUsers(); 
         this.getCreatedViaId();
         this.countmessages();
     },

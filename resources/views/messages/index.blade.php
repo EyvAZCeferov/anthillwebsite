@@ -5,7 +5,7 @@
 
 @push('js')
     {{-- @vite(['resources/js/app.js']) --}}
-    <script type="module" src="{{asset('build/assets/app-ba4ca121.js')}}" ></script>
+    <script type="module" src="{{asset('build/assets/app-4fffdf2b.js')}}" ></script>
 @endpush
 
 @section('content')
