@@ -33,7 +33,16 @@
             </div>
             <div class="column column-45 mobile_column-100">
                 <h1 class="text-center section_title_with_green">@lang('additional.pages.register.title')</h1>
-
+                <div class="row">
+                    <div class="user_or_freelancer_row">
+                        <div class="user_or_freelancer_tab active" onclick="tabselect('user')">
+                            @if(!empty(lang_properties('user','keyword'))) {{ lang_properties('user','keyword')->name }} @else  @lang("additional.pages.register.user") @endif
+                        </div>
+                        <div class="user_or_freelancer_tab" onclick="tabselect('freelancer')">
+                            @if(!empty(lang_properties('freelancer','keyword'))) {{ lang_properties('freelancer','keyword')->name }} @else  @lang("additional.pages.register.freelancer") @endif
+                        </div>
+                    </div>
+                </div>
                 <form class="margin-y-40" onsubmit="formsend()" id="formsend" style="width: 75%">
                     <div id="messages"></div>
                     @csrf
@@ -44,10 +53,10 @@
                     <div class="form-group">
                         <input type="email" name="email" placeholder="@lang('additional.forms.enteremail')" class="form-control">
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <input type="text" name="phone" placeholder="@lang('additional.forms.enterphone')"
                             class="form-control">
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <input type="password" name="password" placeholder="@lang('additional.forms.enterpassword')" class="form-control">
                         <span class="eye-icon" id="password-eye-icon" onclick="password_toggle('password')"><i

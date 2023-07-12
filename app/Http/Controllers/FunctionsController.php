@@ -41,7 +41,7 @@ class FunctionsController extends Controller
     public function register(Request $request)
     {
         try {
-            $user = users($request->email, 'email') ?? users($request->phone, 'phone');
+            $user = users($request->email, 'email');
             if (!empty($user)) {
                 return response()->json(['status' => 'error', 'message' => trans('additional.messages.userfound', [], $request->language ?? 'en')]);
             } else {
@@ -50,7 +50,6 @@ class FunctionsController extends Controller
                     $user = new User();
                     $user->name_surname = $request->name_surname;
                     $user->email = $request->email;
-                    $user->phone = $request->phone;
                     $user->password = bcrypt($request->password);
                     $user->is_admin = false;
                     $user->type = 1;

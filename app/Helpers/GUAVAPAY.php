@@ -32,6 +32,7 @@ class GUAVAPAY
         $responseBody = $response->getBody()->getContents();
         $responseData = json_decode($responseBody);
         $order->update(['transaction_id' => $responseData->orderId]);
+
         return $responseData->formUrl;
     }
     public static function refund($order_id, $amount, $language = 'az')
@@ -75,19 +76,9 @@ class GUAVAPAY
         ]);
         $responseBody = $response->getBody()->getContents();
         $responseData = json_decode($responseBody, true);
-        $neworder = new Orders();
+        $neworder = Orders::where('id',$order->data['order_id'])->first();
         if(isset($responseData->Success) && $responseData->Success==true){
-            DB::transaction(function () use ($order,&$neworder) {
-                $neworder->uid = Helper::createRandomCode('string', 22);
-                $neworder->from_id = $order->from_id;
-                $neworder->to_id = $order->to_id;
-                $neworder->product_id = $order->data['service_id'];
-                $neworder->payment_id = $order->id;
-                $neworder->status = 0;
-                $neworder->price = $order->amount;
-                $neworder->ipaddress = $order->data['ipaddress'];
-                $neworder->save();
-            });
+            $neworder->status = 2;
         }
         $order->update(['frompayment' => $responseData]);
         if(!empty($neworder) && isset($neworder->id)){

@@ -112,7 +112,9 @@ return [
             "returnhome"=>"Return to home page",
         ],
         "register" => [
-            "title" => "Register"
+            "title" => "Register",
+            "user"=>"User",
+            "freelancer"=>"Freelancer"
         ],
         "category" => [
             "allcategories" => "All Categories",

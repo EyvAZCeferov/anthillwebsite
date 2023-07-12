@@ -223,6 +223,7 @@
                             $("#loadbeforeajax").css('display', 'none');
                             buttonsendform.prop('disabled', false);
                             createalert(data.status, data.message, 'profileupdate');
+                            window.location.reload();
                         },
                         error: function(data) {
                             hideLoader();
@@ -270,6 +271,7 @@
                             $("#loadbeforeajax").css('display', 'none');
                             buttonsendform.prop('disabled', false);
                             createalert(data.status, data.message, 'companyupdate');
+                            window.location.reload();
                         },
                         error: function(data) {
                             hideLoader();

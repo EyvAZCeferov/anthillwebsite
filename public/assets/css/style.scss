@@ -3921,6 +3921,34 @@ body {
             }
         }
     }
+    .user_or_freelancer_row{
+        width:65%;
+        margin:0 auto;
+        border:1px solid $primary-color;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        align-content:center;
+        text-align:center
+        border-radius:25px;
+        background-color:#fff;
+        padding:0;
+        .user_or_freelancer_tab{
+            width:49%;
+            cursor:pointer;
+            padding:10px 0;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            align-content:center;
+            text-align:center
+            border-radius:25px;
+            background-color:#fff;
+            &.active{
+                background-color:$primary-color;
+            }
+        }
+    }
 }
 
 @media(max-width:991px) {

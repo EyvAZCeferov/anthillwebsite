@@ -429,9 +429,10 @@ class ApisController extends Controller
         try {
 
             $service = product($request->service_id, true);
+            
             $payment = new Payments();
 
-            DB::transaction(function () use ($request, &$payment, $service) {
+            // DB::transaction(function () use ($request, &$payment, $service) {
 
                 $payment->transaction_id = Helper::createRandomCode('string', 10);
                 $payment->payment_status = 0;
@@ -445,9 +446,24 @@ class ApisController extends Controller
                     'ipaddress' => $request->ip(),
                     "orderid" => Helper::createRandomCode('string', 22),
                     "service_id" => $service->id,
+                    "order_id"=>''
                 ];
                 $payment->save();
-            });
+            // });
+            
+                // DB::transaction(function () use ($request,$service,$payment) {
+                    $neworder = new Orders();
+                    $neworder->uid = Helper::createRandomCode('string', 22);
+                    $neworder->from_id = $request->sender_id;
+                    $neworder->to_id = $request->receiver_id??null;
+                    $neworder->product_id = $service->id;
+                    $neworder->payment_id = $payment->id;
+                    $neworder->status = 0;
+                    $neworder->price = isset($request->price) && !empty($request->price) && $request->price > 0 ? $request->price : $service->price;
+                    $neworder->ipaddress = $request->ip();
+                    $neworder->save();
+                // });
+            $payment->update(['data->order_id'=>$neworder->id]);
 
             return GUAVAPAY::createorder($payment->id, $request->language ?? 'en');
         } catch (\Exception $e) {
@@ -621,6 +637,8 @@ class ApisController extends Controller
     {
         try {
             $contactus = new ContactUs();
+
+
             DB::transaction(function () use ($request, &$contactus) {
                 $contactus->message = $request->message;
                 $contactus->name = $request->name;
