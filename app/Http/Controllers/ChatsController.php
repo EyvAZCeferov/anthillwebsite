@@ -32,8 +32,21 @@ class ChatsController extends Controller
     public function fetchmessagegroups(Request $request)
     {
         try {
-            $data = messagegroups(Auth::id(), 'get_message_groups');
-            return response()->json(['status' => 'success', 'data' => $data]);
+            $model = MessageGroups::where('receiver_id', Auth::id())
+            ->orWhere('sender_id', Auth::id())
+            ->with([
+                'senderinfo',
+                'receiverinfo',
+                'message_elements' => function ($query) {
+                    $query->orderBy('id', 'DESC');
+                },
+            ])
+            ->get();
+
+            $model = $model->sortByDesc(function ($group) {
+                return $group->message_elements->max('id');
+            })->values();
+            return response()->json(['status' => 'success', 'data' => $model]);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
@@ -51,6 +64,7 @@ class ChatsController extends Controller
     public function fetchattributes($id)
     {
         try {
+            $data = Products::where('id',$id)->with(['attributes', 'category',  'user', 'images', 'comments'])->first();
             $productattributes = ProductsAttributes::where('product_id', $id)
                 ->whereHas('attribute', function ($query) {
                     $query->where(function ($subquery) {
@@ -72,7 +86,7 @@ class ChatsController extends Controller
                     return empty($item->attribute->name);
                 });
 
-            return response()->json(['data' => $productattributes]);
+            return response()->json(['data' => $productattributes,'product'=>$data]);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }

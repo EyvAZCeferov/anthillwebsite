@@ -53,11 +53,11 @@
                     </li>
                     <li onclick="window.location.href='{{ route('companies.index') }}'"
                         class="menu_items_lists_item text-center">
-                        @lang('additional.urls.companies')
+                        @if(!empty(lang_properties('freelancers','keyword'))) {{ lang_properties('freelancers','keyword')->name }} @else  @lang("additional.urls.companies") @endif
                     </li>
                     <li onclick="window.location.href='{{ route('wishlist.index') }}'"
                         class="menu_items_lists_item text-center">
-                        @lang('additional.urls.wishlist')
+                        @if(!empty(lang_properties('wishlist','keyword'))) {{ lang_properties('wishlist','keyword')->name }} @else  @lang("additional.urls.wishlist") @endif
                     </li>
 
                 </ul>

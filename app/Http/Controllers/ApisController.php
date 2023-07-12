@@ -314,16 +314,11 @@ class ApisController extends Controller
                     ->orWhere('slugs->ru_slug', Str::slug($name['ru_name']))
                     ->orWhere('slugs->en_slug', Str::slug($name['en_name']))->get();
 
-                $slugs = [
-                    'az_slug' => count($countofproducts) == 0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']) . '-' . count($countofproducts) * 2,
-                    'ru_slug' => count($countofproducts) == 0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']) . '-' . count($countofproducts) * 2,
-                    'en_slug' => count($countofproducts) == 0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']) . '-' . count($countofproducts) * 2,
-                ];
+
                 DB::transaction(function () use ($request, $codeofproduct, $name, $description, $slugs, &$product) {
 
                     $product->name = $name;
                     $product->description = $description;
-                    $product->slugs = $slugs;
                     $product->category_id = $request->category_id;
                     $product->price = $request->price;
                     $product->status = 0;
@@ -829,5 +824,16 @@ class ApisController extends Controller
     {
         $notreadedmessages = Helper::getnotreadedmessagescount();
         return response()->json($notreadedmessages);
+    }
+    public function delete_attribute(Request $request){
+        try{
+            $productattribute=ProductsAttributes::where('product_id',$request->product_id)->where('attribute_group_id',$request->group_id)->first();
+            $productattribute->delete();
+            return response()->json(['message'=>trans('additional.messages.deleted'),'status'=>'success']);
+        }catch(\Exception $e){
+            return response()->json(['message'=>$e->getMessage(),'status'=>'error']);
+        }finally{
+            Helper::dbdeactive();
+        }
     }
 }

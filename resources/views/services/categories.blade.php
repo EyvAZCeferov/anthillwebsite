@@ -1,7 +1,7 @@
 <section>
     <div class="container">
         <div class="row">
-            <h2 class="text-center w-100">@lang('additional.urls.categories')</h2>
+            <h2 class="text-center w-100">@if(!empty(lang_properties('categories','keyword'))) {{ lang_properties('categories','keyword')->name }} @else  @lang('additional.urls.categories') @endif</h2>
         </div>
         <div class="row category_items">
             <div class="column column-32 mobile_column-49 category-item all @if (!isset($selected_category) && empty($selected_category)) active @endif"

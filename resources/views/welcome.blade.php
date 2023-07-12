@@ -4,21 +4,21 @@
     @if (!empty(standartpages('homepage', 'type')))
         {{ standartpages('homepage', 'type')->seo->name[app()->getLocale() . '_meta_title'] }}
     @else
-        @lang('additional.urls.welcome')
+        @if(!empty(lang_properties('welcome','keyword'))) {{ lang_properties('welcome','keyword')->name }} @else  @lang("additional.urls.welcome") @endif
     @endif
 @endsection
 @section('description')
     @if (!empty(standartpages('homepage', 'type')))
         {{ standartpages('homepage', 'type')->seo->description[app()->getLocale() . '_meta_description'] }}
     @else
-        @lang('additional.urls.welcome')
+        @if(!empty(lang_properties('welcome','keyword'))) {{ lang_properties('welcome','keyword')->name }} @else  @lang("additional.urls.welcome") @endif
     @endif
 @endsection
 @section('keywords')
     @if (!empty(standartpages('homepage', 'type')))
         {{ standartpages('homepage', 'type')->seo->keywords[app()->getLocale() . '_meta_keywords'] }}
     @else
-        @lang('additional.urls.welcome')
+        @if(!empty(lang_properties('welcome','keyword'))) {{ lang_properties('welcome','keyword')->name }} @else  @lang("additional.urls.welcome") @endif
     @endif
 @endsection
 @push('js')
@@ -212,7 +212,7 @@
         @endif
         <section>
             <div class="row">
-                <h2 class="text-center w-100">@lang('additional.urls.categories')</h2>
+                <h2 class="text-center w-100">@if(!empty(lang_properties('categories','keyword'))) {{ lang_properties('categories','keyword')->name }} @else  @lang('additional.urls.categories') @endif</h2>
             </div>
             <div class="categories_items_slider" style="margin-top:10px">
                 @foreach (categories() as $category)
@@ -252,7 +252,7 @@
         @if (!empty(user_companies()))
             <section class="bg_gray">
                 <div class="row ">
-                    <h2 class="text-center w-100">@lang('additional.urls.customers')</h2>
+                    <h2 class="text-center w-100">@if(!empty(lang_properties('freelancers','keyword'))) {{ lang_properties('freelancers','keyword')->name }} @else  @lang("additional.urls.customers") @endif</h2>
                 </div>
                 <div class="customers_items_sliders padding-y-15">
                     @foreach (user_companies() as $company)

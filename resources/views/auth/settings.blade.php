@@ -22,7 +22,7 @@
                             @lang('additional.pages.auth.profileinfo')
                         </div>
                         <div class="tabs_section companyinformation" onclick="changetab_settings('companyinformation')">
-                            @lang('additional.pages.auth.companyinfo')
+                            @if(!empty(lang_properties('companyinfotab','keyword'))) {{ lang_properties('companyinfotab','keyword')->name }} @else  @lang('additional.pages.auth.companyinfo') @endif
                         </div>
                     </div>
                 @endif
@@ -131,7 +131,7 @@
                                     </div>
                                     <div class="column column-60 mobile_column-100">
                                         <div class="form-group">
-                                            <label>@lang('additional.forms.company_description')</label>
+                                            <label>@if(!empty(lang_properties('companydescription','keyword'))) {{ lang_properties('companydescription','keyword')->name }} @else  @lang('additional.forms.company_description') @endif</label>
                                             <textarea rows="8" name="company_description" class="form-control" placeholder="@lang('additional.forms.company_description')">{!! isset($data->additionalinfo) && !empty($data->additionalinfo) && isset($data->additionalinfo->company_description[app()->getLocale() . '_description']) && !empty($data->additionalinfo->company_description[app()->getLocale() . '_description']) ? App\Helpers\Helper::strip_tags_with_whitespace($data->additionalinfo->company_description[app()->getLocale() . '_description']) : null !!}</textarea>
                                         </div>
 
@@ -143,11 +143,11 @@
                                     <div class="column column-45">
                                         <div class="form-group">
                                             <label>
-                                                @lang('additional.forms.entercompany_name')
+                                                @if(!empty(lang_properties('companyname','keyword'))) {{ lang_properties('companyname','keyword')->name }} @else  @lang('additional.pages.auth.entercompany_name') @endif
                                             </label>
                                             <input type="text" name="company_name"
                                                 value="{{ isset($data->additionalinfo) && !empty($data->additionalinfo) && isset($data->additionalinfo->company_name[app()->getLocale() . '_name']) && !empty($data->additionalinfo->company_name[app()->getLocale() . '_name']) ? $data->additionalinfo->company_name[app()->getLocale() . '_name'] : null }}"
-                                                placeholder="@lang('additional.forms.entercompany_name')" class="form-control">
+                                                placeholder="@if(!empty(lang_properties('companyname','keyword'))) {{ lang_properties('companyname','keyword')->name }} @else  @lang('additional.pages.auth.entercompany_name') @endif" class="form-control">
                                         </div>
                                     </div>
 

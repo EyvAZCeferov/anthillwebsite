@@ -59,7 +59,8 @@ return [
         "notyours" => "The service does not belong to you.",
         'messagesended' => 'Message sent.',
         "messagenotsended" => "Message not sent, please try again.",
-        "redirectingformessagesending" => "Redirecting for message sending..."
+        "redirectingformessagesending" => "Redirecting for message sending...",
+        "deleted"=>"Deleted"
     ],
     "forms" => [
         "enteremail" => "Email Address",

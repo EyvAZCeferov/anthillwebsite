@@ -32,7 +32,7 @@
                 }
                 $routes_2 = [
                     [
-                        'name' => trans('additional.urls.wishlist'),
+                        'name' => !empty(lang_properties('wishlist','keyword')) ? lang_properties('wishlist','keyword')->name : trans("additional.urls.wishlist"),
                         'icon' => '<i class="las la-bookmark"></i>',
                         'url' => route('wishlist.index'),
                         'count' => !empty(session()->get('bookmarks'))? count(session()->get('bookmarks')??[]) ?? 0 : 0,

@@ -3,21 +3,21 @@
     @if (!empty(standartpages('login', 'type')))
         {{ standartpages('login', 'type')->seo->name[app()->getLocale() . '_meta_title'] }}
     @else
-        @lang('additional.urls.welcome')
+        @if(!empty(lang_properties('welcome','keyword'))) {{ lang_properties('welcome','keyword')->name }} @else  @lang("additional.urls.welcome") @endif
     @endif
 @endsection
 @section('description')
     @if (!empty(standartpages('login', 'type')))
         {{ standartpages('login', 'type')->seo->description[app()->getLocale() . '_meta_description'] }}
     @else
-        @lang('additional.urls.welcome')
+        @if(!empty(lang_properties('welcome','keyword'))) {{ lang_properties('welcome','keyword')->name }} @else  @lang("additional.urls.welcome") @endif
     @endif
 @endsection
 @section('keywords')
     @if (!empty(standartpages('login', 'type')))
         {{ standartpages('login', 'type')->seo->keywords[app()->getLocale() . '_meta_keywords'] }}
     @else
-        @lang('additional.urls.welcome')
+        @if(!empty(lang_properties('welcome','keyword'))) {{ lang_properties('welcome','keyword')->name }} @else  @lang("additional.urls.welcome") @endif
     @endif
 @endsection
 @section('menu_login', 'active')

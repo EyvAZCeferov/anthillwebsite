@@ -197,7 +197,7 @@
             lazyLoad: 'anticipated',
 
             responsive: [{
-                    breakpoint: 1024, 
+                    breakpoint: 1024,
                     settings: {
                         slidesToShow: 3,
                         slidesToScroll: 1
@@ -345,7 +345,7 @@
                         <div class="row text-center">
                             <button class="sendchat"
                                 onclick="chatwithuser('{{ auth()->check() && !empty(auth()->user()) ? auth()->user()->id : null }}','{{ $data->user_id }}','{{ $data->id }}')"><i
-                                    class="las la-comments"></i> @lang('additional.buttons.sendchat')</button>
+                                    class="las la-comments"></i>@if(!empty(lang_properties('book_now','keyword'))) {{ lang_properties('book_now','keyword')->name }} @else  @lang("additional.buttons.sendchat") @endif</button>
                         </div>
                     </div>
                 </div>

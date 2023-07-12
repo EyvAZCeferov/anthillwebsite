@@ -4,21 +4,21 @@
     @if(!empty(standartpages('companies','type')))
         {{standartpages('companies','type')->seo->name[app()->getLocale().'_meta_title']}}
     @else
-        @lang('additional.urls.companies')
+        @if(!empty(lang_properties('freelancers','keyword'))) {{ lang_properties('freelancers','keyword')->name }} @else  @lang("additional.urls.companies") @endif
     @endif
 @endsection
 @section('description')
     @if(!empty(standartpages('companies','type')))
         {{standartpages('companies','type')->seo->description[app()->getLocale().'_meta_description']}}
     @else
-        @lang('additional.urls.companies')
+        @if(!empty(lang_properties('freelancers','keyword'))) {{ lang_properties('freelancers','keyword')->name }} @else  @lang("additional.urls.companies") @endif
     @endif
 @endsection
 @section('keywords')
     @if(!empty(standartpages('companies','type')))
         {{standartpages('companies','type')->seo->keywords[app()->getLocale().'_meta_keywords']}}
     @else
-        @lang('additional.urls.companies')
+        @if(!empty(lang_properties('freelancers','keyword'))) {{ lang_properties('freelancers','keyword')->name }} @else  @lang("additional.urls.companies") @endif
     @endif
 @endsection
 

@@ -18,7 +18,7 @@
             <i class="las la-folder-open"></i> <span>@lang('additional.urls.orders')</span>
         </div>
         <div class="element @yield('wishlist_menu')" onclick="window.open(`{{ route('wishlist.index') }}`)">
-            <i class="las la-bookmark"></i> <span>@lang('additional.urls.wishlist')</span>
+            <i class="las la-bookmark"></i> <span>@if(!empty(lang_properties('wishlist','keyword'))) {{ lang_properties('wishlist','keyword')->name }} @else  @lang("additional.urls.wishlist") @endif</span>
         </div>
         <div class="element @yield('messages_menu')" onclick="window.open(`{{ route('messages.index') }}`)">
             <i class="las la-sms"></i> <span>@lang('additional.urls.messages')</span>

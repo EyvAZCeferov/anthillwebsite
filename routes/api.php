@@ -48,3 +48,6 @@ Route::get('/queuework', function () {
     exec('php /var/www/anthill/Website/artisan queue:work --timeout=60');
     return "Queue work process started.";
 });
+
+
+Route::post('delete_attribute',[ApisController::class,'delete_attribute'])->name('attributes.delete');

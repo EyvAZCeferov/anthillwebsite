@@ -11,7 +11,7 @@
             </div>
             <div
                 class="column @if (languages() != null && count(languages()) > 1) column-65 mobile_column-70 mini_mobile_column-50 @else column-75 mobile_column-70 mini_mobile_column-100 @endif menu_lists">
-                <a class="menu_lists_item @yield('menu_welcome')" href="{{ route('welcome') }}">@lang('additional.urls.welcome')</a>
+                <a class="menu_lists_item @yield('menu_welcome')" href="{{ route('welcome') }}">@if(!empty(lang_properties('welcome','keyword'))) {{ lang_properties('welcome','keyword')->name }} @else  @lang("additional.urls.welcome") @endif</a>
                 @if (!empty(standartpages('about', 'type')))
                     <a class="menu_lists_item @yield('menu_about')"
                         href="{{ route('standartpages.show', standartpages('about', 'type')->slugs[app()->getLocale() . '_slug']) }}">{{ standartpages('about', 'type')->name[app()->getLocale() . '_name'] }}</a>
@@ -65,7 +65,7 @@
                                         'url' => route('payments.index'),
                                     ],
                                     [
-                                        'name' => trans('additional.urls.wishlist'),
+                                        'name' => !empty(lang_properties('wishlist','keyword')) ? lang_properties('wishlist','keyword')->name : trans("additional.urls.wishlist"),
                                         'icon' => '<i class="las la-bookmark"></i>',
                                         'url' => route('wishlist.index'),
                                     ],

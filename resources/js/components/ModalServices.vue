@@ -1,5 +1,5 @@
 <template>
-    <div id="modal-wrapper">
+    <div id="modal-wrapper" :key="userservices_val.length">
 
         <div class="modal_section" :key="selectedservice.id">
             <div class="w-100 right"><span class="cancel_icon" @click="$emit('togglemodal')"><i
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else>
+            <div v-else >
                 <form style="height:50px;" class="row" @submit="searchnow">
                     <div class="form-group">
                         <input type="text" v-model="searching" @keyup="searchnow" class="form-control" name="search"
@@ -83,7 +83,7 @@
 
 <script>
 export default {
-    props: ['currentroom', 'authenticated', 'locale', 'userservices'],
+    props: ['currentroom', 'authenticated', 'locale', 'userservices','selectedservicedata'],
     data() {
         return {
             selectedservice: [],
@@ -213,11 +213,10 @@ export default {
             }).catch(error => console.log(error));
         },
     },
-    mounted() {
-        this.userservices_val = this.userservices;
-    },
+
     created() {
-        this.userservices_val = this.userservices
+        this.userservices_val = this.userservices;
+        this.selectedservice=this.selectedservicedata;
     },
 
 }

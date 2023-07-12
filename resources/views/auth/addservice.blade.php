@@ -91,46 +91,55 @@
                                     @php($attribute = $attributeEl->attribute)
                                     @if (!empty($attribute) && isset($attribute->name['az_name']) && trim($attribute->name['az_name']) != null)
                                         @if ($previousGroupId !== $attributeEl->attribute_group_id)
-                                            <div class="row add_service_row">
+                                            <div class="row add_service_row" id="attributerow_{{ $group->id }}">
                                                 <div class="column column-30">
                                                     <p class="label_left">{{ $group->name[app()->getLocale() . '_name'] }}
                                                     </p>
                                                 </div>
                                                 @if ($group->datatype == 'integer')
-                                                    <div class="column column-70">
+                                                    <div class="column column-50">
                                                         <div class="form-group"><input type="number" class="form-control"
                                                                 name="attribute[{{ $group->id }}]"
                                                                 value="{{ $attribute->name[app()->getLocale() . '_name'] }}" />
                                                         </div>
                                                     </div>
                                                 @elseif($group->datatype == 'string')
-                                                    <div class="column column-70">
+                                                    <div class="column column-50">
                                                         <div class="form-group"><input type="text" class="form-control"
                                                                 name="attribute[{{ $group->id }}]"
                                                                 value="{{ $attribute->name[app()->getLocale() . '_name'] }}" />
                                                         </div>
                                                     </div>
                                                 @elseif($group->datatype == 'boolean')
-                                                    <div class="column column-70">
+                                                    <div class="column column-50">
                                                         <div class="form-group"><select
                                                                 name="attribute[{{ $group->id }}]"
                                                                 id="attribute_group_{{ $group->id }}"
                                                                 class="form-control">
                                                                 <option value=""></option>
                                                                 @foreach ($group->groupElements as $grel)
-                                                                    <option value="{{ $grel->id }}" @if($grel->id==$attribute->id) selected @endif >{{ $grEl->name[app()->getLocale().'_name'] }}</option>
+                                                                    <option value="{{ $grel->id }}"
+                                                                        @if ($grel->id == $attribute->id) selected @endif>
+                                                                        {{ $grEl->name[app()->getLocale() . '_name'] }}
+                                                                    </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
                                                 @elseif($group->datatype == 'price')
-                                                    <div class="column column-70">
+                                                    <div class="column column-50">
                                                         <div class="form-group"><input type="text" class="form-control"
                                                                 name="attribute[{{ $group->id }}]"
                                                                 value="{{ $attribute->name[app()->getLocale() . '_name'] }}" /><span
                                                                 class="eye-icon" id="password-eye-icon">€</span></div>
                                                     </div>
                                                 @endif
+                                                <div class="column column-20 delete_attribute_area">
+                                                    <button type="button"
+                                                        onclick="delete_attribute(`{{ $group->id }}`,`{{ $data->id }}`)"
+                                                        class="btn btn-danger delete_attribute"><i
+                                                            class="las la-trash"></i></button>
+                                                </div>
                                             </div>
                                         @endif
                                         @php($previousGroupId = $attributeEl->attribute_group_id)
@@ -219,7 +228,6 @@
                         type: "GET",
                         success: function(data) {
                             $.each(data, function(key, value) {
-                                console.log(value);
                                 var mockFile = {
                                     name: value.name,
                                     size: value.size,
@@ -533,4 +541,33 @@
             });
         }
     </script>
+    @if (isset($data) && !empty($data))
+        <script defer>
+            function delete_attribute(id, product_id) {
+                event.preventDefault();
+                showLoader();
+                var formData = {
+                    group_id: id,
+                    product_id
+                };
+
+                $.ajax({
+                    url: "{{ route('attributes.delete') }}",
+                    data: formData,
+                    type: 'post',
+                    success: function(data) {
+                        hideLoader();
+                        createalert(data.status, data.message, 'formsend');
+                    },
+                    error: function(data) {
+                        hideLoader();
+                        createalert(data.status, data.message, 'formsend');
+                    }
+                });
+
+                $(`#attributerow_${id}`).remove();
+
+            }
+        </script>
+    @endif
 @endpush

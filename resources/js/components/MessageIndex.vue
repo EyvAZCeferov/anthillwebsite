@@ -27,9 +27,9 @@
             </div>
 
         </div>
-        <modal-services @togglemodal="openservicemodal" @sendmessage="getAllData" :locale="locale" v-show="showmodal"
+        <modal-services :key="userservices.length" @togglemodal="openservicemodal" @sendmessage="getAllData" :locale="locale" v-show="showmodal"
             :authenticated="authenticated" :userservices="userservices"
-            :currentroom="currentroom"></modal-services>
+            :currentroom="currentroom" :selectedservicedata="selectedservice"></modal-services>
     </section>
     <br />
 </template>
@@ -61,6 +61,7 @@ export default {
             userservices: [],
             attributes: [],
             newmessage:0,
+            selectedservice:[]
         };
     },
     watch: {
@@ -152,6 +153,7 @@ export default {
             if (this.currentroom != null && this.currentroom.product_id != null && this.currentroom.product_id) {
                 axios.get('/fetchattributes/' + this.currentroom.product_id).then(response => {
                     this.attributes = response.data.data;
+                    this.selectedservice=response.data.product;
                 }).catch(error => console.log(error));
             }
         },
@@ -171,7 +173,7 @@ export default {
     created() {
         this.getauthenticated();
         this.getLocale();
-        this.getUsers(); 
+        this.getUsers();
         this.getCreatedViaId();
         this.countmessages();
     },

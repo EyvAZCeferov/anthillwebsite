@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    @lang('additional.urls.wishlist')
+@if(!empty(lang_properties('wishlist','keyword'))) {{ lang_properties('wishlist','keyword')->name }} @else  @lang("additional.urls.wishlist") @endif
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@
     <section class="margin-y-10">
         <div class="w-75" style="margin:0 auto;">
             <div class="row">
-                <h2 class="text-center w-100">@lang('additional.urls.wishlist')</h2>
+                <h2 class="text-center w-100">@if(!empty(lang_properties('wishlist','keyword'))) {{ lang_properties('wishlist','keyword')->name }} @else  @lang("additional.urls.wishlist") @endif</h2>
             </div>
             <div class="row services" id="datas">
                 @if (session()->has('bookmarks'))

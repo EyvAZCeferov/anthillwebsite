@@ -4,7 +4,6 @@ use App\Models\User;
 use App\Models\Orders;
 use App\Models\Sliders;
 use App\Models\Comments;
-use App\Models\Messages;
 use App\Models\Payments;
 use App\Models\Products;
 use App\Models\Settings;
@@ -14,10 +13,10 @@ use App\Models\SiteUsers;
 use App\Models\Attributes;
 use App\Models\Categories;
 use App\Models\CouponCodes;
-use App\Models\ProductType;
 use App\Models\ViewCounters;
 use App\Models\MessageGroups;
 use App\Models\StandartPages;
+use App\Models\LangProperties;
 use App\Models\MessageElements;
 use App\Models\UserAdditionals;
 use App\Models\BackgroundImages;
@@ -157,7 +156,7 @@ if (!function_exists('standartpages')) {
         } else if (isset($key) && !empty($key) && $type == "slug") {
             $model = StandartPages::where('slugs->az_slug', $key)->orWhere('slugs->ru_slug', $key)->orWhere('slugs->en_slug', $key)->with('seo')->first();
         } else if (isset($key) && !empty($key) && $type == "id") {
-            $model = StandartPages::where('id',$key)->with('seo')->first();
+            $model = StandartPages::where('id', $key)->with('seo')->first();
         } else {
             $model = StandartPages::all();
         }
@@ -170,17 +169,17 @@ if (!function_exists('product')) {
     {
         if (isset($key) && !empty($key) && $object == false) {
             if (is_numeric($key)) {
-                $model = Products::find($key)->with(['attributes', 'category', 'cancelreason', 'user', 'images', 'comments']);
+                $model = Products::find($key)->with(['attributes', 'category',  'user', 'images', 'comments']);
             } else {
                 $model = Products::where('slugs->az_slug', $key)
                     ->orWhere('slugs->ru_slug', $key)
                     ->orWhere('slugs->en_slug', $key)
                     ->orWhere('slugs->tr_slug', $key)
-                    ->with(['attributes', 'category', 'cancelreason', 'user', 'images', 'comments'])
+                    ->with(['attributes', 'category',  'user', 'images', 'comments'])
                     ->first();
             }
         } else if (isset($key) && !empty($key) && $object == true) {
-            $model = Products::where('code', $key)->orWhere('slugs->az_slug',$key)->orWhere('slugs->ru_slug',$key)->orWhere('slugs->en_slug',$key)->with(['attributes', 'category', 'cancelreason', 'user', 'images', 'comments'])->first();
+            $model = Products::where('code', $key)->orWhere('slugs->az_slug', $key)->orWhere('slugs->ru_slug', $key)->orWhere('slugs->en_slug', $key)->with(['attributes', 'category',  'user', 'images', 'comments'])->first();
         }
         return Cache::rememberForever("product" . $key . $object, fn () => $model);
     }
@@ -412,22 +411,22 @@ if (!function_exists('orders')) {
     {
         if (isset($key) && !empty($key)) {
             if ($type == "id") {
-                $model = Orders::where('id',$key)->with(['from','touser','product','payment'])->first();
+                $model = Orders::where('id', $key)->with(['from', 'touser', 'product', 'payment'])->first();
             } else if ($type == "from_id") {
-                $model = Orders::where('from_id', $key)->orderBy('id', 'DESC')->with(['from','touser','product','payment'])->paginate(5, ['*'], 'page', $pagination);
+                $model = Orders::where('from_id', $key)->orderBy('id', 'DESC')->with(['from', 'touser', 'product', 'payment'])->paginate(5, ['*'], 'page', $pagination);
             } else if ($type == "to_id") {
-                $model = Orders::where('to_id', $key)->orderBy('id', 'DESC')->with(['from','touser','product','payment'])->paginate(5, ['*'], 'page', $pagination);
+                $model = Orders::where('to_id', $key)->orderBy('id', 'DESC')->with(['from', 'touser', 'product', 'payment'])->paginate(5, ['*'], 'page', $pagination);
             } else if ($type == "product") {
-                $model = Orders::where('product_id', $key)->orderBy('id', 'DESC')->with(['from','touser','product','payment'])->paginate(5, ['*'], 'page', $pagination);
+                $model = Orders::where('product_id', $key)->orderBy('id', 'DESC')->with(['from', 'touser', 'product', 'payment'])->paginate(5, ['*'], 'page', $pagination);
             } else if ($type == "status") {
-                $model = Orders::where('status', $key)->orderBy('id', 'DESC')->with(['from','touser','product','payment'])->paginate(5, ['*'], 'page', $pagination);
+                $model = Orders::where('status', $key)->orderBy('id', 'DESC')->with(['from', 'touser', 'product', 'payment'])->paginate(5, ['*'], 'page', $pagination);
             } else if ($type == "uid") {
-                $model = Orders::where('uid', $key)->with(['from','touser','product','payment'])->first();
+                $model = Orders::where('uid', $key)->with(['from', 'touser', 'product', 'payment'])->first();
             } else if ($type == "to_one_user_id") {
-                $model = Orders::where('to_id', $key)->with(['from','touser','product','payment'])->first();
+                $model = Orders::where('to_id', $key)->with(['from', 'touser', 'product', 'payment'])->first();
             }
         } else {
-            $model = Orders::orderBy('id', 'DESC')->paginate(5, ['*'], 'page', $pagination)->with(['from','touser','product','payment'])->orderBy('id','DESC');
+            $model = Orders::orderBy('id', 'DESC')->paginate(5, ['*'], 'page', $pagination)->with(['from', 'touser', 'product', 'payment'])->orderBy('id', 'DESC');
         }
         return Cache::rememberForever("orders" . $key . $type . $pagination, fn () => $model);
     }
@@ -462,20 +461,8 @@ if (!function_exists('messagegroups')) {
     {
         if (isset($key) && !empty($key)) {
             if (isset($type) && !empty($type) && $type == "get_message_groups") {
-                $model =MessageGroups::where('receiver_id', $key)
-                ->orWhere('sender_id', $key)
-                ->with([
-                    'senderinfo',
-                    'receiverinfo',
-                    'message_elements',
-                ])
-                ->get()
-                ->sortBy(function ($group) {
-                    return [
-                        $group->message_elements->max('status'),
-                        $group->message_elements->max('created_at'),
-                    ];
-                });
+
+
             } else if (isset($type) && !empty($type) && $type == "id") {
                 $model = MessageGroups::where('id', $key)
                     ->with(['senderinfo', 'receiverinfo', 'message_elements'])
@@ -484,7 +471,6 @@ if (!function_exists('messagegroups')) {
         } else {
             $model = MessageGroups::orderBy('created_at', 'desc')->with(['senderinfo', 'receiverinfo', 'message_elements'])->get()->sortBy(function ($group) {
                 return [
-                    $group->message_elements->max('status'),
                     $group->message_elements->max('created_at'),
                 ];
             });
@@ -569,3 +555,18 @@ if (!function_exists('background_images')) {
     }
 }
 
+if (!function_exists('lang_properties')) {
+    function lang_properties($key = null, $type = "keyword")
+    {
+        if (isset($key) && !empty($key)) {
+            if ($type == "keyword") {
+                $model = LangProperties::where('keyword', $key)->first();
+            } else {
+                $model = LangProperties::where('id', $key)->first();
+            }
+        } else {
+            $model = LangProperties::orderBy('id', 'DESC')->get();
+        }
+        return Cache::rememberForever("lang_properties" . $key . $type, fn () => $model);
+    }
+}
