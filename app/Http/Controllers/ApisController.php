@@ -315,7 +315,7 @@ class ApisController extends Controller
                     ->orWhere('slugs->en_slug', Str::slug($name['en_name']))->get();
 
 
-                DB::transaction(function () use ($request, $codeofproduct, $name, $description, $slugs, &$product) {
+                DB::transaction(function () use ($request, $codeofproduct, $name, $description, &$product) {
 
                     $product->name = $name;
                     $product->description = $description;
