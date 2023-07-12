@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\LangProperties;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 
-class PermissionsController extends Controller
+class LangPropertiesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class PermissionsController extends Controller
     public function index()
     {
         try {
-            $data = Permission::orderBy('id','DESC')->get();
-            return view('admins.permissions.index', ['data' => $data]);
+            $data = lang_properties();
+            return view('sayt.lang_properties.index', ['data' => $data]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -31,7 +31,7 @@ class PermissionsController extends Controller
     public function create()
     {
         try {
-            return view('admins.permissions.create_edit');
+            return view('sayt.lang_properties.create_edit');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -46,16 +46,21 @@ class PermissionsController extends Controller
     public function store(Request $request)
     {
         try {
-            $names=explode(',',$request->names);
-            foreach($names as $name){
-                $permission=new Permission();
-                $permission->name=$name;
-                $permission->save();
+            $data = lang_properties($request->keyword, 'keyword');
+            if (!empty($data)) {
+                return redirect()->back()->with('error', trans('additional.messages.dataisfound'));
+            } else {
+                $data=new LangProperties();
+                $data->keyword=$request->keyword;
+                $data->lang=$request->lang??'en';
+                $data->name=$request->name;
+                $data->save();
+
+                return redirect(route('lang_properties.index'))->with('success', trans('additional.messages.created'));
             }
-            return redirect(route("permissions.index"))->with('success','Əlavə edildi.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
-        }finally{
+        } finally {
             Helper::dbdeactive();
         }
     }
@@ -80,8 +85,8 @@ class PermissionsController extends Controller
     public function edit($id)
     {
         try {
-            $data=Permission::find($id);
-            return view('admins.permissions.create_edit',compact('data'));
+            $data = lang_properties($id, 'id');
+            return view('sayt.lang_properties.create_edit', compact('data'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -96,7 +101,21 @@ class PermissionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $data = lang_properties($id, 'id');
+            if (empty($data)) {
+                return redirect()->back()->with('error', trans('additional.forms.notfound'));
+            } else {
+                $data->lang=$request->lang??'en';
+                $data->name=$request->name;
+                $data->update();
+                return redirect(route('lang_properties.index'))->with('success', trans('additional.messages.updated'));
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        } finally {
+            Helper::dbdeactive();
+        }
     }
 
     /**
@@ -107,13 +126,13 @@ class PermissionsController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $permission=Permission::find($id);
-            $permission->delete();
-            return redirect()->back()->with('success',trans('additional.messages.deleted'));
-        }catch(\Exception $e){
-            return redirect()->back()->with('error',$e->getMessage());
-        }finally{
+        try {
+            $data = lang_properties($id, 'id');
+            $data->delete();
+            return redirect()->back()->with('success', trans('additional.messages.deleted'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        } finally {
             Helper::dbdeactive();
         }
     }

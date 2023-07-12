@@ -1,11 +1,7 @@
 @extends('layouts.app')
-@section('menu_users', 'open')
+@section('menu_website', 'open')
 @section('title')
-    @if ($type == 'normal')
-        @lang("additional.urls.user")
-    @elseif($type == 'company')
-         @lang("additional.urls.freelancers")
-    @endif
+    @lang("additional.urls.lang_properties")
 @endsection
 
 @section('css')
@@ -49,21 +45,16 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">
-                            @if ($type == 'normal')
-                                @lang("additional.urls.user")
-                            @elseif($type == 'company')
-                                 @lang("additional.urls.freelancers")
-                            @endif
+                        <h1 class="title">@lang("additional.urls.lang_properties")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
-                                    'routename' => 'users',
+                                    'routename' => 'lang_properties',
                                     'harddelete' => false,
                                     'add' => true,
                                     'home' => false,
                                     'restoreall' => false,
-                                ]) </span>
+                                ])</span>
                         </h1>
 
                     </div>
@@ -74,7 +65,7 @@
                                 <a href="{{ route('dashboard') }}"><i class="fa fa-home"></i>@lang("additional.urls.dashboard")</a>
                             </li>
                             <li>
-                                <a href="{{ route('users.index') }}">@lang("additional.urls.users")</a>
+                                <a href="{{ route('lang_properties.index') }}">@lang("additional.urls.lang_properties")</a>
                             </li>
 
                         </ol>
@@ -87,12 +78,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">@lang("additional.page_types.all") @if ($type == 'normal')
-                                @lang("additional.urls.user")
-                            @elseif($type == 'company')
-                                 @lang("additional.urls.freelancers")
-                            @endif
-                        </h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @lang("additional.urls.lang_properties")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>
@@ -103,41 +89,26 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
 
                                 <!-- ********************************************** -->
-                                <table id="example" class="display table table-hover table-condensed dataTable no-footer"
-                                    cellspacing="0" width="100%">
+                                <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>@lang("additional.forms.name")</th>
-                                            <th>@lang("additional.forms.email")</th>
-                                            <th>@lang("additional.forms.phone")</th>
-                                            @if ($type != 'normal')
-                                                <th>@lang("additional.urls.freelancer")</th>
-                                                <th>@lang("additional.urls.services")</th>
-                                                <th>@lang("additional.forms.viewcount")</th>
-                                            @endif
+                                            <th>@lang("additional.forms.keyword")</th>
                                             <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        @foreach ($data as $dat)
+                                        @foreach (lang_properties() as $dat)
                                             <tr>
-                                                <td>{{ $dat->name_surname }}</td>
-                                                <td>{{ $dat->email }}</td>
-                                                <td>{{ $dat->phone }}</td>
-
-                                                @if ($type != 'normal')
-                                                    <td>{{ $dat->additionalinfo->company_name['en_name'] ?? null }}</td>
-                                                    <td>{{ count($dat->products) }}</td>
-
-                                                    <td>{{ count($dat->viewcount) }}</td>
-                                                @endif
+                                                <td>{{ $dat->name }}</td>
+                                                <td>{{ $dat->keyword }}</td>
                                                 <td>@include('layouts.buttons', [
                                                     'data' => $dat,
-                                                    'routename' => 'users',
-                                                    'view' => true,
+                                                    'routename' => 'lang_properties',
+                                                    'view' => false,
                                                     'edit' => true,
-                                                    'destroy' => true,
+                                                    'destroy' => false,
                                                     'harddelete' => false,
                                                     'recover' => false,
                                                 ])

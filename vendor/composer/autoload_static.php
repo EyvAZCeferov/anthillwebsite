@@ -636,6 +636,7 @@ class ComposerStaticInit6384c8b3d8e80bf43fe35d3e8fa00113
         'App\\Models\\Comments' => __DIR__ . '/../..' . '/app/Models/Comments.php',
         'App\\Models\\ContactUs' => __DIR__ . '/../..' . '/app/Models/ContactUs.php',
         'App\\Models\\LangParametrs' => __DIR__ . '/../..' . '/app/Models/LangParametrs.php',
+        'App\\Models\\LangProperties' => __DIR__ . '/../..' . '/app/Models/LangProperties.php',
         'App\\Models\\Languages' => __DIR__ . '/../..' . '/app/Models/Languages.php',
         'App\\Models\\MediaElements' => __DIR__ . '/../..' . '/app/Models/MediaElements.php',
         'App\\Models\\MessageElements' => __DIR__ . '/../..' . '/app/Models/MessageElements.php',

@@ -284,7 +284,7 @@ class UsersController extends Controller
                 $user->delete();
             }
 
-            return redirect()->back()->with('success', 'Silindi');
+            return redirect()->back()->with('success', trans('additional.messages.deleted'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } finally {

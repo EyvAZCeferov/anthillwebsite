@@ -50,6 +50,7 @@ return array(
     'App\\Models\\Comments' => $baseDir . '/app/Models/Comments.php',
     'App\\Models\\ContactUs' => $baseDir . '/app/Models/ContactUs.php',
     'App\\Models\\LangParametrs' => $baseDir . '/app/Models/LangParametrs.php',
+    'App\\Models\\LangProperties' => $baseDir . '/app/Models/LangProperties.php',
     'App\\Models\\Languages' => $baseDir . '/app/Models/Languages.php',
     'App\\Models\\MediaElements' => $baseDir . '/app/Models/MediaElements.php',
     'App\\Models\\MessageElements' => $baseDir . '/app/Models/MessageElements.php',

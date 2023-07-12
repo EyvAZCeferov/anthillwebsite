@@ -32,7 +32,8 @@ return [
         "freelancer"=>"Freelancer",
         "payment"=>"Payment",
         "standart_page"=>"Standart Page",
-        "other"=>"Other"
+        "other"=>"Other",
+        "lang_properties"=>"Lang Properties"
     ],
     "page_types"=>[
         "create"=>"Add",
@@ -50,7 +51,8 @@ return [
         "tryagain"=>"Try again",
         "deleted"=>"Delete successful",
         "order"=>"Order changed successful",
-        "successful"=>"Successful"
+        "successful"=>"Successful",
+        "dataisfound"=>"The information is available in the database."
     ],
     "buttons"=>[
         "submit"=>"Submit",
@@ -103,6 +105,7 @@ return [
         "images"=>"Images",
         "assigned"=>"Assigned attribute group",
         "attribute_group"=>"Attribute group",
+        "keyword"=>"Keyword"
     ],
     "general"=>[
         "username"=>"Username",

@@ -20,6 +20,7 @@ use App\Http\Controllers\SiteUsersController;
 use App\Http\Controllers\AttributesController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\StandartPagesController;
+use App\Http\Controllers\LangPropertiesController;
 use App\Http\Controllers\BackgroundImagesController;
 
 /*
@@ -97,6 +98,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Raports
     Route::get('raports', [RaportsController::class, 'index'])->name('raports.index');
+    Route::resource('lang_properties', LangPropertiesController::class);
     
 });
 

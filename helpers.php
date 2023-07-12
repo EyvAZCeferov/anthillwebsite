@@ -4,7 +4,6 @@ use App\Models\User;
 use App\Models\Orders;
 use App\Models\Sliders;
 use App\Models\Comments;
-use App\Models\Messages;
 use App\Models\Payments;
 use App\Models\Products;
 use App\Models\Settings;
@@ -13,10 +12,9 @@ use App\Models\Languages;
 use App\Models\SiteUsers;
 use App\Models\Attributes;
 use App\Models\Categories;
-use App\Models\CouponCodes;
-use App\Models\ProductType;
 use App\Models\ViewCounters;
 use App\Models\StandartPages;
+use App\Models\LangProperties;
 use App\Models\UserAdditionals;
 use App\Models\CategoryAttributes;
 use App\Models\ProductsAttributes;
@@ -48,18 +46,18 @@ if (!function_exists('categories')) {
     function categories($key = null): object
     {
         if (isset($key) && !empty($key) && $key == "quicklinks") {
-            $model = Categories::where('status', true)->whereNotNull('top_id')->with(["seo",'top_category','alt_categoryes','products','attributes'])->whereHas('top_category', function ($query) {
+            $model = Categories::where('status', true)->whereNotNull('top_id')->with(["seo", 'top_category', 'alt_categoryes', 'products', 'attributes'])->whereHas('top_category', function ($query) {
                 $query->where('top_id', null);
             })->take(2)->get();
         } else if (isset($key) && !empty($key)) {
             if (is_numeric($key)) {
-                $model = Categories::find($key)->with(["seo",'top_category','alt_categoryes','products','attributes'])->first();
+                $model = Categories::find($key)->with(["seo", 'top_category', 'alt_categoryes', 'products', 'attributes'])->first();
             } else {
                 $model = Categories::where('slugs->az_slug', $key)
                     ->orWhere('slugs->ru_slug', $key)
                     ->orWhere('slugs->en_slug', $key)
                     ->orWhere('slugs->tr_slug', $key)
-                    ->with(["seo",'top_category','alt_categoryes','products','attributes'])
+                    ->with(["seo", 'top_category', 'alt_categoryes', 'products', 'attributes'])
                     ->first();
             }
         } else {
@@ -364,45 +362,29 @@ if (!function_exists('comments')) {
     }
 }
 
-if (!function_exists('couponcodes')) {
-    function couponcodes($key = null, $type = "code"): object
-    {
-        if (isset($key) && !empty($key)) {
-            if ($type == "id") {
-                $model = CouponCodes::find($key);
-            } else if ($type == "code") {
-                $model = CouponCodes::where('code', $key)->first();
-            }
-        } else {
-            $model = CouponCodes::orderBy('id', 'DESC')->get();
-        }
-        return Cache::rememberForever("couponcodes" . $key, fn () => $model);
-    }
-}
-
 if (!function_exists('orders')) {
-    function orders($key = null, $type = "code",$pagination=1): object
+    function orders($key = null, $type = "code", $pagination = 1): object
     {
         if (isset($key) && !empty($key)) {
             if ($type == "id") {
                 $model = Orders::find($key);
             } else if ($type == "from_id") {
                 $model = Orders::where('from_id', $key)->orderBy('id', 'DESC')->paginate(5, ['*'], 'page', $pagination);
-            }else if ($type == "to_id") {
+            } else if ($type == "to_id") {
                 $model = Orders::where('to_id', $key)->orderBy('id', 'DESC')->paginate(5, ['*'], 'page', $pagination);
             } else if ($type == "product") {
                 $model = Orders::where('product_id', $key)->orderBy('id', 'DESC')->paginate(5, ['*'], 'page', $pagination);
-            }  else if ($type == "status") {
+            } else if ($type == "status") {
                 $model = Orders::where('status', $key)->orderBy('id', 'DESC')->paginate(5, ['*'], 'page', $pagination);
-            }else if ($type == "uid") {
+            } else if ($type == "uid") {
                 $model = Orders::where('uid', $key)->first();
-            }else if ($type == "to_one_user_id") {
+            } else if ($type == "to_one_user_id") {
                 $model = Orders::where('to_id', $key)->first();
             }
         } else {
             $model = Orders::orderBy('id', 'DESC')->paginate(5, ['*'], 'page', $pagination);
         }
-        return Cache::rememberForever("orders" . $key . $type.$pagination, fn () => $model);
+        return Cache::rememberForever("orders" . $key . $type . $pagination, fn () => $model);
     }
 }
 if (!function_exists('product_encoded_images')) {
@@ -454,14 +436,14 @@ if (!function_exists('languages_admin')) {
 }
 
 if (!function_exists('payments')) {
-    function payments($key = null, $type = "code",$pagination=1): object
+    function payments($key = null, $type = "code", $pagination = 1): object
     {
         if (isset($key) && !empty($key)) {
             if ($type == "id") {
                 $model = Payments::find($key);
             } else if ($type == "from_id") {
                 $model = Payments::where('from_id', $key)->orderBy('id', 'DESC')->paginate(10, ['*'], 'page', $pagination);
-            }else if ($type == "to_id") {
+            } else if ($type == "to_id") {
                 $model = Payments::where('to_id', $key)->orderBy('id', 'DESC')->paginate(10, ['*'], 'page', $pagination);
             } else if ($type == "product") {
                 $model = Payments::where('product_id', $key)->orderBy('id', 'DESC')->paginate(10, ['*'], 'page', $pagination);
@@ -494,5 +476,21 @@ if (!function_exists('attributes_attribute')) {
             $model = Attributes::orderBy('order_att', 'ASC')->get();
         }
         return Cache::rememberForever("attributes_attribute" . $key . $type . $val, fn () => $model);
+    }
+}
+
+if (!function_exists('lang_properties')) {
+    function lang_properties($key = null, $type = "keyword")
+    {
+        if (isset($key) && !empty($key)) {
+            if ($type == "keyword") {
+                $model = LangProperties::where('keyword', $key)->first();
+            } else {
+                $model = LangProperties::where('id', $key)->first();
+            }
+        } else {
+            $model = LangProperties::orderBy('id', 'DESC')->get();
+        }
+        return Cache::rememberForever("lang_properties" . $key.$type, fn () => $model);
     }
 }

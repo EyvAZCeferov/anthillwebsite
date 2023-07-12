@@ -279,7 +279,11 @@
                             auth()->user()->can('standartpages')) ||
                             (auth()->check() &&
                                 !empty(auth()->user()) &&
-                                auth()->user()->can('settings')))
+                                auth()->user()->can('settings'))
+                                || (auth()->check() &&
+                                !empty(auth()->user()) &&
+                                auth()->user()->can('lang_properties'))
+                                )
                         <li class="@yield('menu_website')">
                             <a href="javascript:;">
                                 <i class="fa fa-windows"></i>
@@ -300,6 +304,14 @@
                                         auth()->user()->can('contactus'))
                                     <li>
                                         <a class="" href="{{ route('contactus.index') }}">@lang("additional.urls.contactus")</a>
+                                    </li>
+                                @endif
+
+                                @if (auth()->check() &&
+                                        !empty(auth()->user()) &&
+                                        auth()->user()->can('lang_properties'))
+                                    <li>
+                                        <a class="" href="{{ route('lang_properties.index') }}">@lang("additional.urls.lang_properties")</a>
                                     </li>
                                 @endif
 
