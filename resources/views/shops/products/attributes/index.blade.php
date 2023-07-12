@@ -271,7 +271,7 @@
                 <div class="page-title">
 
                     <div class="pull-left">
-                        <h1 class="title">Atributlar
+                        <h1 class="title">@lang("additional.urls.attributes")
                             &nbsp;&nbsp;
                             <span>
                                 @include('layouts.topbarbuttons', [
@@ -324,7 +324,7 @@
                                         <tr>
                                             <th>@lang("additional.forms.name")</th>
                                             <th>@lang("additional.forms.assigned")</th>
-                                            <th>Növü</th>
+                                            <th>@lang("additional.forms.type")</th>
                                             <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>

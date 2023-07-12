@@ -59,6 +59,7 @@ return [
         "cancel"=>"Cancel",
         "buttons"=>"Buttons",
         "restoreall"=>"Restore all",
+        "more"=>"More"
     ],
     "forms"=>[
         "email"=>"E-mail",

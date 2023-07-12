@@ -28,7 +28,7 @@
                                 <h4><strong>{{ $posts }}</strong></h4>
                                 <span>Xəbərlərə baxış</span>
                                 <br>
-                                <a href="{{ route('posts.index') }}">Ətraflı
+                                <a href="{{ route('posts.index') }}">@lang("additional.buttons.more")
                                 </a>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                 <h4><strong>{{ $contacts }}</strong></h4>
                                 <span>Məktub yazanlar</span>
                                 <br>
-                                <a href="{{ route('contactus.index') }}">Ətraflı
+                                <a href="{{ route('contactus.index') }}">@lang("additional.buttons.more")
                                 </a>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                 <h4><strong>{{ count(users()->where('is_admin',false)) }}</strong></h4>
                                 <span>@lang("additional.urls.users")</span>
                                 <br>
-                                <a href="{{ route('users.index') }}">Ətraflı
+                                <a href="{{ route('users.index') }}">@lang("additional.buttons.more")
                                 </a>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                 <h4><strong>{{ count(products()) }}</strong></h4>
                                 <span>@lang("additional.urls.services")</span>
                                 <br>
-                                <a href="{{ route('products.index',['status'=>'published']) }}">Ətraflı
+                                <a href="{{ route('products.index',['status'=>'published']) }}">@lang("additional.buttons.more")
                                 </a>
                             </div>
                         </div>
