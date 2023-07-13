@@ -45,14 +45,14 @@ class FunctionsController extends Controller
             if (!empty($user)) {
                 return response()->json(['status' => 'error', 'message' => trans('additional.messages.userfound', [], $request->language ?? 'en')]);
             } else {
-                DB::transaction(function () use ($request) {
+                // DB::transaction(function () use ($request) {
 
                     $user = new User();
                     $user->name_surname = $request->name_surname;
                     $user->email = $request->email;
                     $user->password = bcrypt($request->password);
                     $user->is_admin = false;
-                    $user->type = 1;
+                    $user->type = $request->input('type')??1;
                     $user->status = true;
                     $user->save();
 
@@ -60,6 +60,51 @@ class FunctionsController extends Controller
                     $useradditional->user_id = $user->id;
                     $useradditional->original_pass = $request->password;
                     $useradditional->save();
+
+                    if ($request->input('type') == 3) {
+
+                        if (isset($request->company_description) && !empty($request->company_description)) {
+
+                            $description = [
+                                'az_description' => trim($request->company_description),
+                                "ru_description" => trim(GoogleTranslate::trans(trim($request->company_description), 'ru')),
+                                "en_description" => trim(GoogleTranslate::trans(trim($request->company_description), 'en')),
+                                "tr_description" => trim(GoogleTranslate::trans(trim($request->company_description), 'tr')),
+                            ];
+
+                            $useradditional->update([
+                                "company_description" => $description,
+                            ]);
+                        }
+
+                        $company_name = [
+                            'az_name' => $request->name_surname,
+                            'ru_name' => trim(GoogleTranslate::trans($request->name_surname, 'ru')),
+                            'en_name' => trim(GoogleTranslate::trans($request->name_surname, 'en')),
+                            'tr_name' => trim(GoogleTranslate::trans($request->name_surname, 'tr')),
+                        ];
+
+                        $company_slugs = [
+                            'az_slug' => Str::slug($company_name['az_name']),
+                            'ru_slug' => Str::slug($company_name['ru_name']),
+                            'en_slug' => Str::slug($company_name['en_name']),
+                            'tr_slug' => Str::slug($company_name['tr_name']),
+                        ];
+
+                        $useradditional->update([
+                            "company_name" => $company_name,
+                            "company_slugs" => $company_slugs]);
+
+
+                        if ($request->hasFile('company_logo')) {
+                            $imageName = Helper::uploadimage($request->file('company_logo'), 'users');
+                            if(!empty($imageName) && !is_array($imageName) ){
+                                $useradditional->update([
+                                    'company_image' => $imageName,
+                                ]);
+                            }
+                        }
+                    }
 
                     // SendEmail
                     $datas = [
@@ -71,7 +116,7 @@ class FunctionsController extends Controller
                     ];
                     event(new SendEmailEvent($datas));
                     Auth::login($user);
-                });
+                // });
                 return response()->json(['status' => 'success', 'message' => trans('additional.messages.registered', [], $request->language ?? 'en'), 'url' => route('auth.profile')]);
             }
         } catch (\Exception $e) {
@@ -106,7 +151,6 @@ class FunctionsController extends Controller
                     'title' => trans("additional.emailtemplates.service.updatepassword"),
                     "id" => Helper::createRandomCode("int", 10),
                 ];
-                \Log::info($datas);
                 dispatch(new SendEmailJob($datas));
 
                 return response()->json(['status' => 'success', 'message' => trans('additional.messages.emailsendedupdatepassword', [], $request->language ?? 'en')]);
@@ -115,7 +159,7 @@ class FunctionsController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
-        }finally{
+        } finally {
             Helper::queuework();
         }
     }
@@ -193,9 +237,9 @@ class FunctionsController extends Controller
                     if (isset($request->company_description) && !empty($request->company_description)) {
                         $description = [
                             'az_description' => trim($request->company_description),
-                            "ru_description" => trim(GoogleTranslate::trans(trim($request->description), 'ru')),
-                            "en_description" => trim(GoogleTranslate::trans(trim($request->description), 'en')),
-                            "tr_description" => trim(GoogleTranslate::trans(trim($request->description), 'tr')),
+                            "ru_description" => trim(GoogleTranslate::trans(trim($request->company_description), 'ru')),
+                            "en_description" => trim(GoogleTranslate::trans(trim($request->company_description), 'en')),
+                            "tr_description" => trim(GoogleTranslate::trans(trim($request->company_description), 'tr')),
                         ];
                         $user->additionalinfo->update([
                             "company_description" => $description
@@ -234,7 +278,7 @@ class FunctionsController extends Controller
                 $user->update([
                     "password" => bcrypt($request->password)
                 ]);
-                return response()->json(['status' => 'success', 'message' => trans('additional.messages.datasupdated'),'url'=>route("auth.login")]);
+                return response()->json(['status' => 'success', 'message' => trans('additional.messages.datasupdated'), 'url' => route("auth.login")]);
             } else {
                 return response()->json(['status' => 'error', 'message' => trans('additional.messages.passwordsdontmatch')]);
             }

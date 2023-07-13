@@ -9,6 +9,16 @@
 @section('addservice_menu', 'active')
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css">
+    <style>
+        .tox-tinymce{
+            width:100%;
+        }
+    </style>
+@endpush
+@push('js')
+    @include('layouts.ckeditorService', [
+        'editors' => ['additional_info'],
+    ])
 @endpush
 
 @section('content')
@@ -43,7 +53,7 @@
                         <div class="column column-70">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="name" placeholder="@lang('additional.forms.servicename')"
-                                    @if (isset($data) && isset($data->name) && !empty($data->name)) value="{{ $data->name['az_name'] }}" @endif>
+                                    @if (isset($data) && isset($data->name) && !empty($data->name)) value="{{ $data->name['en_name'] }}" @endif>
                             </div>
                         </div>
                     </div>
@@ -89,7 +99,7 @@
                                 @foreach ($data->attributes as $attributeEl)
                                     @php($group = $attributeEl->attributegroup)
                                     @php($attribute = $attributeEl->attribute)
-                                    @if (!empty($attribute) && isset($attribute->name['az_name']) && trim($attribute->name['az_name']) != null)
+                                    @if (!empty($attribute) && isset($attribute->name['en_name']) && trim($attribute->name['en_name']) != null)
                                         @if ($previousGroupId !== $attributeEl->attribute_group_id)
                                             <div class="row add_service_row" id="attributerow_{{ $group->id }}">
                                                 <div class="column column-30">
@@ -154,10 +164,9 @@
                         </div>
                         <div class="column column-70">
                             <div class="form-group height-auto">
-                                <textarea rows="10" name="additional_info" class="form-control" placeholder="@lang('additional.forms.enteradditionalinfo')">
-@if (isset($data) && isset($data->description) && !empty($data->description))
-{{ App\Helpers\Helper::strip_tags_with_whitespace($data->description['az_description']) }}
-@endif
+                                <textarea rows="10" name="additional_info" class="form-control additional_info" placeholder="@lang('additional.forms.enteradditionalinfo')">{!! isset($data) && !empty($data) && $data->description != null && isset($data->description['en_description'])
+                                    ? $data->description['en_description']
+                                    : null !!}
 </textarea>
                             </div>
                         </div>
@@ -383,7 +392,7 @@
                         var selected_attribute;
 
                         if (lang == 'az') {
-                            group_name = item.attribute_group.name.az_name;
+                            group_name = item.attribute_group.name.en_name;
                         } else if (lang == 'ru') {
                             group_name = item.attribute_group.name.ru_name;
                         } else if (lang == 'en') {
@@ -420,13 +429,13 @@
         function createattribute(attributesDiv, item, group_name, selected_attribute) {
             if (item.attribute_group.datatype == "integer") {
                 var element =
-                    `<div class="column column-70"><div class="form-group"><input type="number" class="form-control" name="attribute[${item.attribute_group.id}]" value="${selected_attribute.id>0 && selected_attribute!=null ? selected_attribute.name.az_name : ''}" /></div></div>`;
+                    `<div class="column column-70"><div class="form-group"><input type="number" class="form-control" name="attribute[${item.attribute_group.id}]" value="${selected_attribute.id>0 && selected_attribute!=null ? selected_attribute.name.en_name : ''}" /></div></div>`;
             } else if (item.attribute_group.datatype == "string") {
                 var element =
-                    `<div class="column column-70"><div class="form-group"><input type="text" class="form-control" name="attribute[${item.attribute_group.id}]" value="${selected_attribute.id>0 && selected_attribute!=null ? selected_attribute.name.az_name : ''}" /></div></div>`;
+                    `<div class="column column-70"><div class="form-group"><input type="text" class="form-control" name="attribute[${item.attribute_group.id}]" value="${selected_attribute.id>0 && selected_attribute!=null ? selected_attribute.name.en_name : ''}" /></div></div>`;
             } else if (item.attribute_group.datatype == "price") {
                 var element =
-                    `<div class="column column-70"><div class="form-group"><input type="text" class="form-control" name="attribute[${item.attribute_group.id}]" value="${selected_attribute.id>0 && selected_attribute!=null ? selected_attribute.name.az_name : ''}" /><span class="eye-icon" id="password-eye-icon">€</span></div></div>`;
+                    `<div class="column column-70"><div class="form-group"><input type="text" class="form-control" name="attribute[${item.attribute_group.id}]" value="${selected_attribute.id>0 && selected_attribute!=null ? selected_attribute.name.en_name : ''}" /><span class="eye-icon" id="password-eye-icon">€</span></div></div>`;
             } else if (item.attribute_group.datatype == "boolean") {
                 var element =
                     `<div class="column column-70"><div class="form-group"><select name="attribute[${item.attribute_group.id}]" id="attribute_group_${item.attribute_group.id}" class="form-control">`;
@@ -436,19 +445,19 @@
                         var lang = '{{ app()->getLocale() }}';
                         if (lang == 'az') {
                             var item_2 =
-                                `<option ${selected_attribute.id>0 && selected_attribute!=null && selected_attribute.name.az_name==item_a.name.az_name ? 'selected' : ''} value='${item_a.name.az_name}'>${item_a.name.az_name}</option> `;
+                                `<option ${selected_attribute.id>0 && selected_attribute!=null && selected_attribute.name.en_name==item_a.name.en_name ? 'selected' : ''} value='${item_a.name.en_name}'>${item_a.name.en_name}</option> `;
                         } else if (lang == 'ru') {
                             var item_2 =
-                                `<option ${selected_attribute.id>0 && selected_attribute!=null && selected_attribute.name.ru_name==item_a.name.ru_name ? 'selected' : ''} value='${item_a.name.az_name}'>${item_a.name.ru_name}</option> `;
+                                `<option ${selected_attribute.id>0 && selected_attribute!=null && selected_attribute.name.ru_name==item_a.name.ru_name ? 'selected' : ''} value='${item_a.name.en_name}'>${item_a.name.ru_name}</option> `;
                         } else if (lang == 'en') {
                             var item_2 =
-                                `<option ${selected_attribute.id>0 && selected_attribute!=null && selected_attribute.name.en_name==item_a.name.en_name ? 'selected' : ''} value='${item_a.name.az_name}'>${item_a.name.en_name}</option> `;
+                                `<option ${selected_attribute.id>0 && selected_attribute!=null && selected_attribute.name.en_name==item_a.name.en_name ? 'selected' : ''} value='${item_a.name.en_name}'>${item_a.name.en_name}</option> `;
                         } else if (lang == 'tr') {
                             var item_2 =
-                                `<option ${selected_attribute.id>0 && selected_attribute!=null && selected_attribute.name.tr_name==item_a.name.tr_name ? 'selected' : ''} value='${item_a.name.az_name}'>${item_a.name.tr_name}</option> `;
+                                `<option ${selected_attribute.id>0 && selected_attribute!=null && selected_attribute.name.tr_name==item_a.name.tr_name ? 'selected' : ''} value='${item_a.name.en_name}'>${item_a.name.tr_name}</option> `;
                         } else {
                             var item_2 =
-                                `<option ${selected_attribute.id>0 && selected_attribute!=null && selected_attribute.name.az_name==item_a.name.az_name ? 'selected' : ''} value='${item_a.name.az_name}'>${item_a.name.az_name}</option> `;
+                                `<option ${selected_attribute.id>0 && selected_attribute!=null && selected_attribute.name.en_name==item_a.name.en_name ? 'selected' : ''} value='${item_a.name.en_name}'>${item_a.name.en_name}</option> `;
                         }
 
                         element = element + item_2;
@@ -513,6 +522,9 @@
             showLoader();
             $("ul.image_errors li.image_error").css('display', 'none');
             var formData = new FormData(document.getElementById('formsend'));
+            // TinyEditor'dan gelen veriyi FormData'ya ekleyin
+    var tinyEditorData = tinymce.activeEditor.getContent();
+    formData.append('additional_info', tinyEditorData);
             $("#loadbeforeajax").css('display', 'flex');
             var buttonsendform = $("button#formsendbutton");
             $.ajax({

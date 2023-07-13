@@ -167,13 +167,12 @@ class Helper
     {
         try {
             $client = new Client();
-            // dd(env('APP_ADMIN_URL') . '/api/image_upload/');
             $response = $client->request('POST', env('APP_ADMIN_URL') . '/api/image_upload/' . $clasore, [
                 'multipart' => [
                     [
                         'name' => 'image',
                         'contents' => fopen($image, 'r'),
-                        'filename' => time() . '.' . $image->extension(),
+                        'filename' => time().Helper::createRandomCode('string',11) . '.' . $image->extension(),
                     ]
                 ]
             ]);

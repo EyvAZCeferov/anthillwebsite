@@ -124,48 +124,51 @@
         {{-- Scripts --}}
         <script type="text/javascript" async defer src="{{ asset('assets/js/application.js') }}"></script>
         <script type="text/javascript" src="{{ asset('assets/js/lazysizes.min.js') }}"></script>
-        <script defer>
-            setInterval(() => {
-                var data = {
-                    type: "user"
-                };
-                sendAjaxRequest('{{ route('api.notreadedmessages') }}', 'post', data, function(err, response) {
-                    if (err) {
-                        // console.log(err);
-                    } else {
-                        let parsedResponse = JSON.parse(response);
-                        if (parsedResponse!=null) {
+        @if(auth()->check())
+            <script defer>
+                setInterval(() => {
+                    var data = {
+                        type: "user"
+                    };
+                    sendAjaxRequest('{{ route('api.notreadedmessages') }}', 'post', data, function(err, response) {
+                        if (err) {
+                            // console.log(err);
+                        } else {
+                            let parsedResponse = JSON.parse(response);
+                            if (parsedResponse!=null) {
 
-                            var profil_section_on_header = document.getElementById('profil_section_on_header');
-                            var spanElement = document.createElement('span');
-                            spanElement.className = "badge";
-                            spanElement.style.position = "absolute";
-                            spanElement.style.top = "0";
-                            spanElement.style.right = "0";
-                            spanElement.style.backgroundColor = "red";
-                            spanElement.style.borderRadius = "50%";
-                            spanElement.style.width = "25px";
-                            spanElement.style.height = "25px";
-                            spanElement.style.display = "inline-block";
-                            spanElement.style.fontSize = "18px";
-                            spanElement.style.textAlign = "center";
-                            spanElement.style.color = "#fff";
-                            spanElement.innerHTML = parsedResponse;
+                                var profil_section_on_header = document.getElementById('profil_section_on_header');
+                                var spanElement = document.createElement('span');
+                                
+                                spanElement.className = "badge";
+                                spanElement.style.position = "absolute";
+                                spanElement.style.top = "0";
+                                spanElement.style.right = "0";
+                                spanElement.style.backgroundColor = "red";
+                                spanElement.style.borderRadius = "50%";
+                                spanElement.style.width = "25px";
+                                spanElement.style.height = "25px";
+                                spanElement.style.display = "inline-block";
+                                spanElement.style.fontSize = "18px";
+                                spanElement.style.textAlign = "center";
+                                spanElement.style.color = "#fff";
+                                spanElement.innerHTML = parsedResponse;
 
 
-                            var existingSpans = profil_section_on_header.getElementsByClassName('badge');
-                            for (var i = 0; i < existingSpans.length; i++) {
-                                existingSpans[i].remove();
+                                var existingSpans = profil_section_on_header.getElementsByClassName('badge');
+                                for (var i = 0; i < existingSpans.length; i++) {
+                                    existingSpans[i].remove();
+                                }
+                                if(parsedResponse!=0){
+                                    profil_section_on_header.appendChild(spanElement);
+                                }
                             }
-if(parsedResponse!=0){
-                            profil_section_on_header.appendChild(spanElement);
-                        }
-                        }
 
-                    }
-                });
-            }, 2000);
-        </script>
+                        }
+                    });
+                }, 2000);
+            </script>
+        @endif
         @stack('js')
         {{-- Scripts --}}
     @endif

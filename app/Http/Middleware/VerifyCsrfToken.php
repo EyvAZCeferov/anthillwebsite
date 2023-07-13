@@ -26,6 +26,7 @@ class VerifyCsrfToken extends Middleware
         '/deleteservice',
         'api/services_user_datas/*',
         'api/services_user/*',
-        'api/services_user/*/*'
+        'api/services_user/*/*',
+        '/registerpost'
     ];
 }

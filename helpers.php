@@ -16,6 +16,7 @@ use App\Models\CouponCodes;
 use App\Models\ViewCounters;
 use App\Models\MessageGroups;
 use App\Models\StandartPages;
+use App\Models\WishlistItems;
 use App\Models\LangProperties;
 use App\Models\MessageElements;
 use App\Models\UserAdditionals;
@@ -169,7 +170,7 @@ if (!function_exists('product')) {
     {
         if (isset($key) && !empty($key) && $object == false) {
             if (is_numeric($key)) {
-                $model = Products::find($key)->with(['attributes', 'category',  'user', 'images', 'comments']);
+                $model = Products::where('id',$key)->with(['attributes', 'category',  'user', 'images', 'comments']);
             } else {
                 $model = Products::where('slugs->az_slug', $key)
                     ->orWhere('slugs->ru_slug', $key)
@@ -461,8 +462,6 @@ if (!function_exists('messagegroups')) {
     {
         if (isset($key) && !empty($key)) {
             if (isset($type) && !empty($type) && $type == "get_message_groups") {
-
-
             } else if (isset($type) && !empty($type) && $type == "id") {
                 $model = MessageGroups::where('id', $key)
                     ->with(['senderinfo', 'receiverinfo', 'message_elements'])
@@ -568,5 +567,21 @@ if (!function_exists('lang_properties')) {
             $model = LangProperties::orderBy('id', 'DESC')->get();
         }
         return Cache::rememberForever("lang_properties" . $key . $type, fn () => $model);
+    }
+}
+
+if (!function_exists('wishlist_items')) {
+    function wishlist_items($key = null, $service_id = null)
+    {
+        if (isset($key) && !empty($key)) {
+            if (isset($service_id) && !empty($service_id)) {
+                $model = WishlistItems::where('user_id', $key)->where('product_id',$service_id)->first();
+            } else {
+                $model = WishlistItems::where('user_id', $key)->get();
+            }
+        } else {
+            $model = WishlistItems::orderBy('id', 'DESC')->get();
+        }
+        return Cache::rememberForever("wishlist_items" . $key . $service_id, fn () => $model);
     }
 }

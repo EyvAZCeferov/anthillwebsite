@@ -11,9 +11,11 @@
                 <h2 class="text-center w-100">@if(!empty(lang_properties('wishlist','keyword'))) {{ lang_properties('wishlist','keyword')->name }} @else  @lang("additional.urls.wishlist") @endif</h2>
             </div>
             <div class="row services" id="datas">
-                @if (session()->has('bookmarks'))
-                    @foreach (session()->get('bookmarks') as $element)
-                        @php($product = product($element, true))
+                
+                @if (auth()->check() && !empty(wishlist_items(auth()->id())) && count(wishlist_items(auth()->id()))>0)
+                    @foreach (wishlist_items(auth()->id()) as $element)
+                        @php($product = App\Models\Products::where('id',$element->product_id)->with(['attributes', 'category',  'user', 'images', 'comments'])->first())
+                        
                         @if(!empty($product))
                             @include('services.service_element', ['data' => $product])
                         @endif

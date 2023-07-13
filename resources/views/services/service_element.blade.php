@@ -1,6 +1,8 @@
 <div class="service_one column-28 mobile_column-45" id="service-{{ $data->code }}">
     @if (isset($data->user) &&
             !empty($data->user) &&
+            $data->user->type==3 &&
+            !empty($data->user->additionalinfo) &&
             isset($data->user->additionalinfo->company_image) &&
             !empty($data->user->additionalinfo->company_image))
         <div class="company_area"
@@ -28,14 +30,14 @@
                 </div>
             </div>
         @else
-            <div class="bookmark @if (App\Helpers\Helper::getelementinbookmark($data->code) == 'a') active @endif"
+            <div class="bookmark @if (auth()->check() && !empty(wishlist_items(auth()->id(),$data->id))) active @endif"
                 onclick="bookmarktoggle('{{ $data->code }}','{{ app()->getLocale() }}','{{ route('api.bookmarktoggle') }}')">
-                <i class="@if (App\Helpers\Helper::getelementinbookmark($data->code) == 'a') fas fa-bookmark @else las la-bookmark @endif "></i></div>
+                <i class="@if (auth()->check() && !empty(wishlist_items(auth()->id(),$data->id))) fas fa-bookmark @else las la-bookmark @endif "></i></div>
         @endif
     @else
-        <div class="bookmark @if (App\Helpers\Helper::getelementinbookmark($data->code) == 'a') active @endif"
+        <div class="bookmark @if (auth()->check() && !empty(wishlist_items(auth()->id(),$data->id))) active @endif"
             onclick="bookmarktoggle('{{ $data->code }}','{{ app()->getLocale() }}','{{ route('api.bookmarktoggle') }}')">
-            <i class="@if (App\Helpers\Helper::getelementinbookmark($data->code) == 'a') fas fa-bookmark @else las la-bookmark @endif "></i></div>
+            <i class="@if (auth()->check() && !empty(wishlist_items(auth()->id(),$data->id))) fas fa-bookmark @else las la-bookmark @endif "></i></div>
     @endif
     @if (isset($data->images[0]) && !empty($data->images[0]))
         <div class="image_area"

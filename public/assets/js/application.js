@@ -38,10 +38,21 @@ function phonewriting(e) {
 
 function bookmarktoggle(e, t, n) {
     sendAjaxRequest(`${n}`, "post", { code: e, language: t }, function(t, n) {
-        if (t) createalert("error", t);
-        else {
+        let parsedResponse = JSON.parse(n);
+        if (parsedResponse.status === "success") {
             var a = document.querySelector("#service-" + e).querySelector(".bookmark");
-            a && (a.classList.contains("active") ? (a.classList.remove("active"), a.innerHTML = "<i class='las la-bookmark'></i>") : (a.classList.add("active"), a.innerHTML = "<i class='fa fa-bookmark'></i>"))
+            if (a) {
+                a.classList.toggle("active");
+                if (a.classList.contains("active")) {
+                    a.innerHTML = "<i class='fa fa-bookmark'></i>";
+                } else {
+                    a.innerHTML = "<i class='las la-bookmark'></i>";
+                }
+            }
+        } else if (parsedResponse.status === "error") {
+            if (parsedResponse.url != null) {
+                window.location.href = parsedResponse.url;
+            }
         }
     })
 }

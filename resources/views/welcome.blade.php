@@ -256,16 +256,18 @@
                 </div>
                 <div class="customers_items_sliders padding-y-15">
                     @foreach (user_companies() as $company)
-                        <div class="customers_items_slider"
-                            onclick="window.location.href=`/company/{{ $company->additionalinfo->company_slugs[app()->getLocale() . '_slug'] }}`">
-                            <div class="image">
-                                <img data-src="{{ App\Helpers\Helper::getImageUrl($company->additionalinfo->company_image, 'users') }}"
-                                class="lazyload blur-up"
-                                    alt="{{ $company->additionalinfo->company_name[app()->getLocale() . '_name'] }}">
+                        @if(!empty($company) && !empty($company->additionalinfo) && !empty($company->additionalinfo->company_slugs))
+                            <div class="customers_items_slider"
+                                onclick="window.location.href=`/company/{{ $company->additionalinfo->company_slugs[app()->getLocale() . '_slug'] }}`">
+                                <div class="image">
+                                    <img data-src="{{ App\Helpers\Helper::getImageUrl($company->additionalinfo->company_image, 'users') }}"
+                                    class="lazyload blur-up"
+                                        alt="{{ $company->additionalinfo->company_name[app()->getLocale() . '_name'] }}">
+                                </div>
+                                <h5 class="name">{{ $company->additionalinfo->company_name[app()->getLocale() . '_name'] }}
+                                </h5>
                             </div>
-                            <h5 class="name">{{ $company->additionalinfo->company_name[app()->getLocale() . '_name'] }}
-                            </h5>
-                        </div>
+                        @endif
                     @endforeach
                 </div>
                 <div class="row text-center">

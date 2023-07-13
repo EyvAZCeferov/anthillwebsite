@@ -31,8 +31,8 @@
     <div class="bookmarkandcommentarea">
         <button
             onclick="bookmarktoggle('{{ $data->code }}','{{ app()->getLocale() }}','{{ route('api.bookmarktoggle') }}')"
-            class="bookmark @if (App\Helpers\Helper::getelementinbookmark($data->code) == 'a') active @endif"> <i class="las la-bookmark"></i>
-            <span class="@if (App\Helpers\Helper::getelementinbookmark($data->code) != 'a') active @endif">
+            class="bookmark @if (auth()->check() && !empty(wishlist_items(auth()->id(),$data->id))) active @endif"> <i class="las la-bookmark"></i>
+            <span class="@if (auth()->check() && !empty(wishlist_items(auth()->id(),$data->id))) active @endif">
                 @lang('additional.buttons.bookmark')
             </span>
         </button>

@@ -132,7 +132,7 @@
                                     <div class="column column-60 mobile_column-100">
                                         <div class="form-group">
                                             <label>@if(!empty(lang_properties('companydescription','keyword'))) {{ lang_properties('companydescription','keyword')->name }} @else  @lang('additional.forms.company_description') @endif</label>
-                                            <textarea rows="8" name="company_description" class="form-control" placeholder="@lang('additional.forms.company_description')">{!! isset($data->additionalinfo) && !empty($data->additionalinfo) && isset($data->additionalinfo->company_description[app()->getLocale() . '_description']) && !empty($data->additionalinfo->company_description[app()->getLocale() . '_description']) ? App\Helpers\Helper::strip_tags_with_whitespace($data->additionalinfo->company_description[app()->getLocale() . '_description']) : null !!}</textarea>
+                                            <textarea rows="8" name="company_description" class="form-control" placeholder="@if(!empty(lang_properties('companydescription','keyword'))) {{ lang_properties('companydescription','keyword')->name }} @else  @lang('additional.forms.company_description') @endif">{!! isset($data->additionalinfo) && !empty($data->additionalinfo) && isset($data->additionalinfo->company_description[app()->getLocale() . '_description']) && !empty($data->additionalinfo->company_description[app()->getLocale() . '_description']) ? App\Helpers\Helper::strip_tags_with_whitespace($data->additionalinfo->company_description[app()->getLocale() . '_description']) : null !!}</textarea>
                                         </div>
 
                                     </div>
@@ -221,14 +221,14 @@
                         success: function(data) {
                             hideLoader();
                             $("#loadbeforeajax").css('display', 'none');
-                            buttonsendform.prop('disabled', false);
-                            createalert(data.status, data.message, 'profileupdate');
+                            // buttonsendform.prop('disabled', false);
+                            // createalert(data.status, data.message, 'profileupdate');
                             window.location.reload();
                         },
                         error: function(data) {
                             hideLoader();
                             $("#loadbeforeajax").css('display', 'none');
-                            buttonsendform.prop('disabled', false);
+                            // buttonsendform.prop('disabled', false);
                             createalert(data.status, data.message, 'profileupdate');
                         }
                     });
@@ -269,14 +269,14 @@
                         success: function(data) {
                             hideLoader();
                             $("#loadbeforeajax").css('display', 'none');
-                            buttonsendform.prop('disabled', false);
-                            createalert(data.status, data.message, 'companyupdate');
+                            // buttonsendform.prop('disabled', false);
+                            // createalert(data.status, data.message, 'companyupdate');
                             window.location.reload();
                         },
                         error: function(data) {
                             hideLoader();
                             $("#loadbeforeajax").css('display', 'none');
-                            buttonsendform.prop('disabled', false);
+                            // buttonsendform.prop('disabled', false);
                             createalert(data.status, data.message, 'companyupdate');
                         }
                     });

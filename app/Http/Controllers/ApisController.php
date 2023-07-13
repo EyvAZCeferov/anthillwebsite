@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\WishlistItems;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Orders;
@@ -170,9 +171,9 @@ class ApisController extends Controller
                 ];
 
                 $description = [
-                    'az_description' => $request->additional_info,
-                    'ru_description' => trim(GoogleTranslate::trans($request->additional_info, 'ru')),
-                    'en_description' => trim(GoogleTranslate::trans($request->additional_info, 'en')),
+                    'az_description' => $request->additional_info ?? ' ',
+                    'ru_description' => $request->additional_info ?? ' ',
+                    'en_description' => $request->additional_info ?? ' ',
                 ];
 
                 $countofproducts = Products::where('slugs->az_slug', Str::slug($name['az_name']))
@@ -304,15 +305,10 @@ class ApisController extends Controller
                 ];
 
                 $description = [
-                    'az_description' => $request->additional_info,
-                    'ru_description' => trim(GoogleTranslate::trans($request->additional_info, 'ru')),
-                    'en_description' => trim(GoogleTranslate::trans($request->additional_info, 'en')),
-                    'tr_description' => trim(GoogleTranslate::trans($request->additional_info, 'tr')),
+                    'az_description' => $request->input('additional_info') ?? ' ',
+                    'ru_description' => $request->input('additional_info') ?? ' ',
+                    'en_description' => $request->input('additional_info') ?? ' ',
                 ];
-
-                $countofproducts = Products::where('slugs->az_slug', Str::slug($name['az_name']))
-                    ->orWhere('slugs->ru_slug', Str::slug($name['ru_name']))
-                    ->orWhere('slugs->en_slug', Str::slug($name['en_name']))->get();
 
 
                 DB::transaction(function () use ($request, $codeofproduct, $name, $description, &$product) {
@@ -584,18 +580,30 @@ class ApisController extends Controller
     public function bookmarktoggle(Request $request)
     {
         try {
-            $bookmarks = Session::get('bookmarks', []);
-            $index = array_search($request->code, $bookmarks);
-            if ($index === false) {
-                $bookmarks[] = $request->code;
-            } else {
-                unset($bookmarks[$index]);
-            }
-            Session::put('bookmarks', $bookmarks);
+            $product=product($request->code,true);
+            if(Auth::check()){
+                $item=wishlist_items(Auth::id(),$product->id);
+                if(!empty($item)){
+                    $item->delete();
+                }else{
+                    DB::transaction(function () use ($request,$product) {
+                        $wishlistitem=new WishlistItems();
+                        $wishlistitem->product_id=$product->id;
+                        $wishlistitem->user_id=Auth::id();
+                        $wishlistitem->ipaddress=$request->ip();
+                        $wishlistitem->save();
+                    });
+                }
 
-            return true;
+                return response()->json(['status' => 'success', 'added'=>true]);
+            }else{
+                return response()->json(['status' => 'error', 'url'=>route('auth.login')]);
+            }
+
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }finally{
+            Helper::dbdeactive();
         }
     }
     public function services_user($user_id)

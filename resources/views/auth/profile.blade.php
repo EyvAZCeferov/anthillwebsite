@@ -35,7 +35,7 @@
                         'name' => !empty(lang_properties('wishlist','keyword')) ? lang_properties('wishlist','keyword')->name : trans("additional.urls.wishlist"),
                         'icon' => '<i class="las la-bookmark"></i>',
                         'url' => route('wishlist.index'),
-                        'count' => !empty(session()->get('bookmarks'))? count(session()->get('bookmarks')??[]) ?? 0 : 0,
+                        'count' => ' '.auth()->check() && !empty(wishlist_items(auth()->id())) ? count(wishlist_items(auth()->id())) : 0 .' ',
                     ],
                     [
                         'name' => trans('additional.urls.payments'),

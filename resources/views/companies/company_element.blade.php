@@ -1,3 +1,4 @@
+@if(!empty($data) && !empty($data->additionalinfo) && !empty($data->additionalinfo->company_slugs))
 <div class="company" id="company-{{ $data->id }}"
     onclick="window.open(`{{ route('companies.show', $data->additionalinfo->company_slugs[app()->getLocale() . '_slug'] ?? null) }}`)">
     <div class="info"
@@ -23,3 +24,4 @@
         @lang('additional.pages.companies.services', ['services' => count($data->products)])
     </div>
 </div>
+@endif

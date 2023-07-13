@@ -6058,6 +6058,117 @@ body #attributes .delete_attribute_area .delete_attribute:active {
   background-color: #3E5DAA;
   border-color: #3E5DAA;
 }
+html .user_or_freelancer_row,
+body .user_or_freelancer_row {
+  width: 65%;
+  margin: 0 auto;
+  border: 1px solid #67C347;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  border-radius: 25px;
+  background-color: #fff;
+  padding: 0;
+  margin-top: 15px;
+}
+html .user_or_freelancer_row .user_or_freelancer_tab,
+body .user_or_freelancer_row .user_or_freelancer_tab {
+  width: 50%;
+  cursor: pointer;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  border-radius: 25px;
+  background-color: #fff;
+  color: #000;
+}
+html .user_or_freelancer_row .user_or_freelancer_tab.active,
+body .user_or_freelancer_row .user_or_freelancer_tab.active {
+  background-color: #67C347;
+  color: #fff;
+}
+html .tab_freelancer,
+body .tab_freelancer {
+  display: none;
+}
+html .tab_freelancer .tab_company_section,
+body .tab_freelancer .tab_company_section {
+  margin: 70px 0;
+}
+html .tab_freelancer label,
+body .tab_freelancer label {
+  color: #000;
+}
+html .tab_freelancer label.company_logo,
+body .tab_freelancer label.company_logo {
+  border-radius: 10px;
+  width: 140px;
+  height: 140px;
+  border: 1px dashed #969696;
+  background-color: #E0E4EC;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  color: #969696;
+  font-size: 16px;
+  transition: all ease 0.7s;
+}
+html .tab_freelancer label.company_logo img,
+body .tab_freelancer label.company_logo img {
+  width: 90%;
+  height: 90%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+html .tab_freelancer label.company_logo i,
+body .tab_freelancer label.company_logo i {
+  margin-bottom: 10px;
+  font-size: 45px;
+}
+html .tab_freelancer label.company_logo:hover, html .tab_freelancer label.company_logo:focus, html .tab_freelancer label.company_logo:active,
+body .tab_freelancer label.company_logo:hover,
+body .tab_freelancer label.company_logo:focus,
+body .tab_freelancer label.company_logo:active {
+  cursor: pointer;
+  color: #3E5DAA;
+}
+html .tab_freelancer input,
+html .tab_freelancer textarea,
+body .tab_freelancer input,
+body .tab_freelancer textarea {
+  height: auto !important;
+  margin-bottom: 10px;
+  font-size: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  color: #969696;
+}
+html .tab_freelancer input:hover, html .tab_freelancer input:focus, html .tab_freelancer input:active,
+html .tab_freelancer textarea:hover,
+html .tab_freelancer textarea:focus,
+html .tab_freelancer textarea:active,
+body .tab_freelancer input:hover,
+body .tab_freelancer input:focus,
+body .tab_freelancer input:active,
+body .tab_freelancer textarea:hover,
+body .tab_freelancer textarea:focus,
+body .tab_freelancer textarea:active {
+  color: #67C347;
+}
+html .tab_freelancer input.company_logo,
+html .tab_freelancer textarea.company_logo,
+body .tab_freelancer input.company_logo,
+body .tab_freelancer textarea.company_logo {
+  display: none;
+}
 
 @media (max-width: 991px) {
   html,
@@ -6108,6 +6219,23 @@ body #attributes .delete_attribute_area .delete_attribute:active {
   html footer.main_footer .left_writes p,
   body footer.main_footer .left_writes p {
     font-size: 15px;
+  }
+  html footer.main_footer .master_card_logo,
+  body footer.main_footer .master_card_logo {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+  }
+  html footer.main_footer .master_card_logo img,
+  body footer.main_footer .master_card_logo img {
+    -o-object-fit: contain;
+       object-fit: contain;
+    height: 100%;
+    float: left;
   }
   html footer.main_footer .footer_heading,
   body footer.main_footer .footer_heading {
@@ -7286,6 +7414,23 @@ body #attributes .delete_attribute_area .delete_attribute:active {
   html footer.main_footer .left_writes p,
   body footer.main_footer .left_writes p {
     font-size: 14px;
+  }
+  html footer.main_footer .master_card_logo,
+  body footer.main_footer .master_card_logo {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+  }
+  html footer.main_footer .master_card_logo img,
+  body footer.main_footer .master_card_logo img {
+    -o-object-fit: contain;
+       object-fit: contain;
+    height: 100%;
+    float: left;
   }
   html footer.main_footer .green_hr,
   body footer.main_footer .green_hr {
