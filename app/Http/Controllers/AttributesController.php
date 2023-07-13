@@ -19,7 +19,7 @@ class AttributesController extends Controller
     public function index()
     {
         try {
-            $data=Attributes::orderBy("order_att",'ASC')->orderBy("id",'DESC')->get();
+            $data=Attributes::orderBy("order_att",'ASC')->orderBy("id",'DESC')->whereNull('group_id')->get();
             return view('shops.products.attributes.index',compact('data'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -37,14 +37,14 @@ class AttributesController extends Controller
     {
         try {
             $name = [
-                'az_name' => $request->name['az_name'],
-                'ru_name' => isset($request->name['ru_name']) ? $request->name['ru_name'] : trim(GoogleTranslate::trans($request->name['az_name'], 'ru')),
-                'en_name' => isset($request->name['en_name']) ? $request->name['en_name'] : trim(GoogleTranslate::trans($request->name['az_name'], 'en')),
-                'tr_name' => isset($request->name['tr_name']) ? $request->name['tr_name'] : trim(GoogleTranslate::trans($request->name['az_name'], 'tr')),
+                'az_name' => $request->name['en_name'],
+                'ru_name' => isset($request->name['ru_name']) ? $request->name['ru_name'] : trim(GoogleTranslate::trans($request->name['en_name'], 'ru')),
+                'en_name' => isset($request->name['en_name']) ? $request->name['en_name'] : trim(GoogleTranslate::trans($request->name['en_name'], 'en')),
+                'tr_name' => isset($request->name['tr_name']) ? $request->name['tr_name'] : trim(GoogleTranslate::trans($request->name['en_name'], 'tr')),
             ];
 
             $slugs = [
-                'az_slug' => Str::slug(trim($name['az_name'])),
+                'az_slug' => Str::slug(trim($name['en_name'])),
                 'ru_slug' => Str::slug(trim($name['ru_name'])),
                 'en_slug' => Str::slug(trim($name['en_name'])),
                 'tr_slug' => Str::slug(trim($name['tr_name'])),
@@ -53,9 +53,9 @@ class AttributesController extends Controller
             $data = new Attributes();
             $data->name = $name;
             $data->slugs = $slugs;
-            $data->group_id = $request->group_id;
-            $data->datatype = $request->datatype;
-            $data->order_att = $request->order ?? 1;
+            $data->group_id = null;
+            $data->datatype = 'price';
+            $data->order_att = 1;
             $data->save();
             
             return true;
@@ -115,19 +115,27 @@ class AttributesController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            Attributes::where("id", $id)->update([
-                'name->az_name' => $request->name['az_name'],
-                'name->ru_name' => isset($request->name['ru_name']) ? $request->name['ru_name'] : trim(GoogleTranslate::trans($request->name['az_name'], 'ru')),
-                'name->en_name' => isset($request->name['en_name']) ? $request->name['en_name'] : trim(GoogleTranslate::trans($request->name['az_name'], 'en')),
-                'name->tr_name' => isset($request->name['tr_name']) ? $request->name['tr_name'] : trim(GoogleTranslate::trans($request->name['az_name'], 'tr')),
-                'slugs->az_slug' => Str::slug(trim($request->name['az_name'])),
-                'slugs->ru_slug' => Str::slug(GoogleTranslate::trans(trim($request->name['az_name']),'ru')),
-                'slugs->en_slug' => Str::slug(GoogleTranslate::trans(trim($request->name['az_name']),'en')),
-                'slugs->tr_slug' => Str::slug(GoogleTranslate::trans(trim($request->name['az_name']),'tr')),
-                'group_id' => $request->group_id,
-                'datatype' => $request->datatype,
-                'order_att' => $request->order ?? 1,
-            ]);
+            $name = [
+                'az_name' => $request->name['en_name'],
+                'ru_name' => isset($request->name['ru_name']) ? $request->name['ru_name'] : trim(GoogleTranslate::trans($request->name['en_name'], 'ru')),
+                'en_name' => isset($request->name['en_name']) ? $request->name['en_name'] : trim(GoogleTranslate::trans($request->name['en_name'], 'en')),
+                'tr_name' => isset($request->name['tr_name']) ? $request->name['tr_name'] : trim(GoogleTranslate::trans($request->name['en_name'], 'tr')),
+            ];
+
+            $slugs = [
+                'az_slug' => Str::slug(trim($name['en_name'])),
+                'ru_slug' => Str::slug(trim($name['ru_name'])),
+                'en_slug' => Str::slug(trim($name['en_name'])),
+                'tr_slug' => Str::slug(trim($name['tr_name'])),
+            ];
+
+            $data = Attributes::find($id);
+            $data->name = $name;
+            $data->slugs = $slugs;
+            $data->group_id = null;
+            $data->datatype = 'price';
+            $data->order_att = 1;
+            $data->save();
             
             return true;
         } catch (\Exception $e) {

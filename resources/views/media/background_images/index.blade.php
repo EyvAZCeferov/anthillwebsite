@@ -72,7 +72,7 @@
             <div class="col-lg-12">
                 <section class="box ">
                     <header class="panel_header">
-                        <h2 class="title pull-left">Bütün @lang("additional.urls.background_images")</h2>
+                        <h2 class="title pull-left">@lang("additional.page_types.all") @lang("additional.urls.background_images")</h2>
                         <div class="actions panel_actions pull-right">
                             <i class="box_toggle fa fa-chevron-down"></i>
                             <i class="box_close fa fa-times"></i>

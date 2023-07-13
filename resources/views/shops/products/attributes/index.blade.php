@@ -133,20 +133,20 @@
                 type: 'post',
                 success: function(data) {
                     if (data == 1) {
-                        toastr.success(trans('additional.messages.created'));
+                        toastr.success(`{{ trans('additional.messages.created') }}`);
                         $('#exampleModal').modal('toggle');
-                        window.location.href = "{{ url()->current() }}";
+                        window.location.reload();
                     } else {
-                        toastr.error(trans("additional.messages.tryagain"));
+                        toastr.error(`{{ trans("additional.messages.tryagain") }}`);
                     }
                 },
                 error: function(data) {
                     if (data == 0) {
-                        toastr.error(trans("additional.messages.tryagain"));
+                        toastr.error(`{{ trans("additional.messages.tryagain") }}`);
                     } else {
-                        toastr.success(trans('additional.messages.created'));
+                        toastr.success(`{{ trans('additional.messages.created') }}`);
                         $('#exampleModal').modal('toggle');
-                        window.location.href = "{{ url()->current() }}";
+                        window.location.reload();
                     }
                 }
             });
@@ -167,22 +167,22 @@
                 success: function(data) {
                     $("form#attributeUpdate input#attribute_id").val(data['id']);
                     $("form#attributeUpdate input#attribute_en_name").val(data['name']['en_name']);
-                    $("form#attributeUpdate select#attribute_group").val(data['type']);
-                    $("form#attributeUpdate input#attribute_order").val(data['order_att']);
-                    if (data['group_id'] != null || data['group_id'] !== null) {
-                        $('form#attributeUpdate div#getGrrId').css('display', 'block');
-                        $("form#attributeUpdate select#group_id").val(data['group_id'] ?? null);
-                    } else {
-                        $('form#attributeUpdate div#getGrrId').css('display', 'none');
-                    }
+                    // $("form#attributeUpdate select#attribute_group").val(data['type']);
+                    // $("form#attributeUpdate input#attribute_order").val(data['order_att']);
+                    // if (data['group_id'] != null || data['group_id'] !== null) {
+                    //     $('form#attributeUpdate div#getGrrId').css('display', 'block');
+                    //     $("form#attributeUpdate select#group_id").val(data['group_id'] ?? null);
+                    // } else {
+                    //     $('form#attributeUpdate div#getGrrId').css('display', 'none');
+                    // }
 
-                    $("form#attributeUpdate select#datatype").val(data['datatype']);
+                    // $("form#attributeUpdate select#datatype").val(data['datatype']);
 
                     $('#editModal').modal('toggle');
 
                 },
                 error: function(data) {
-                    toastr.error(trans("additional.messages.tryagain"));
+                    toastr.error(`{{ trans("additional.messages.tryagain") }}`);
                 }
             })
         }
@@ -198,15 +198,13 @@
 
             // Get some values from elements on the page:
             var
-                en_name = $("form#attributeUpdate input#attribute_en_name").val(),
-                group_id = $("form#attributeUpdate select#group_id").val(),
-                datatype = $("form#attributeUpdate select#datatype").val(),
-                order = $("form#attributeUpdate input#attribute_order").val();
+                en_name = $("form#attributeUpdate input#attribute_en_name").val();
+                // group_id = $("form#attributeUpdate select#group_id").val(),
+                // datatype = $("form#attributeUpdate select#datatype").val(),
+                // order = $("form#attributeUpdate input#attribute_order").val();
             var name = {};
-            name['az_name'] = az_name;
-            name['ru_name'] = ru_name;
             name['en_name'] = en_name;
-            name['tr_name'] = tr_name;
+            
             token = $("input[name='_token']").val();
             var id = $("form#attributeUpdate input#attribute_id").val();
 
@@ -215,9 +213,9 @@
                 dataType: 'json',
                 data: {
                     name: name,
-                    group_id: group_id,
-                    datatype: datatype,
-                    order: order,
+                    // group_id: group_id,
+                    // datatype: datatype,
+                    // order: order,
                     _token: token
                 },
                 type: 'patch',
@@ -227,19 +225,19 @@
                         $('#editModal').modal('toggle');
                         $("form#attributeUpdate input#attribute_id").val();
                         $("form#attributeUpdate input#attribute_en_name").val();
-                        $("form#attributeUpdate input#attribute_order").val();
-                        window.location.href = "{{ url()->current() }}";
+                        // $("form#attributeUpdate input#attribute_order").val();
+                        window.location.reload();
                     } else {
-                        toastr.error(trans("additional.messages.tryagain"));
+                        toastr.error(`{{ trans("additional.messages.tryagain") }}`);
                     }
                 },
                 error: function(data) {
                     if (data == 0) {
-                        toastr.error(trans("additional.messages.tryagain"));
+                        toastr.error(`{{ trans("additional.messages.tryagain") }}`);
                     } else {
                         toastr.success("@lang('additional.messages.updated')");
                         $('#editModal').modal('toggle');
-                        window.location.href = "{{ url()->current() }}";
+                        window.location.reload();
                     }
                 }
             });
@@ -324,7 +322,7 @@
                                         <tr>
                                             <th>@lang("additional.forms.name")</th>
                                             <th>@lang("additional.forms.assigned")</th>
-                                            <th>@lang("additional.forms.type")</th>
+                                            {{-- <th>@lang("additional.forms.type")</th> --}}
                                             <th>@lang("additional.buttons.buttons")</th>
                                         </tr>
                                     </thead>
@@ -333,7 +331,6 @@
                                         @foreach ($data as $dat)
                                             @if(!empty(trim($dat->name['en_name'])))
                                                 <tr class="ui-state-default">
-                                                    <td>{{ $dat->id }}</td>
                                                     <td>{{ $dat->name['en_name'] }}</td>
                                                     <td>
                                                         @if ($dat->group_id != null || $dat->group_id !== null)
@@ -343,7 +340,7 @@
                                                         @endif
                                                     </td>
 
-                                                    <td>
+                                                    {{-- <td>
                                                         @if ($dat->datatype == 'string')
                                                             @lang("additional.inputtypes.string")
                                                         @elseif($dat->datatype == 'integer')
@@ -353,7 +350,7 @@
                                                         @elseif($dat->datatype == 'boolean')
                                                         @lang("additional.inputtypes.dropdown")
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
 
                                                     <td>
                                                         <button type="button" class="btn btn-warning d-inline-block"
@@ -409,7 +406,7 @@
                             name="attribute_en_name" id="attribute_en_name">
                         <br>
                         
-                        <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.order")</span>
+                        {{-- <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.order")</span>
                         <input type="number" value="" placeholder="@lang("additional.forms.order") ..." class="form-control"
                             name="attribute_order" id="attribute_order">
                         <br/>
@@ -429,15 +426,15 @@
                                 @endforeach
                             </select>
                         </div>
-                        <br>
-                        <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.type")</span>
+                        <br> --}}
+                        {{-- <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.type")</span>
                         <select class="form-control" name="datatype" id="datatype">
                             <option value="string">@lang("additional.inputtypes.string")</option>
                             <option value="integer">@lang("additional.inputtypes.integer")</option>
                             <option value="price">@lang("additional.inputtypes.price")</option>
                             <option value="boolean">@lang("additional.inputtypes.dropdown")</option>
                         </select>
-                        <br>
+                        <br> --}}
 
                         <div class="align-right justify-content-end text-right">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang("additional.buttons.cancel")</button>

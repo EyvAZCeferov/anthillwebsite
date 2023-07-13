@@ -1,7 +1,7 @@
 <div class="row">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Atribut yarat
+        @lang('additional.page_types.create')
     </button>
 
     <!-- Modal -->
@@ -24,7 +24,7 @@
                             name="attribute_en_name" id="attribute_en_name">
                         <br>
                         
-                        <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.order")</span>
+                        {{-- <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.order")</span>
                         <input type="number" value="" placeholder="@lang("additional.forms.order") ..." class="form-control"
                             name="attribute_order" id="attribute_order">
                         <br/>
@@ -44,15 +44,15 @@
                                 @endforeach
                             </select>
                         </div>
-                        <br>
-                        <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.type")</span>
+                        <br> --}}
+                        {{-- <span style="font-size: 14px; margin-bottom:5px;display:block;">@lang("additional.forms.type")</span>
                         <select class="form-control" name="datatype" id="datatype">
                             <option value="string">@lang("additional.inputtypes.string")</option>
                             <option value="integer">@lang("additional.inputtypes.integer")</option>
                             <option value="price">@lang("additional.inputtypes.price")</option>
                             <option value="boolean">@lang("additional.inputtypes.dropdown")</option>
                         </select>
-                        <br>
+                        <br> --}}
 
                         <div class="align-right justify-content-end text-right">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang("additional.buttons.cancel")</button>

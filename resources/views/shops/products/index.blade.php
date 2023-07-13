@@ -170,7 +170,7 @@
                                             <th>@lang("additional.forms.code")</th>
                                             <th>@lang("additional.forms.ammount")</th>
                                             <th>@lang("additional.urls.category")</th>
-                                            <th>@lang("additioanl.urls.freelancer")</th>
+                                            <th>Freelancer</th>
                                             <th>@lang("additional.forms.viewcount")</th>
                                             <th>@lang("additional.buttons.buttons")</th>
                                         </tr>

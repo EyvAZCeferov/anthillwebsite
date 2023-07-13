@@ -135,7 +135,7 @@ return [
     "inputtypes"=>[
         "string"=>"String",
         "integer"=>"Integer",
-        "dropwwon"=>"Dropdown",
+        "dropdown"=>"Dropdown",
         "price"=>"Price",
         "attribute_0"=>"Attribute Element",
         "attribute_1"=>"Attribute group",

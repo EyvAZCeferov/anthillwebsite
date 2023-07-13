@@ -13,7 +13,7 @@ class ApisController extends Controller
       try {
          if ($request->hasFile('image')) {
              $image = $request->file('image');
-             $filename=$clasore.'-'.time().'.'.$image->extension();
+             $filename=$clasore.'-'.time().Helper::createRandomCode("string",15).'.'.$image->extension();
              $image = Helper::image_upload($request->file('image'), $clasore,$filename);
  
              return $image;

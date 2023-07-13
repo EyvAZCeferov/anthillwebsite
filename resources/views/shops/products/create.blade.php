@@ -334,6 +334,9 @@
             cursor: pointer;
         }
     </style>
+    <style>
+      
+    </style>
 @endsection
 @section('javascript')
     @include('layouts.seo.createseoscript')

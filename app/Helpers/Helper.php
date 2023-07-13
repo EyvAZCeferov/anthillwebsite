@@ -28,7 +28,7 @@ class Helper
 
     public static function image_upload($image, $clasor, $imagename = null, $path = null)
     {
-        $filename = $imagename ?? time() .'.'. $image->extension();
+        $filename = $imagename ?? time() .Helper::createRandomCode('string',15).'.'. $image->extension();
         $image->storeAs($clasor, $filename, 'uploads');
         return $filename;
     }

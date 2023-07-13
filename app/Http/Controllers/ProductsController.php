@@ -93,9 +93,9 @@ class ProductsController extends Controller
             $data=new Products();
 
             $name = [
-                'az_name' => $request->az_name,
-                'ru_name' => isset($request->ru_name) ? $request->ru_name : trim(GoogleTranslate::trans($request->az_name, 'ru')),
-                'en_name' => isset($request->en_name) ? $request->en_name : trim(GoogleTranslate::trans($request->az_name, 'en')),
+                'az_name' => $request->en_name,
+                'ru_name' => isset($request->ru_name) ? $request->ru_name : trim(GoogleTranslate::trans($request->en_name, 'ru')),
+                'en_name' => isset($request->en_name) ? $request->en_name : trim(GoogleTranslate::trans($request->en_name, 'en')),
             ];
 
             $countofproducts=Products::where('slugs->az_slug',Str::slug($name['az_name']))
@@ -109,9 +109,9 @@ class ProductsController extends Controller
             ];
 
             $description = [
-                'az_description' => $request->az_description,
-                'ru_description' => isset($request->ru_description) ? $request->ru_description : trim(GoogleTranslate::trans($request->az_description, 'ru')),
-                'en_description' => isset($request->en_description) ? $request->en_description : trim(GoogleTranslate::trans($request->az_description, 'en')),
+                'az_description' => $request->en_description,
+                'ru_description' => isset($request->ru_description) ? $request->ru_description : trim(GoogleTranslate::trans($request->en_description, 'ru')),
+                'en_description' => isset($request->en_description) ? $request->en_description : trim(GoogleTranslate::trans($request->en_description, 'en')),
                 ];
 
             $data->name = $name;
@@ -179,7 +179,7 @@ class ProductsController extends Controller
             }
 
             $meta_title = [
-                'az_meta_title' => trim($request->az_meta_title) ?? $request->az_name,
+                'az_meta_title' => trim($request->az_meta_title) ?? $request->en_name,
                 'ru_meta_title' => $request->ru_meta_title ?? $request->ru_name,
                 'en_meta_title' => $request->en_meta_title ?? $request->en_name,
             ];
@@ -191,7 +191,7 @@ class ProductsController extends Controller
             ];
 
             $meta_keywords = [
-                'az_meta_keywords' => $request->az_meta_keywords ?? trim($request->az_name),
+                'az_meta_keywords' => $request->az_meta_keywords ?? trim($request->en_name),
                 'ru_meta_keywords' => $request->ru_meta_keywords ?? trim($request->ru_name),
                 'en_meta_keywords' => $request->en_meta_keywords ?? trim($request->en_name),
             ];
@@ -289,15 +289,14 @@ class ProductsController extends Controller
             }
 
             $name = [
-                'az_name' => $request->az_name,
-                'ru_name' => isset($request->ru_name) ? $request->ru_name : trim(GoogleTranslate::trans($request->az_name, 'ru')),
-                'en_name' => isset($request->en_name) ? $request->en_name : trim(GoogleTranslate::trans($request->az_name, 'en')),
+                'az_name' => $request->en_name,
+                'ru_name' => isset($request->ru_name) ? $request->ru_name : trim(GoogleTranslate::trans($request->en_name, 'ru')),
+                'en_name' => isset($request->en_name) ? $request->en_name : trim(GoogleTranslate::trans($request->en_name, 'en')),
                 ];
 
                 $countofproducts=Products::where('slugs->az_slug',Str::slug($name['az_name']))
                 ->orWhere('slugs->ru_slug',Str::slug($name['ru_name']))
                 ->orWhere('slugs->en_slug',Str::slug($name['en_name']))->get();
-
 
             $slugs = [
                 'az_slug' => count($countofproducts)==0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']).'-'.count($countofproducts)*2,
@@ -306,10 +305,10 @@ class ProductsController extends Controller
             ];
 
             $description = [
-                'az_description' => $request->az_description,
-                'ru_description' => isset($request->ru_description) ? $request->ru_description : trim(GoogleTranslate::trans($request->az_description, 'ru')),
-                'en_description' => isset($request->en_description) ? $request->en_description : trim(GoogleTranslate::trans($request->az_description, 'en')),
-                'tr_description' => isset($request->tr_description) ? $request->tr_description : trim(GoogleTranslate::trans($request->az_description, 'tr')),
+                'az_description' => $request->en_description,
+                'ru_description' => isset($request->ru_description) ? $request->ru_description : trim(GoogleTranslate::trans($request->en_description, 'ru')),
+                'en_description' => isset($request->en_description) ? $request->en_description : trim(GoogleTranslate::trans($request->en_description, 'en')),
+                'tr_description' => isset($request->tr_description) ? $request->tr_description : trim(GoogleTranslate::trans($request->en_description, 'tr')),
             ];
 
             $data->name = $name;
@@ -373,7 +372,7 @@ class ProductsController extends Controller
             }
 
             $meta_title = [
-                'az_meta_title' => trim($request->az_meta_title) ?? $request->az_name,
+                'az_meta_title' => trim($request->az_meta_title) ?? $request->en_name,
                 'ru_meta_title' => $request->ru_meta_title ?? $request->ru_name,
                 'en_meta_title' => $request->en_meta_title ?? $request->en_name,
             ];
@@ -385,7 +384,7 @@ class ProductsController extends Controller
             ];
 
             $meta_keywords = [
-                'az_meta_keywords' => $request->az_meta_keywords ?? trim($request->az_name),
+                'az_meta_keywords' => $request->az_meta_keywords ?? trim($request->en_name),
                 'ru_meta_keywords' => $request->ru_meta_keywords ?? trim($request->ru_name),
                 'en_meta_keywords' => $request->en_meta_keywords ?? trim($request->en_name),
             ];

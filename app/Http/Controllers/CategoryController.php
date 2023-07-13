@@ -147,7 +147,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         try {
-            $data = categories($id);
+            $data = Categories::where('id',$id)->with(["seo",'top_category','alt_categoryes','products','attributes'])->first();
             return view('media.category.show', ['data' => $data]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -184,7 +184,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $data = categories($id);
+            $data = Categories::where('id',$id)->with(["seo",'top_category','alt_categoryes','products','attributes'])->first();
             $validator = Validator::make($request->all(), [
                 'image' => 'image|mimes:jpg,jpeg,pjpeg,pjp,avif,jfif,bmp,ico,cur,png,gif,svg,webp,tif,tiff',
             ]);
@@ -308,7 +308,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         try {
-            $data = categories($id);
+            $data = Categories::where('id',$id)->with(["seo",'top_category','alt_categoryes','products','attributes'])->first();
             if (!empty($data->image)) {
                 Helper::delete_image($data->image, 'category');
             }
