@@ -117,12 +117,6 @@
                             <div class="col-sm-3">
                                 @lang("additional.forms.email"): {{ $data->email }}
                             </div>
-                            <div class="col-sm-3">
-                                @lang("additional.forms.main_phone"): {{ $data->phone }}
-                            </div>
-                            <div class="col-sm-3">
-                                @lang("additional.forms.additional_phone"): {{ $data->phone_2 ?? null }}
-                            </div>
                             @if ($data->hasRole('Admin'))
                                 <div class="col-sm-3">
                                     @lang("additional.forms.password"): {{ $data->additionalinfo->original_pass??' ' }}
@@ -132,16 +126,16 @@
                             <br>
 
                             @if ($data->type != 1)
-                                <div class="col-sm-3">
+                                <div class="col-sm-8">
                                     @lang("additional.urls.freelancer"): {{ $data->additionalinfo->company_name['az_name'] ?? null }} <br />
                                     @lang("additional.forms.description"):
-                                    {{ $data->additionalinfo->company_description['az_description'] ?? ' ' }}
+                                    {{ App\Helpers\Helper::strip_tags_with_whitespace($data->additionalinfo->company_description['az_description']) ?? ' ' }}
 
                                 </div>
                             @endif
 
                             @if (isset($data->additionalinfo->company_image) && !empty($data->additionalinfo->company_image))
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     @lang("additional.forms.image"): <img
                                         src="{{asset('/uploads/users/' . $data->additionalinfo->company_image)  }}"
                                         height="40" class="img-fluid img-responsive"

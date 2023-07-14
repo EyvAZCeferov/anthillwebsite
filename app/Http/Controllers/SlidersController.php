@@ -52,16 +52,16 @@ class SlidersController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'image' => 'required|image|mimes:jpg,png,gif,svg',
+                'image' => 'required|image|mimes:jpg,png,gif,svg,webp',
             ]);
             if ($validator->fails()) {
                 return redirect()->back()->with('error', $validator->errors());
             }
 
             $description = [
-                'az_description' => trim($request->az_description) ?? null,
-                'ru_description' => $request->ru_description ?? trim($request->az_description) ? trim(GoogleTranslate::trans($request->az_description, 'ru')) : null,
-                'en_description' => $request->en_description ?? trim($request->az_description) ? trim(GoogleTranslate::trans($request->az_description, 'en')) : null,
+                'az_description' => trim($request->en_description) ?? null,
+                'ru_description' => $request->ru_description ?? trim($request->en_description) ? trim(GoogleTranslate::trans($request->en_description, 'ru')) : null,
+                'en_description' => $request->en_description ?? trim($request->en_description) ? trim(GoogleTranslate::trans($request->en_description, 'en')) : null,
             ];
 
             $fileName = "slider-" . time() . '.' . $request->file("image")->extension();
@@ -111,7 +111,7 @@ class SlidersController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'image' => 'image|mimes:jpg,png,gif,svg',
+                'image' => 'image|mimes:jpg,png,gif,svg,webp',
             ]);
             if ($validator->fails()) {
                 return redirect()->back()->with('error', $validator->errors());
@@ -137,9 +137,9 @@ class SlidersController extends Controller
             }
 
             $description = [
-                'az_description' => trim($request->az_description) ?? null,
-                'ru_description' => $request->ru_description ?? trim($request->az_description) ? trim(GoogleTranslate::trans($request->az_description, 'ru')) : null,
-                'en_description' => $request->en_description ?? trim($request->az_description) ? trim(GoogleTranslate::trans($request->az_description, 'en')) : null,
+                'az_description' => trim($request->en_description) ?? null,
+                'ru_description' => $request->ru_description ?? trim($request->en_description) ? trim(GoogleTranslate::trans($request->en_description, 'ru')) : null,
+                'en_description' => $request->en_description ?? trim($request->en_description) ? trim(GoogleTranslate::trans($request->en_description, 'en')) : null,
             ];
 
 

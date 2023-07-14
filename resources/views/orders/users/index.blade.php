@@ -109,7 +109,6 @@
                                         <tr>
                                             <th>@lang("additional.forms.name")</th>
                                             <th>@lang("additional.forms.email")</th>
-                                            <th>@lang("additional.forms.phone")</th>
                                             @if ($type != 'normal')
                                                 <th>@lang("additional.urls.freelancer")</th>
                                                 <th>@lang("additional.urls.services")</th>
@@ -124,7 +123,6 @@
                                             <tr>
                                                 <td>{{ $dat->name_surname }}</td>
                                                 <td>{{ $dat->email }}</td>
-                                                <td>{{ $dat->phone }}</td>
 
                                                 @if ($type != 'normal')
                                                     <td>{{ $dat->additionalinfo->company_name['en_name'] ?? null }}</td>

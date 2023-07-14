@@ -298,12 +298,6 @@ class ProductsController extends Controller
                 ->orWhere('slugs->ru_slug',Str::slug($name['ru_name']))
                 ->orWhere('slugs->en_slug',Str::slug($name['en_name']))->get();
 
-            $slugs = [
-                'az_slug' => count($countofproducts)==0 ? Str::slug($name['az_name']) : Str::slug($name['az_name']).'-'.count($countofproducts)*2,
-                'ru_slug' => count($countofproducts)==0 ? Str::slug($name['ru_name']) : Str::slug($name['ru_name']).'-'.count($countofproducts)*2,
-                'en_slug' => count($countofproducts)==0 ? Str::slug($name['en_name']) : Str::slug($name['en_name']).'-'.count($countofproducts)*2,
-            ];
-
             $description = [
                 'az_description' => $request->en_description,
                 'ru_description' => isset($request->ru_description) ? $request->ru_description : trim(GoogleTranslate::trans($request->en_description, 'ru')),
@@ -312,7 +306,6 @@ class ProductsController extends Controller
             ];
 
             $data->name = $name;
-            $data->slugs = $slugs;
             $data->code = $request->code;
             $data->uid = Str::uuid();
             $data->description = $description;

@@ -209,7 +209,7 @@
                                                         name="email">
                                                     <br>
                                                 </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-4">
+                                                {{-- <div class="col-sm-6 col-md-6 col-lg-4">
                                                     <label for="">@lang('additional.forms.main_phone')</label>
 
                                                     <input type="text"
@@ -217,8 +217,8 @@
                                                         placeholder="@lang('additional.forms.main_phone')" class="form-control"
                                                         name="phone">
                                                     <br>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-4">
+                                                </div> --}}
+                                                {{-- <div class="col-sm-6 col-md-6 col-lg-4">
                                                     <label for="">@lang('additional.forms.additional_phone')</label>
 
                                                     <input type="text"
@@ -226,7 +226,7 @@
                                                         placeholder="@lang('additional.forms.additional_phone')" class="form-control"
                                                         name="phone_2">
                                                     <br>
-                                                </div>
+                                                </div> --}}
 
                                                 @if (isset($data) &&
                                                         !empty($data) &&
@@ -304,28 +304,33 @@
                                             </div>
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-6 col-md-6 col-lg-4">
-                                                @if (isset($data) && isset($data->additionalinfo->company_image) && !empty($data->additionalinfo->company_image))
-                                                    <img src="{{ asset('/uploads/users/' . $data->additionalinfo->company_image) }}"
-                                                        class="img-fluid img-responsive" />
-                                                @endif
-                                                <div class="form-group">
-                                                    <label for="">@lang("additional.forms.image")</label>
-                                                    <input type="file" class="form-control" name="company_image">
-                                                    <br>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
 
                                     </div>
+
+                                    <br>
+
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 col-lg-4">
+                                            @if (isset($data) && isset($data->additionalinfo->company_image) && !empty($data->additionalinfo->company_image))
+                                                <img src="{{ asset('/uploads/users/' . $data->additionalinfo->company_image) }}"
+                                                    class="img-fluid img-responsive" />
+                                            @endif
+                                            <div class="form-group">
+                                                <label for="">@lang("additional.forms.image")</label>
+                                                <input type="file" class="form-control" name="company_image">
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                     <br>
 
                                     <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12 padding-bottom-30">
                                         <div class="text-left">
                                             <button type="submit" class="btn btn-primary">@lang('additional.buttons.submit')</button>
-                                            <a type="button" href="{{ route('category.index') }}" class="btn">@lang("additional.buttons.cancel")</a>
+                                            <a type="button" href="{{ route('users.index') }}" class="btn">@lang("additional.buttons.cancel")</a>
                                         </div>
                                     </div>
                             </form>

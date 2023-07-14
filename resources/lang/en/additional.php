@@ -84,7 +84,7 @@ return [
         "url"=>"Url",
         "order"=>"Order",
         "description"=>"Description",
-        "ammount"=>"Ammount",
+        "ammount"=>"Amount",
         "date"=>"Date",
         "notregistered_freelancer"=>"Not Registered/Deleted Freelancer",
         "notregistered_user"=>"Not Registered/Deleted User",
@@ -92,7 +92,7 @@ return [
         "ipaddress"=>"IP Address",
         "transaction_id"=>'Transaction ID',
         "order_status"=>"Order Status",
-        "refundammount"=>"Refund Ammount",
+        "refundammount"=>"Refund Amount",
         "viewcount"=>"View Count",
         "main_phone"=>"Main phone",
         "additional_phone"=>'Additional phone',
@@ -112,8 +112,8 @@ return [
         "username"=>"Username",
         "logout"=>"Logout",
         "personal"=>"Personal",
-        "general_ammount"=>"General ammount",
-        "today_ammount"=>"Today ammount"
+        "general_ammount"=>"General amount",
+        "today_ammount"=>"Today amount"
     ],
     "order_statuese"=>[
         "statu_0"=>"Order added",
