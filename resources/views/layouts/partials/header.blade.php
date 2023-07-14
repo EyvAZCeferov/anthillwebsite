@@ -49,7 +49,7 @@
                                         @endif
 
                                     </h4>
-                                    <a herf="mailto:{{ auth()->user()->email }}">{{ auth()->user()->email }}</a>
+                                    <a style="font-size:12px;" herf="mailto:{{ auth()->user()->email }}">{{ auth()->user()->email }}</a>
                                 </div>
                             </div>
                             @php

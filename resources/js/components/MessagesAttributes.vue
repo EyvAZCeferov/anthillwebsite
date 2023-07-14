@@ -29,6 +29,7 @@ export default {
                     if (response.status === 201) {
                         this.message = '';
                         this.$emit('sendmessage');
+                        this.showattributes=false;
                     }
                 })
                 .catch(error => console.log(error));

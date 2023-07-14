@@ -9,7 +9,7 @@
                 </div>
                 <div class="message_right_column" v-if="currentroom.id">
                     <messages-container :authenticated="authenticated[0]" :messages="messages" :locale="locale"
-                        @readedMessage="getAllData($event)" :currentroom="currentroom"></messages-container>
+                        @readedMessage="getAllData" :currentroom="currentroom"></messages-container>
                     <messages-attributes v-if="currentroom.senderinfo.id != authenticated[0].id"
                         :authenticated="authenticated[0]" :currentroom="currentroom" :attributes="attributes"
                         :locale="locale" @sendmessage="getAllData"></messages-attributes>

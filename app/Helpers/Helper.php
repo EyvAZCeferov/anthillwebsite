@@ -41,10 +41,10 @@ class Helper
     {
         $string = str_replace('<', ' <', $string);
         $string = str_replace('&nbsp; ', ' ', $string);
-        $string = str_replace('&nbsp;', ' ', $string);
         $string = strip_tags($string, $allowable_tags);
         $string = str_replace('  ', ' ', $string);
         $string = trim($string);
+        $string = preg_replace('/\s+/', ' ', $string);
 
         return $string;
     }
@@ -85,8 +85,10 @@ class Helper
             if (!empty($comments) && count($comments) > 0) {
                 $rating = 0;
                 foreach ($comments as $comment) {
-                    if ($comment->rating > 0) {
-                        $rating += $comment->rating;
+                    if($comment->status==true){
+                        if ($comment->rating > 0) {
+                            $rating += $comment->rating;
+                        }
                     }
                 }
                 return ceil($rating / count($comments));

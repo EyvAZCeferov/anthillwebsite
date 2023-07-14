@@ -6,11 +6,11 @@
             isset($data->user->additionalinfo->company_image) &&
             !empty($data->user->additionalinfo->company_image))
         <div class="company_area"
-            onclick="window.open(`{{ route('companies.show', $data->user->additionalinfo->company_slugs[app()->getLocale() . '_slug']) }}`)">
+            onclick="window.location.href=`{{ route('companies.show', $data->user->additionalinfo->company_slugs[app()->getLocale() . '_slug']) }}`">
             <img class="lazyload blur-up" data-src="{{ App\Helpers\Helper::getImageUrl($data->user->additionalinfo->company_image, 'users') }}" />
         </div>
     @endif
-    @if (auth()->check())
+    @if (auth()->check() && isset($ty))
         @if (auth()->user()->id == $data->user_id)
             <div class="more">
                 <span class="more_button" onclick="toggledropdowforcreator(`{{$data->code}}`)"><i class="las la-ellipsis-v"></i></span>
@@ -31,36 +31,33 @@
             </div>
         @else
             <div class="bookmark @if (auth()->check() && !empty(wishlist_items(auth()->id(),$data->id))) active @endif"
-                onclick="bookmarktoggle('{{ $data->code }}','{{ app()->getLocale() }}','{{ route('api.bookmarktoggle') }}')">
+                onclick="bookmarktoggle('{{ $data->code }}','{{ app()->getLocale() }}','{{ route('api.bookmarktoggle') }}','{{ $pagetype??'services' }}')">
                 <i class="@if (auth()->check() && !empty(wishlist_items(auth()->id(),$data->id))) fas fa-bookmark @else las la-bookmark @endif "></i></div>
         @endif
     @else
         <div class="bookmark @if (auth()->check() && !empty(wishlist_items(auth()->id(),$data->id))) active @endif"
-            onclick="bookmarktoggle('{{ $data->code }}','{{ app()->getLocale() }}','{{ route('api.bookmarktoggle') }}')">
+            onclick="bookmarktoggle('{{ $data->code }}','{{ app()->getLocale() }}','{{ route('api.bookmarktoggle') }}','{{ $pagetype??'services' }}')">
             <i class="@if (auth()->check() && !empty(wishlist_items(auth()->id(),$data->id))) fas fa-bookmark @else las la-bookmark @endif "></i></div>
     @endif
     @if (isset($data->images[0]) && !empty($data->images[0]))
         <div class="image_area"
-            onclick="window.open(`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`)">
+            onclick="window.location.href=`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`">
             <img class="lazyload blur-up" data-src="{{ App\Helpers\Helper::getImageUrl($data->images[0]->original_images, 'products') }}"
                 alt="{{ $data->name[app()->getLocale() . '_name'] }}">
         </div>
     @endif
-    <h4 class="name text-center" onclick="window.open(`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`)">
+    <h4 class="name text-center" onclick="window.location.href=`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`">
         {{ $data->name[app()->getLocale() . '_name'] }}</h4>
     <p class="descriptive"
-        onclick="window.open(`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`)">
-        {!! mb_substr(
-            App\Helpers\Helper::strip_tags_with_whitespace($data->description[app()->getLocale() . '_description']),
-            0,
-            70
-        ) !!}</p>
+        onclick="window.location.href=`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`">
+        {{ mb_strimwidth(App\Helpers\Helper::strip_tags_with_whitespace($data->description[app()->getLocale() . '_description']), 0, 70, '', 'UTF-8') }}
+    </p>
     @if (App\Helpers\Helper::getstars($data->code) != 0)
     @php($ratings = App\Helpers\Helper::getstarswithdetail($data->code))
 
         <div class="stars"
         style="margin:0;"
-            onclick="window.open(`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`)">
+            onclick="window.location.href=`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`">
             @for ($i = 0; $i < 5; $i++)
 
                 <div class="star"><i class="@if (App\Helpers\Helper::getstars($data->code) <= $i) lar @else las @endif la-star"></i>
@@ -71,8 +68,8 @@
 
 
 
-    <hr onclick="window.open(`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`)" />
-    <p class="price" onclick="window.open(`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`)"><span style="font-size:12px;color:gray;font-weight:bold">Starts at</span>
+    <hr onclick="window.location.href=`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`)"/>
+    <p class="price" onclick="window.location.href=`{{ route('services.show', $data->slugs[app()->getLocale() . '_slug']) }}`)"><span style="font-size:12px;color:gray;font-weight:bold">@if(!empty(lang_properties('startsat','keyword'))) {{ lang_properties('startsat','keyword')->name }} @else  Starts at @endif</spn>
         {{ $data->price ?? 0 }}<span class="symbol">€</span></p>
 
 </div>

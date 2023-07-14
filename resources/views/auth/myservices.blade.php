@@ -15,7 +15,7 @@
             <div class="row services" id="datas">
                 @if (count($data) > 0)
                     @foreach ($data as $product)
-                        @include('services.service_element', ['data' => $product])
+                        @include('services.service_element', ['data' => $product,'ty'=>'myservices'])
                     @endforeach
                 @else
                     <p class="text-center w-100 text-danger">@lang('additional.pages.category.datanotfound')</p>

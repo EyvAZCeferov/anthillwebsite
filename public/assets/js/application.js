@@ -36,11 +36,17 @@ function phonewriting(e) {
     document.querySelector('input[name="' + e + '"]').value = t
 }
 
-function bookmarktoggle(e, t, n) {
+function bookmarktoggle(e, t, n, v) {
+
     sendAjaxRequest(`${n}`, "post", { code: e, language: t }, function(t, n) {
         let parsedResponse = JSON.parse(n);
         if (parsedResponse.status === "success") {
             var a = document.querySelector("#service-" + e).querySelector(".bookmark");
+
+            if (v == 'wishlist') {
+
+                document.getElementById("service-" + e).remove();
+            }
             if (a) {
                 a.classList.toggle("active");
                 if (a.classList.contains("active")) {

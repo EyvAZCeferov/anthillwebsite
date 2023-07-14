@@ -133,15 +133,6 @@
                 nexprocess['name'] = true;
             }
 
-            if (formData.get("phone") == null || formData.get("phone").length == 0) {
-                hideLoader();
-                createalert('error', '@lang('additional.messages.nullphone')', id);
-                nexprocess['phone'] = false;
-            } else {
-                var phonenumb = validPhone(formData.get('phone'));
-                document.querySelector('input[name="phone"]').value = phonenumb;
-                nexprocess['phone'] = true;
-            }
 
             if (formData.get("message") == null || formData.get("message").length == 0) {
                 hideLoader();
@@ -151,8 +142,7 @@
                 nexprocess['message'] = true;
             }
 
-            if (nexprocess['name'] == true && nexprocess['email'] == true && nexprocess['message'] == true &&
-                nexprocess['phone'] == true) {
+            if (nexprocess['name'] == true && nexprocess['email'] == true && nexprocess['message'] == true) {
                 sendAjaxRequest('{{ route('contactus.sendform') }}', 'post', data, function(err, response) {
                     if (err) {
                         hideLoader();

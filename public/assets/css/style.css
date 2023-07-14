@@ -2602,7 +2602,7 @@ body section .services .service_one .bookmark:active {
 }
 html section .services .service_one .image_area,
 body section .services .service_one .image_area {
-  width: 100px;
+  min-width: 180px;
   height: 130px;
   margin: 0 auto;
   border-radius: 50px;
@@ -2646,6 +2646,7 @@ body section .services .service_one .descriptive {
   width: 70%;
   margin: 0 auto;
   padding: 10px 0;
+  height: 61px;
 }
 html section .services .service_one hr,
 body section .services .service_one hr {
@@ -3698,6 +3699,14 @@ body section .service_new_design .desc_area {
   height: auto;
   word-break: break-word;
   font-size: 15px;
+}
+html section .service_new_design .desc_area ul,
+body section .service_new_design .desc_area ul {
+  padding-left: 20px;
+}
+html section .service_new_design .desc_area ul li,
+body section .service_new_design .desc_area ul li {
+  padding-left: 20px;
 }
 html section .rating_content,
 body section .rating_content {
@@ -5493,7 +5502,7 @@ body #app .message_lists .message_left_column {
 }
 html #app .message_lists .message_left_column .message_left_element,
 body #app .message_lists .message_left_column .message_left_element {
-  width: 100%;
+  width: 95%;
   margin: 0 auto;
   padding: 10px;
   display: flex;
@@ -5573,7 +5582,7 @@ html #app .message_lists .message_left_column .message_left_element .right-secti
 body #app .message_lists .message_left_column .message_left_element .right-section .date {
   height: 100%;
   font-size: 11px;
-  padding-right: 15px;
+  padding-right: 0;
   text-align: right;
   margin-bottom: 3px;
 }
@@ -5586,7 +5595,7 @@ body #app .message_lists .message_left_column .message_left_element .right-secti
   align-content: center;
   align-items: center;
   font-size: 17px;
-  padding-right: 20px;
+  padding-right: 0;
   width: 100%;
 }
 html #app .message_lists .message_left_column .message_left_element .right-section .status .badge,
@@ -6927,6 +6936,14 @@ body .tab_freelancer textarea.company_logo {
   html section .desc_area,
   body section .desc_area {
     padding: 0 10px;
+  }
+  html section .desc_area ul,
+  body section .desc_area ul {
+    padding-left: 20px;
+  }
+  html section .desc_area ul li,
+  body section .desc_area ul li {
+    padding-left: 20px;
   }
   html section a.more_button_section,
   body section a.more_button_section {

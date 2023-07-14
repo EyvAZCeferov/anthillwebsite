@@ -37,6 +37,7 @@
             display: block !important;
             visibility: visible !important;
         }
+
     </style>
 @endpush
 @push('js')
@@ -94,7 +95,7 @@
                         if (response != null) {
                             let parsedResponse = JSON.parse(response);
 
-                            createalert(parsedResponse.status, parsedResponse.message);
+                            createalert(parsedResponse.status, parsedResponse.message,'errormsj');
                             if (parsedResponse.url != null && parsedResponse.url.length > 0) {
                                 window.location.href = parsedResponse.url;
                             }
@@ -270,6 +271,18 @@
             }, 1000);
         }
     </script>
+    <script defer>
+        $(function(){
+            var elements = $('[style*="text-indent"]');
+
+// Her bir elemanın "text-indent" özelliğini değiştirir
+elements.each(function() {
+  var currentStyle = $(this).attr('style');
+  var newStyle = currentStyle.replace(/text-indent:\s*-?\d+\.?\d*pt;/, 'text-indent: 20pt;');
+  $(this).attr('style', newStyle);
+});
+        })
+    </script>
 @endpush
 
 @section('content')
@@ -311,7 +324,7 @@
                         @endif
                     </div>
                     <div class="column-25 mobile_column-100 right_section">
-                        <h3 class="price"><span style="font-size:12px;color:gray;font-weight:bold">Starts at</span>
+                        <h3 class="price"><span style="font-size:12px;color:gray;font-weight:bold">@if(!empty(lang_properties('startsat','keyword'))) {{ lang_properties('startsat','keyword')->name }} @else  Starts at @endif</span>
                             {{ $data->price }}€</h3>
                         <hr class="seperator" />
                         <div class="servicetable">
@@ -346,6 +359,7 @@
                             <button class="sendchat"
                                 onclick="chatwithuser('{{ auth()->check() && !empty(auth()->user()) ? auth()->user()->id : null }}','{{ $data->user_id }}','{{ $data->id }}')"><i
                                     class="las la-comments"></i>@if(!empty(lang_properties('book_now','keyword'))) {{ lang_properties('book_now','keyword')->name }} @else  @lang("additional.buttons.sendchat") @endif</button>
+                                    <form action="return;" id="errormsj" style="width:100%;"><div id="messages"></div></form>
                         </div>
                     </div>
                 </div>

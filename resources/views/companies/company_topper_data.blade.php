@@ -1,7 +1,7 @@
 <div class="row author_area">
     @if (isset($data->additionalinfo->company_name[app()->getLocale() . '_name']))
         <div class="author_icon_and_name"
-            onclick="window.open(`{{ route('companies.show', $data->additionalinfo->company_slugs[app()->getLocale() . '_slug']) }}`)">
+            onclick="window.location.href=`{{ route('companies.show', $data->additionalinfo->company_slugs[app()->getLocale() . '_slug']) }}`">
             <div class="image"><img class="lazyload blur-up" draggable="false"
                     data-src="{{ App\Helpers\Helper::getImageUrl($data->additionalinfo->company_image, 'users') ?? asset('assets/images/no-user.png') }}"
                     alt="{{ $data->additionalinfo->company_name[app()->getLocale() . '_name'] }}"></div>

@@ -7,6 +7,13 @@
 @endsection
 @section('image', App\Helpers\Helper::getImageUrl($data->additionalinfo->company_image, 'users') ?? null)
 @section('settings_menu', 'active')
+@push('css')
+<style>
+    .tox-tinymce{
+        width:100%;
+    }
+</style>
+@endpush
 @section('content')
     @include('auth.left_profile_tab')
     <section>
@@ -132,7 +139,7 @@
                                     <div class="column column-60 mobile_column-100">
                                         <div class="form-group">
                                             <label>@if(!empty(lang_properties('companydescription','keyword'))) {{ lang_properties('companydescription','keyword')->name }} @else  @lang('additional.forms.company_description') @endif</label>
-                                            <textarea rows="8" name="company_description" class="form-control" placeholder="@if(!empty(lang_properties('companydescription','keyword'))) {{ lang_properties('companydescription','keyword')->name }} @else  @lang('additional.forms.company_description') @endif">{!! isset($data->additionalinfo) && !empty($data->additionalinfo) && isset($data->additionalinfo->company_description[app()->getLocale() . '_description']) && !empty($data->additionalinfo->company_description[app()->getLocale() . '_description']) ? App\Helpers\Helper::strip_tags_with_whitespace($data->additionalinfo->company_description[app()->getLocale() . '_description']) : null !!}</textarea>
+                                            <textarea rows="8" name="company_description" class="form-control company_description" placeholder="@if(!empty(lang_properties('companydescription','keyword'))) {{ lang_properties('companydescription','keyword')->name }} @else  @lang('additional.forms.company_description') @endif">{!! isset($data->additionalinfo) && !empty($data->additionalinfo) && isset($data->additionalinfo->company_description[app()->getLocale() . '_description']) && !empty($data->additionalinfo->company_description[app()->getLocale() . '_description']) ? $data->additionalinfo->company_description[app()->getLocale() . '_description'] : null !!}</textarea>
                                         </div>
 
                                     </div>
@@ -171,6 +178,8 @@
 @push('js')
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script  src="https://cdn.tiny.cloud/1/0j6r4v4wrpghb7ht8z0yf85cuzcv8iadyrza5gp8f4lxi1ib/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
     <script>
         function profileupdate(id) {
             showLoader();
@@ -192,6 +201,12 @@
             var form = $(`form#${id}`)[0];
 
             var formData = new FormData(form);
+
+            if(tinymce.activeEditor!=null){
+                var tinyEditorData = tinymce.activeEditor.getContent();
+
+                formData.append('company_description', tinyEditorData);
+            }
 
             if (id == "companyupdate") {
                 if (formData.get("company_name") == null || formData.get("company_name").length == 0) {
@@ -310,5 +325,16 @@
             }
             reader.readAsDataURL(event.target.files[0]);
         }
+    </script>
+
+    <script defer>
+tinymce.init({
+            selector: '.company_description',
+            media_live_embeds: true,
+            file_picker_types: 'media',
+            plugins: 'anchor autolink charmap textcolor codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'fontsize forecolor backcolor | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+
     </script>
 @endpush

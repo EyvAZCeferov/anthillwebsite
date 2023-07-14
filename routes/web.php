@@ -1,14 +1,16 @@
 <?php
 
 use App\Helpers\Helper;
+use App\Mail\GeneralMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApisController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\FunctionsController;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Laravel\Horizon\Http\Controllers\DashboardController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
 
@@ -74,4 +76,20 @@ Route::get('locale', function () {
 Route::any('callback',[FunctionsController::class,'callback'])->name("guavapay.callback");
 Route::post('notreadedmessages',[ApisController::class,'getnotreadedmessagescount'])->name("api.notreadedmessages");
 
-Route::get('horizon', [DashboardController::class, 'index']);
+Route::get("sendmail",function(){
+    try{
+        $datas = [
+            'message' => trans("additional.emailtemplates.service.updatepasswordmessage", ['name' => "Eyvaz Ceferov", 'code' => "11111", 'url' => route('password.change', ['email' => "eyvazc@bk.ru", 'token' => "token"])]),
+            'email' => "eyvazc@bk.ru",
+            'name_surname' => "eyvaz ceferov",
+            'type' => 'forgetpassword',
+            'title' => trans("additional.emailtemplates.service.updatepassword"),
+            "id" => Helper::createRandomCode("int", 10),
+        ];
+
+
+    return Mail::send(new GeneralMail($datas['type'], $datas['title'], $datas['message'],$datas['email'], $datas['name_surname']));
+    }catch(\Exception $e){
+        return $e->getMessage();
+    }
+});

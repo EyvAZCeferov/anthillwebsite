@@ -61,6 +61,7 @@ export default {
                 axios
                     .post('/readmessage/' + message.id)
                     .then(response => {
+                        this.$emit('readedMessage');
                     })
                     .catch(error => {
                         console.log(error);

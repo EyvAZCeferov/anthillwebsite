@@ -25,10 +25,11 @@ class GeneralMail extends Mailable
     {
         try {
             $setting = setting();
+            
             return $this->from(env("MAIL_FROM_ADDRESS"), env("MAIL_FROM_NAME"))
-                ->to($this->tomail, $this->toname)
-                ->subject($this->subject)
-                ->view('emails.sendmessage', ['messagecontent' => $this->messagecontent, 'type' => $this->type, 'setting' => $setting, 'subject' => $this->subject]);
+                    ->to($this->tomail ?? env("MAIL_FROM_ADDRESS"), $this->toname ?? env("MAIL_FROM_NAME"))
+                    ->subject($this->subject)
+                    ->view('emails.sendmessage', ['messagecontent' => $this->messagecontent, 'type' => $this->type, 'setting' => $setting, 'subject' => $this->subject]);
         } catch (\Exception $e) {
             \Log::info($e->getMessage());
         }

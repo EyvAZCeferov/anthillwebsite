@@ -29,7 +29,7 @@
                                     style="font-family: Helvetica, sans-serif; width: 100%">
                                     <tbody>
                                         <tr style="width:30%; margin-left:auto; ">
-                                            <td style="width: 35%"></td>
+                                            <td style="width: 25%"></td>
 
                                             @if (isset($setting->social_media['facebook_url']) && !empty(trim($setting->social_media['facebook_url'])))
                                                 <td align="left"

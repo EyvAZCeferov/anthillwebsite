@@ -1003,7 +1003,7 @@ body {
                     }
                 }
                 .image_area {
-                    width: 100px;
+                    min-width: 180px;
                     height: 130px;
                     margin: 0 auto;
                     border-radius: 50px;
@@ -1042,6 +1042,7 @@ body {
                     width: 70%;
                     margin: 0 auto;
                     padding: 10px 0;
+                    height: 61px;
                 }
                 hr {
                     width: 80%;
@@ -1946,6 +1947,12 @@ body {
                 height: auto;
                 word-break: break-word;
                 font-size: 15px;
+                ul {
+                    padding-left: 20px;
+                    li {
+                        padding-left: 20px;
+                    }
+                }
             }
         }
         .rating_content {
@@ -3425,7 +3432,7 @@ body {
                 padding: 0;
                 margin: 0;
                 .message_left_element {
-                    width: 100%;
+                    width: 95%;
                     margin: 0 auto;
                     padding: 10px;
                     display: flex;
@@ -3494,7 +3501,7 @@ body {
                         .date {
                             height: 100%;
                             font-size: 11px;
-                            padding-right: 15px;
+                            padding-right: 0;
                             text-align: right;
                             margin-bottom: 3px;
                         }
@@ -3506,7 +3513,7 @@ body {
                             align-content: center;
                             align-items: center;
                             font-size: 17px;
-                            padding-right: 20px;
+                            padding-right: 0;
                             width: 100%;
                             .badge {
                                 color: #fff;
@@ -4644,6 +4651,12 @@ body {
             }
             .desc_area {
                 padding: 0 10px;
+                ul {
+                    padding-left: 20px;
+                    li {
+                        padding-left: 20px;
+                    }
+                }
             }
             a.more_button_section {
                 height: 25px;

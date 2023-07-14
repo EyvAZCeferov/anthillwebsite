@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SendEmailJob;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Helpers\Helper;
 use App\Models\Payments;
 use App\Helpers\GUAVAPAY;
+use App\Mail\GeneralMail;
+use App\Jobs\SendEmailJob;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\SendEmailEvent;
 use App\Models\UserAdditionals;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Artisan;
 use Stichoza\GoogleTranslate\GoogleTranslate;
@@ -151,7 +153,9 @@ class FunctionsController extends Controller
                     'title' => trans("additional.emailtemplates.service.updatepassword"),
                     "id" => Helper::createRandomCode("int", 10),
                 ];
-                dispatch(new SendEmailJob($datas));
+
+
+            Mail::send(new GeneralMail($datas['type'], $datas['title'], $datas['message'],$datas['email'], $datas['name_surname']));
 
                 return response()->json(['status' => 'success', 'message' => trans('additional.messages.emailsendedupdatepassword', [], $request->language ?? 'en')]);
             } else {
@@ -159,8 +163,6 @@ class FunctionsController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
-        } finally {
-            Helper::queuework();
         }
     }
     public function submitpin(Request $request)
@@ -225,9 +227,9 @@ class FunctionsController extends Controller
                     if (isset($request->company_name) && !empty($request->company_name)) {
                         $name = [
                             'az_name' => trim($request->company_name),
-                            "ru_name" => trim(GoogleTranslate::trans(trim($request->name), 'ru')),
-                            "en_name" => trim(GoogleTranslate::trans(trim($request->name), 'en')),
-                            "tr_name" => trim(GoogleTranslate::trans(trim($request->name), 'tr')),
+                            "ru_name" => trim($request->company_name),
+                            "en_name" => trim($request->company_name),
+                            "tr_name" => trim($request->company_name),
                         ];
                         $user->additionalinfo->update([
                             "company_name" => $name
@@ -237,9 +239,9 @@ class FunctionsController extends Controller
                     if (isset($request->company_description) && !empty($request->company_description)) {
                         $description = [
                             'az_description' => trim($request->company_description),
-                            "ru_description" => trim(GoogleTranslate::trans(trim($request->company_description), 'ru')),
-                            "en_description" => trim(GoogleTranslate::trans(trim($request->company_description), 'en')),
-                            "tr_description" => trim(GoogleTranslate::trans(trim($request->company_description), 'tr')),
+                            "ru_description" => trim($request->company_description),
+                            "en_description" => trim($request->company_description),
+                            "tr_description" => trim($request->company_description),
                         ];
                         $user->additionalinfo->update([
                             "company_description" => $description
