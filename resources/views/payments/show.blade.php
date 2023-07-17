@@ -50,7 +50,7 @@
                 @endif
                 <br>
                 @if ($data->from_id && $data->from_id != null)
-                    <h1 class="py-4 px-3">Satıcı @lang("additional.page_types.info")</h1>
+                    <h1 class="py-4 px-3">@lang('additional.urls.freelancer') @lang("additional.page_types.info")</h1>
                     <p class="d-block justify-space-evenly">
 
                     <h4 class="d-inline-block">{{ users($data->from_id, 'id')->name_surname }}</h4>
@@ -76,7 +76,15 @@
                     <h1 class="py-4 px-3">@lang("additional.urls.payment") @lang("additional.page_types.info")</h1>
                 </div>
                 <div class="row">
-                    <pre>{!! $data->frompayment !!}</pre>
+                    @if(!empty($data->frompayment) && isset($data->frompayment['Pan']))
+                        <pre>
+                            <p>Card Number: {{ $data->frompayment['Pan'] }}</p>
+                            <p>Amount: {{ $data->frompayment['Amount'] }}</p>
+                            <p>Status: {{ $data->frompayment['status'] }}</p>
+                            <p>OrderId: {{ $data->frompayment['OrderId'] }}</p>
+                            <p>Description: {{ $data->frompayment['Description'] }}</p>
+                        </pre>
+                    @endif
                 </div>
             </div>
 

@@ -112,7 +112,7 @@ class OrdersController extends Controller
                 "status" => $request->status
             ]);
             
-            Mail::send(new GeneralMail('order', $order->to_id, $id));
+            // Mail::send(new GeneralMail('order', $order->to_id, $id));
 
             return redirect()->back()->with("success", 'Status dəyişdirildi');
         } catch (\Exception $e) {

@@ -398,17 +398,17 @@
                 type: 'post',
                 success: function(data) {
                     if (data == 1) {
-                        toastr.success(trans("additional.messages.deleted"));
+                        toastr.success('{{ trans("additional.messages.deleted") }}');
                         $(`div#image_${image}`).remove();
                     } else {
-                        toastr.error(trans("additional.messages.tryagain"));
+                        toastr.error('{{ trans("additional.messages.tryagain") }}');
                     }
                 },
                 error: function(data) {
                     if (data == 0) {
-                        toastr.error(trans("additional.messages.tryagain"));
+                        toastr.error('{{ trans("additional.messages.tryagain") }}');
                     } else {
-                        toastr.success(trans("additional.messages.deleted"));
+                        toastr.success('{{ trans("additional.messages.deleted") }}');
                         $(`div#image_${image}`).remove();
 
                     }
@@ -479,11 +479,11 @@
                         },
                         success: function(data) {
                             // $("#images").append(`<div class="imgs">${data.toString()}</div>`);
-                            toastr.success(trans("additional.messages.order"));
+                            toastr.success('{{ trans("additional.messages.order") }}');
                         },
                         error: function(response) {
                             // $("#images").append(`<div class="imgs">${response.toString()}</div>`);
-                            toastr.success(trans("additioanl.messages.tryagain"));
+                            toastr.success('{{ trans("additioanl.messages.tryagain") }}');
                         }
                     });
                 }

@@ -179,7 +179,7 @@ class ProductsController extends Controller
             }
 
             $meta_title = [
-                'az_meta_title' => trim($request->az_meta_title) ?? $request->en_name,
+                'az_meta_title' => trim($request->en_meta_title) ?? $request->en_name,
                 'ru_meta_title' => $request->ru_meta_title ?? $request->ru_name,
                 'en_meta_title' => $request->en_meta_title ?? $request->en_name,
             ];
@@ -371,22 +371,28 @@ class ProductsController extends Controller
             ];
 
             $meta_description = [
-                'az_meta_description' => trim($request->az_meta_description) ?? $meta_title['az_meta_title'],
+                'az_meta_description' => trim($request->en_meta_description) ?? $meta_title['en_meta_title'],
                 'ru_meta_description' => $request->ru_meta_description ?? $meta_title['ru_meta_title'],
                 'en_meta_description' => $request->en_meta_description ?? $meta_title['en_meta_title'],
             ];
 
             $meta_keywords = [
-                'az_meta_keywords' => $request->az_meta_keywords ?? trim($request->en_name),
+                'az_meta_keywords' => $request->en_meta_keywords ?? trim($request->en_name),
                 'ru_meta_keywords' => $request->ru_meta_keywords ?? trim($request->ru_name),
                 'en_meta_keywords' => $request->en_meta_keywords ?? trim($request->en_name),
             ];
 
             $seo = MetaSEO::where('type','products')->where("element_id",$id)->first();
+            if(empty($seo)){
+                $seo=new MetaSEO();
+                $seo->type="products";
+                $seo->element_id=$id;
+            }
             $seo->name = $meta_title;
             $seo->description = $meta_description;
             $seo->keywords = $meta_keywords;
             $seo->update();
+        
 
             foreach (ProductEncodedImages::where('token', $request->token)->get() as $ima) {
                 $ima->update(['product_id' => $data->id,'code'=>$request->code]);

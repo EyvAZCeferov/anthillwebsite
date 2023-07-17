@@ -135,15 +135,25 @@
                             <h2>@lang('additional.urls.payment')</h2>
                         </div>
                         <div class="row">
-                            <p>@lang('additional.forms.transaction_id'): {{ payments($data->payment_id, 'id')->transaction_id }}</p>
+                            <a href="{{ route("payments.show",payments($data->payment_id, 'id')->id) }}">@lang('additional.forms.transaction_id'): {{ payments($data->payment_id, 'id')->transaction_id }}</a>
                         </div>
+                        <br />
+                        @if(!empty($data->payment)&& !empty($data->payment->frompayment) && isset($data->payment->frompayment['Pan']))
+                            <pre>
+                                <p>Card Number: {{ $data->payment->frompayment['Pan'] }}</p>
+                                <p>Amount: {{ $data->payment->frompayment['Amount'] }}</p>
+                                <p>Status: {{ $data->payment->frompayment['status'] }}</p>
+                                <p>OrderId: {{ $data->payment->frompayment['OrderId'] }}</p>
+                                <p>Description: {{ $data->payment->frompayment['Description'] }}</p>
+                            </pre>
+                        @endif
                         <br />
 
                         <div class="row">
                             <h2>@lang('additional.urls.service')</h2>
                         </div>
                         <div class="row">
-                            <p>{{ products($data->product_id, 'id')[0]->name['az_name'] }}</p>
+                            <a target="_blank" href="{{ route("products.edit",$data->product_id) }}">{{ products($data->product_id, 'id')[0]->name['az_name'] }}</a>
                         </div>
                         <br />
                         <h2>@lang('additional.forms.order_status')</h2>
@@ -172,21 +182,23 @@
                                 </div>
                             </form>
                         </div>
+                        
+                        @if(!empty($data->payment)&& !empty($data->payment->frompayment) && isset($data->payment->frompayment['Success']) && $data->payment->frompayment['Success']==true )
+                            <br>
+                            <h2>@lang('additional.forms.refundammount')</h2>
 
-                        <br>
-                        <h2>@lang('additional.forms.refundammount')</h2>
-
-                        <div class="row">
-                            <form action="{{ route('order.refund', $data->id) }}" method="post">
-                                @csrf
-                                <div class="col-sm-6">
-                                    <input type="text" name="price" class="form-control" value="{{ $data->price }}">
-                                </div>
-                                <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-info">@lang('additional.buttons.submit')</button>
-                                </div>
-                            </form>
-                        </div>
+                            <div class="row">
+                                <form action="{{ route('order.refund', $data->id) }}" method="post">
+                                    @csrf
+                                    <div class="col-sm-6">
+                                        <input type="text" name="price" class="form-control" value="{{ $data->price }}">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-info">@lang('additional.buttons.submit')</button>
+                                    </div>
+                                </form>
+                            </div>
+                        @endif
 
                         <!-- ********************************************** -->
                     </div>
