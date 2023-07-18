@@ -260,7 +260,7 @@ class ApisController extends Controller
                         $ima->update(['product_id' => $product->id, "code" => $codeofproduct]);
                     }
 
-                    // $user = users($request->user_id, 'id');
+                    $user = users($request->user_id, 'id');
 
                     // $datas = [
                     //     'message' => trans("additional.emailtemplates.service.newservicemessage", ['username' => $user->name_surname, 'website' => env("WEBSITE_NAME"), 'name' => $product->name[app()->getLocale() . '_name']]),
@@ -272,6 +272,8 @@ class ApisController extends Controller
                     // event(new SendEmailEvent($datas));
                 });
                 return response()->json(['status' => "success", 'url' => route("myservices.index")]);
+
+
             } else {
                 return response()->json(['status' => 'error', 'message' => trans('additional.messages.datasnull')]);
             }
@@ -425,7 +427,7 @@ class ApisController extends Controller
         try {
 
             $service = product($request->service_id, true);
-            
+
             $payment = new Payments();
 
             // DB::transaction(function () use ($request, &$payment, $service) {
@@ -446,7 +448,7 @@ class ApisController extends Controller
                 ];
                 $payment->save();
             // });
-            
+
                 // DB::transaction(function () use ($request,$service,$payment) {
                     $neworder = new Orders();
                     $neworder->uid = Helper::createRandomCode('string', 22);
@@ -668,10 +670,11 @@ class ApisController extends Controller
             ];
 
             // \Log::info($datas);
-            // dispatch(new SendEmailJob($datas));
-            Mail::send(new GeneralMail($datas['type'], $datas['title'], $datas['message'],env('MAIL_USERNAME'), env('MAIL_FROM_NAME')));
+            dispatch(new SendEmailJob($datas));
+            // Mail::send(new GeneralMail($datas['type'], $datas['title'], $datas['message'],env('MAIL_USERNAME'), env('MAIL_FROM_NAME')));
 
             return response()->json(['status' => 'success', 'message' => trans('additional.messages.messagesended', [], $request->language ?? 'en')]);
+            Helper::queuework();
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }

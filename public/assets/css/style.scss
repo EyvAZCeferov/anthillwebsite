@@ -4401,8 +4401,10 @@ body {
                 padding: 0;
             }
             .rating_content {
+                margin: 0;
                 margin: 10px auto;
-                width: 90%;
+                width: 95%;
+                transform: translateX(-5%);
                 .total_rating_andreview_text {
                     width: 30%;
                     .stars {
@@ -5153,10 +5155,12 @@ body {
                 }
             }
             .companies {
+                justify-content: space-around !important;
                 .company {
                     width: 43%;
                     padding: 6px;
                     border-radius: 8px;
+                    box-shadow: 1px 0px -2px rgba(0, 0, 0, 0.25) !important;
                     .info {
                         height: 100px;
                         padding: 4px;

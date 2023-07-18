@@ -6627,8 +6627,10 @@ body .tab_freelancer textarea.company_logo {
   }
   html section .rating_content,
   body section .rating_content {
+    margin: 0;
     margin: 10px auto;
-    width: 90%;
+    width: 95%;
+    transform: translateX(-5%);
   }
   html section .rating_content .total_rating_andreview_text,
   body section .rating_content .total_rating_andreview_text {
@@ -7548,11 +7550,16 @@ body .tab_freelancer textarea.company_logo {
   body section .services .service_one .price .symbol {
     font-size: 20px;
   }
+  html section .companies,
+  body section .companies {
+    justify-content: space-around !important;
+  }
   html section .companies .company,
   body section .companies .company {
     width: 43%;
     padding: 6px;
     border-radius: 8px;
+    box-shadow: 1px 0px -2px rgba(0, 0, 0, 0.25) !important;
   }
   html section .companies .company .info,
   body section .companies .company .info {

@@ -78,7 +78,8 @@ class GUAVAPAY
         $responseData = json_decode($responseBody, true);
         $neworder = Orders::where('id',$order->data['order_id'])->first();
         if(isset($responseData->Success) && $responseData->Success==true){
-            $neworder->status = 2;
+            $order->payment_status=1;
+            $order->save();
         }
         $order->update(['frompayment' => $responseData]);
         if(!empty($neworder) && isset($neworder->id)){

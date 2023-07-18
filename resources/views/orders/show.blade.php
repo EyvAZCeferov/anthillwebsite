@@ -32,6 +32,15 @@
                                 {{ $data->created_at != null ? App\Helpers\Helper::getDateTimeViaTimeStamp($data->created_at, false) : null }}
                             </div>
                             <div class="description_element"><span>@lang('additional.forms.price'):</span> {{ $data->price }}€</div>
+                            @if(isset($data->payment_id) && !empty($data->payment))
+                                <div class="description_element"><span>@lang('additional.pages.payments.paymentstatus'):</span>
+                                @if($data->payment->payment_status==0)
+                                <span style='color:red !important'>@lang('additional.pages.payments.notpayed')</span>
+                                @else
+                                <span style='color:green !important'>@lang('additional.pages.payments.payed')</span>
+                                @endif
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -42,7 +51,7 @@
                                     <h4>{{ $data->from->name_surname }}</h4>
                                     <p><a href="tel:{{ $data->from->phone }}" target="_blank">{{ $data->from->phone }}</a>
                                     </p>
-                                    <p><a href="tel:{{ $data->from->phone }}" target="_blank">{{ $data->from->email }}</a>
+                                    <p><a href="mailto:{{ $data->from->email }}" target="_blank">{{ $data->from->email }}</a>
                                     </p>
                                 </div>
                             @endif
@@ -52,7 +61,7 @@
                                 <h4>{{ $data->touser->name_surname }}</h4>
                                 <p><a href="tel:{{ $data->touser->phone }}" target="_blank">{{ $data->touser->phone }}</a>
                                 </p>
-                                <p><a href="tel:{{ $data->touser->phone }}" target="_blank">{{ $data->touser->email }}</a>
+                                <p><a href="mailto:{{ $data->touser->email }}" target="_blank">{{ $data->touser->email }}</a>
                                 </p>
 
                             </div>
@@ -105,7 +114,7 @@
                     hideLoader();
                     let parsedResponse = JSON.parse(response);
                     createalert(parsedResponse.status, parsedResponse.message);
-
+                    window.location.reload();
                 }
             });
         }

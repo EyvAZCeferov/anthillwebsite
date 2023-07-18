@@ -159,6 +159,9 @@ return [
             "order_title_area" => "Order Details",
             "payment_status_0" => "Failed",
             "payment_status_1" => "Successful",
+            "paymentstatus"=>"Payment Status",
+            "payed"=>"Paid",
+            "notpayed"=>"Not paid",
         ],
     ],
     "footer" => [

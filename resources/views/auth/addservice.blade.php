@@ -504,8 +504,6 @@
                     $("select[name=category_id]").val().length > 0 &&
                     $("input[name=price]").val() != null &&
                     $("input[name=price]").val().length > 0 &&
-                    $("textarea[name=additional_info]").val() != null &&
-                    $("textarea[name=additional_info]").val().length > 0 &&
                     $(".preview-image").length > 0 &&
                     $(".preview-container .loader.active").length == 0
                 ) {
@@ -523,8 +521,8 @@
             $("ul.image_errors li.image_error").css('display', 'none');
             var formData = new FormData(document.getElementById('formsend'));
             // TinyEditor'dan gelen veriyi FormData'ya ekleyin
-    var tinyEditorData = tinymce.activeEditor.getContent();
-    formData.append('additional_info', tinyEditorData);
+            var tinyEditorData = tinymce.activeEditor.getContent();
+            formData.append('additional_info', tinyEditorData);
             $("#loadbeforeajax").css('display', 'flex');
             var buttonsendform = $("button#formsendbutton");
             $.ajax({
