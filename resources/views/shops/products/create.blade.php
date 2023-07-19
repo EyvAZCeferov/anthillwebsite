@@ -809,7 +809,7 @@
                                                         </div>
                                                     @elseif($group->datatype == 'price')
                                                         <div class="controls">
-                                                            <input type="number" class="form-control"
+                                                            <input type="text" class="form-control"
                                                                 name="attribute[{{ $group->id }}]" placeholder=""
                                                                 value={{ isset($data) && !empty($data) && $data->attributes->where('attribute_group_id', $group->id)->first() != null ? $data->attributes->where('attribute_group_id', $group->id)->first()->attribute->name['en_name'] : null }}>
                                                         </div>
