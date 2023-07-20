@@ -248,7 +248,7 @@
                     @foreach (user_companies() as $company)
                         @if(!empty($company) && !empty($company->additionalinfo) && !empty($company->additionalinfo->company_slugs))
                             <div class="customers_items_slider"
-                                onclick="window.location.href=`/company/{{ $company->additionalinfo->company_slugs[app()->getLocale() . '_slug'] }}`">
+                                onclick="window.location.href=`/company/{{ $company->additionalinfo->company_slugs[app()->getLocale() . '_slug'??'az_slug'] }}`">
                                 <div class="image">
                                     <img data-src="{{ App\Helpers\Helper::getImageUrl($company->additionalinfo->company_image, 'users') }}"
                                     class="lazyload blur-up"

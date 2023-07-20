@@ -35,7 +35,7 @@ Route::post('filterelements', [ApisController::class, 'filterelements'])->name("
 
 
 Route::get("services_user/{user_id}",[ApisController::class,'services_user'])->name('api.services_user');
-Route::get("services_user_datas/{user_id}",[ApisController::class,'services_user'])->name('api.services_user');
+Route::get("services_user_datas/{user_id}",[ApisController::class,'services_user'])->name('api.services_user_datas');
 Route::get("services_user/{user_id}/{search}",[ApisController::class,'services_user_search'])->name('api.services_user_search');
 Route::get('get_category_datas/{token}/{attribute_group_id}',[ApisController::class,'get_category_datas'])->name('api.get_category_datas');
 Route::post('sendform',[ApisController::class,'sendform'])->name('contactus.sendform');
