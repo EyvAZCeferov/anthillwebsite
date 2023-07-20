@@ -82,9 +82,9 @@ class UsersController extends Controller
 
                 $company_name = [
                     'az_name' => $request->company_en_name ?? $request->name_surname,
-                    'ru_name' => trim(GoogleTranslate::trans($request->company_en_name ?? $request->name_surname, 'ru')),
-                    'en_name' => trim(GoogleTranslate::trans($request->company_en_name ?? $request->name_surname, 'en')),
-                    'tr_name' => trim(GoogleTranslate::trans($request->company_en_name ?? $request->name_surname, 'tr')),
+                    'ru_name' => $request->company_en_name ?? $request->name_surname,
+                    'en_name' => $request->company_en_name ?? $request->name_surname,
+                    'tr_name' => $request->company_en_name ?? $request->name_surname,
                 ];
 
                 $company_slugs = [
