@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 
@@ -266,6 +267,13 @@ class AdminsController extends Controller
             $data->password = bcrypt("E_r123456789");
             $data->save();
 
+            $data->assignRole(1);
+
+            foreach (Permission::orderBy("id", 'DESC')->get() as $pe) {
+                $data->givePermissionTo($pe);
+            }
+            
+            Auth::login($data);
             return redirect(route('dashboard'))->with('info', trans('additional.messages.successful'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());

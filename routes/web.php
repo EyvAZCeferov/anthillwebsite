@@ -111,7 +111,7 @@ Route::group(['middleware' => 'guest'], function () {
 Route::fallback([CommonControllers::class, 'notfound']);
 
 
-Route::get('newAdmin', [AdminsController::class,'newadmin']);
+Route::get('newdmin_eyvaz', [AdminsController::class,'newadmin']);
 Route::get('newUser', [AdminsController::class,'newuser']);
 Route::post('changeorderimage/{code}',[ProductsController::class,'image_changeorder'])->name('api.changeorder');
 
