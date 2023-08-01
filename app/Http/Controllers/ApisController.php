@@ -648,8 +648,7 @@ class ApisController extends Controller
         try {
             $contactus = new ContactUs();
 
-
-            DB::transaction(function () use ($request, &$contactus) {
+            // DB::transaction(function () use ($request, &$contactus) {
                 $contactus->message = $request->message;
                 $contactus->name = $request->name;
                 $contactus->email = $request->email;
@@ -659,7 +658,7 @@ class ApisController extends Controller
                     $contactus->user_id = Auth::id();
                 }
                 $contactus->save();
-            });
+            // });
 
             $datas = [
                 'message' => trans("additional.emailtemplates.contactusmessage", ['username' => $contactus->name ?? null, 'email' => $contactus->email, 'tel' => $contactus->phone, 'desc' => $contactus->message]),
@@ -670,11 +669,11 @@ class ApisController extends Controller
             ];
 
             // \Log::info($datas);
-            dispatch(new SendEmailJob($datas));
-            // Mail::send(new GeneralMail($datas['type'], $datas['title'], $datas['message'],env('MAIL_USERNAME'), env('MAIL_FROM_NAME')));
+            // dispatch(new SendEmailJob($datas));
+            Mail::send(new GeneralMail($datas['type'], $datas['title'], $datas['message'],env('MAIL_USERNAME'), env('MAIL_FROM_NAME')));
 
             return response()->json(['status' => 'success', 'message' => trans('additional.messages.messagesended', [], $request->language ?? 'en')]);
-            Helper::queuework();
+
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
