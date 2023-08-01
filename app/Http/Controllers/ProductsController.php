@@ -294,10 +294,7 @@ class ProductsController extends Controller
                 'en_name' => isset($request->en_name) ? $request->en_name : trim(GoogleTranslate::trans($request->en_name, 'en')),
                 ];
 
-                $countofproducts=Products::where('slugs->az_slug',Str::slug($name['az_name']))
-                ->orWhere('slugs->ru_slug',Str::slug($name['ru_name']))
-                ->orWhere('slugs->en_slug',Str::slug($name['en_name']))->get();
-
+                
             $description = [
                 'az_description' => $request->en_description,
                 'ru_description' => isset($request->ru_description) ? $request->ru_description : trim(GoogleTranslate::trans($request->en_description, 'ru')),
@@ -320,9 +317,10 @@ class ProductsController extends Controller
 
                 foreach ($request->attribute as $key => $value) {
                     $attribute = Attributes::where('group_id', $key)->where('name->az_name', $value)->orWhere("name->ru_name", $value)->orWhere('name->en_name', $value)->first();
-                    // foreach(ProductsAttributes::where('product_id',$data->id)->get() as $ats){
-                    //     $ats->delete();
-                    // }
+                    foreach($data->attributes as $ats){
+                        $ats->delete();
+                    }
+                    
                     if (isset($attribute) && !empty($attribute)) {
                         $productattribute=ProductsAttributes::where('product_id',$data->id)->where('attribute_id',$attribute->id)->where('attribute_group_id',$key)->first();
                         if(!empty($productattribute)){

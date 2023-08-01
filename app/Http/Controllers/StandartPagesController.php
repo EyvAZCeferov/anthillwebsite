@@ -57,8 +57,8 @@ class StandartPagesController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'az_name' => 'required|min:3',
-                'az_description' => 'required|min:3',
+                'en_name' => 'required|min:3',
+                'en_description' => 'required|min:3',
                 'type'=>"required|string"
             ]);
 
@@ -67,17 +67,17 @@ class StandartPagesController extends Controller
             }
 
             $description = [
-                'az_description' => $request->az_description,
-                'ru_description' => isset($request->ru_description) ? $request->ru_description : trim(GoogleTranslate::trans($request->az_description, 'ru')),
-                'en_description' => isset($request->en_description) ? $request->en_description : trim(GoogleTranslate::trans($request->az_description, 'en')),
-                'tr_description' => isset($request->tr_description) ? $request->tr_description : trim(GoogleTranslate::trans($request->az_description, 'tr')),
+                'az_description' => $request->en_description,
+                'ru_description' => $request->en_description,
+                'en_description' => $request->en_description,
+                'tr_description' => $request->en_description,
             ];
 
             $name = [
-                'az_name' => $request->az_name,
-                'ru_name' => isset($request->ru_name) ? $request->ru_name : trim(GoogleTranslate::trans($request->az_name, 'ru')),
-                'en_name' => isset($request->en_name) ? $request->en_name : trim(GoogleTranslate::trans($request->az_name, 'en')),
-                'tr_name' => isset($request->tr_name) ? $request->tr_name : trim(GoogleTranslate::trans($request->az_name, 'tr')),
+                'az_name' => $request->en_name,
+                'ru_name' => $request->en_name,
+                'en_name' => $request->en_name,
+                'tr_name' => $request->en_name,
             ];
 
             $slugs = [
@@ -102,20 +102,20 @@ class StandartPagesController extends Controller
 
 
             $meta_title = [
-                'az_meta_title' => trim($request->az_meta_title) ?? $name['az_name'],
-                'ru_meta_title' => $request->ru_meta_title ?? $name['ru_name'],
+                'az_meta_title' => trim($request->en_meta_title) ?? $name['en_name'],
+                'ru_meta_title' => $request->en_meta_title ?? $name['ru_name'],
                 'en_meta_title' => $request->en_meta_title ?? $name['en_name'],
             ];
 
             $meta_description = [
-                'az_meta_description' => trim($request->az_meta_description) ?? $meta_title['az_meta_title'],
-                'ru_meta_description' => $request->ru_meta_description ?? $meta_title['ru_meta_title'],
+                'az_meta_description' => trim($request->en_meta_description) ?? $meta_title['en_meta_title'],
+                'ru_meta_description' => $request->en_meta_description ?? $meta_title['en_meta_title'],
                 'en_meta_description' => $request->en_meta_description ?? $meta_title['en_meta_title'],
             ];
 
             $meta_keywords = [
-                'az_meta_keywords' => $request->az_meta_keywords ?? trim($name['az_name']),
-                'ru_meta_keywords' => $request->ru_meta_keywords ?? trim($name['ru_name']),
+                'az_meta_keywords' => $request->en_meta_keywords ?? trim($name['en_name']),
+                'ru_meta_keywords' => $request->en_meta_keywords ?? trim($name['en_name']),
                 'en_meta_keywords' => $request->en_meta_keywords ?? trim($name['en_name']),
             ];
 
@@ -165,8 +165,8 @@ class StandartPagesController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'az_name' => 'required|min:3',
-                'az_description' => 'required|min:3',
+                'en_name' => 'required|min:3',
+                'en_description' => 'required|min:3',
                 'type'=>"required|string"
               
             ]);
@@ -178,15 +178,15 @@ class StandartPagesController extends Controller
             $standartpage = StandartPages::find($id);
 
             $name = [
-                'az_name' => trim($request->az_name),
-                'ru_name' => $request->ru_name ?? trim(GoogleTranslate::trans($request->az_name, 'ru')),
-                'en_name' => $request->en_name ?? trim(GoogleTranslate::trans($request->az_name, 'en')),
+                'az_name' => trim($request->en_name),
+                'ru_name' => trim($request->en_name),
+                'en_name' => trim($request->en_name),
             ];
 
             $description = [
-                'az_description' => trim($request->az_description) ?? null,
-                'ru_description' => $request->ru_description ?? trim(GoogleTranslate::trans($request->az_description, 'ru')),
-                'en_description' => $request->en_description ?? trim(GoogleTranslate::trans($request->az_description, 'en')),
+                'az_description' => trim($request->en_description) ?? null,
+                'ru_description' => trim($request->en_description) ?? null,
+                'en_description' => trim($request->en_description) ?? null,
             ];
 
             $slugs = [
@@ -212,20 +212,20 @@ class StandartPagesController extends Controller
 
 
             $meta_title = [
-                'az_meta_title' => trim($request->az_meta_title) ?? $name['az_name'],
-                'ru_meta_title' => $request->ru_meta_title ?? $name['ru_name'],
+                'az_meta_title' => trim($request->en_meta_title) ?? $name['en_name'],
+                'ru_meta_title' => $request->en_meta_title ?? $name['ru_name'],
                 'en_meta_title' => $request->en_meta_title ?? $name['en_name'],
             ];
 
             $meta_description = [
-                'az_meta_description' => trim($request->az_meta_description) ?? $meta_title['az_meta_title'],
-                'ru_meta_description' => $request->ru_meta_description ?? $meta_title['ru_meta_title'],
+                'az_meta_description' => trim($request->en_meta_description) ?? $meta_title['en_meta_title'],
+                'ru_meta_description' => $request->en_meta_description ?? $meta_title['en_meta_title'],
                 'en_meta_description' => $request->en_meta_description ?? $meta_title['en_meta_title'],
             ];
 
             $meta_keywords = [
-                'az_meta_keywords' => $request->az_meta_keywords ?? trim($name['az_name']),
-                'ru_meta_keywords' => $request->ru_meta_keywords ?? trim($name['ru_name']),
+                'az_meta_keywords' => $request->en_meta_keywords ?? trim($name['en_name']),
+                'ru_meta_keywords' => $request->en_meta_keywords ?? trim($name['en_name']),
                 'en_meta_keywords' => $request->en_meta_keywords ?? trim($name['en_name']),
             ];
 
